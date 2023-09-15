@@ -1,0 +1,51 @@
+body {
+    background-color: #1D2235;
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden; 
+
+}
+
+.btn-primary {
+    background-color: #FFB45F;
+    color: #131620;
+    font-weight:bold;
+    border-color: #131620;
+ }
+
+ .btn-secondary {
+    background-color: #131620;
+ }
+
+ .btn-primary:hover {
+    background-color: #FFD587; /* New background color on hover */
+    color: #131620; /* Keeping the same text color */
+}
+
+.btn-secondary:hover {
+    background-color: #292b3a; /* New background color on hover */
+    color: #ffffff; /* Keeping the same text color */
+}
+
+.custom-flex-container {
+    justify-content:space-between;
+}
+
+.custom-card {
+    color: #131620;
+
+}
+
+#containerTrade{
+    color: #FFD587;
+
+}
+
+#sectionSpace{
+    background-color: #131620; 
+}
+
+#swapArrows {
+    width: 50%; /* Tamaño relativo al contenedor */
+  }
+
+

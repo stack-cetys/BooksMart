@@ -1,0 +1,82 @@
+body {
+    background-color: #1D2235;
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden; 
+
+}
+
+#rrQuote {
+    
+    font-weight: 700;
+    text-align: left;
+}
+
+#georgeQ {
+    text-align: left;
+    font-size: small;
+}
+
+#webDesc {
+    text-align: justify;
+
+}
+
+.btn-primary {
+    background-color: #FFB45F;
+    color: #131620;
+    font-weight:bold;
+ }
+
+ .btn-secondary {
+    background-color: #131620;
+ }
+
+ .btn-primary:hover {
+    background-color: #FFD587; /* New background color on hover */
+    color: #131620; /* Keeping the same text color */
+}
+
+.btn-secondary:hover {
+    background-color: #292b3a; /* New background color on hover */
+    color: #ffffff; /* Keeping the same text color */
+}
+
+.navbar-dark {
+    background-color: #131620; /* New background color on hover */
+
+}
+
+.card-secondary {
+    background-color: #131620;
+    border-color: white;
+ }
+
+ .custom-link {
+    color: #FFB45F; /* Change to your desired color */
+}
+
+.custom-link:hover{
+    color: #cfcfcf; /* Change to your desired color */
+}
+
+.card-body{
+    color: #cfcfcf; /* Change to your desired color */
+}
+
+.bg-secondary {
+    background-color: #131620;
+ }
+
+ #glassesSVG{
+    width: 7rem;
+ }
+
+
+ #swapArrows {
+    width: 7rem; /* Tamaño relativo al contenedor */
+  }
+
+  hr.rounded {
+    border-top: 8px solid #bbb;
+    border-radius: 5px;
+  }
