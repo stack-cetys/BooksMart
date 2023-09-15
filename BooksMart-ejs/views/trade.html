@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BooksMart</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Custom CSS -->
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body id="mainBody">
+    <div class="container">
+        <div class="row">
+            <nav id="mainNavbar" class="navbar navbar-dark navbar-expand-md py-0 px-3 fixed-top">
+                <a href="#" class="navbar-brand"><img src="img/logoGlasses.svg" alt="" id="glassesSVG"
+                        class="mt-0 mb-2 ml-1"></a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navLinks">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navLinks">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link ">INICIO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="trade.html" class="nav-link active">INTERCAMBIAR</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="faq.html" class="nav-link ">ACERCA DE</a>
+                        </li>
+                    </ul>
+                    <div class="navbar-nav ml-auto">
+                        <a class="nav-link" href="#">LOG IN</a>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+
+        <!-- <div class="container mt-5">
+            <div class="row">
+                <a href="#sidebar" class="col-6 text-left" data-bs-toggle="offcanvas" role="button">
+                    <button type="button" class="btn btn-primary mt-3">Agregar</button>
+                </a>
+                <a href="#sidebar2" class="col-6 text-right" data-bs-toggle="offcanvas" role="button">
+                    <button type="button" class="btn btn-primary mt-3">Agregar</button>
+                </a>
+            </div>
+        </div> -->
+
+
+
+
+        <div id="containerTrade">
+            <div class="container-fluid mt-5 mx-0">
+                <div class="row " id="flexRow">
+
+                    <div class="col-5 mt-4">
+                        <div class="card bg-transparent text-white fw-bold fs-5 border border-0">
+                            <div class="card-title text-center">
+                                Libros que Tienes
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 mt-4">
+
+                    </div>
+                    <div class=" col-5 mt-4"">
+                        <div class=" card bg-transparent text-white text-white fw-bold fs-5 border border-0">
+                        <div class="card-title text-center">
+                            Libros que Deseas
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-5">
+                    <div class="d-grid gap-0">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#sidebar" aria-controls="offcanvasBottom">Buscar Libros</button>
+
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="d-grid gap-2">
+
+
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#sidebar2" aria-controls="offcanvasBottom">Buscar libros</button>
+
+                    </div>
+                </div>
+                <div class="col-md-5 d-flex flex-wrap justify-content-lg-between justify-content-center pt-3 px-4"
+                    style="background-color: #131620; border-radius: 10px;" id="haveContainer">
+                    <!-- 1st column with flex properties -->
+
+                </div>
+
+                <div class="col-md-2 align-self-center pl-5" style="background-color: #1D2235;;">
+                    <img src="img/trade.svg" alt="" id="swapArrows">
+                </div>
+
+
+                <div class="col-md-5 d-flex flex-wrap justify-content-lg-between justify-content-center pt-3 px-4"
+                    style="background-color: #131620; border-radius: 10px;" id="wantContainer">
+                    <!-- 3rd column with flex properties -->
+                </div>
+
+
+                <div style="background-color: #131620; padding-top: 1em; padding-bottom: 1em; border-radius: 10px;"
+                    class="mt-5">
+                    <h1 class="text-light text-white fw-bold fs-5 mb-2">Agrega tu propio libro</h1>
+                    <p class="text-light text-white-50 mb-4"> Si no encuentras tu libro en los resultados de
+                        búsqueda,
+                        tienes la
+                        opción de añadirlo de manera
+                        manual. Por favor, completa los datos correspondientes en el formulario proporcionado. El último
+                        campo está destinado a la imagen del libro, aunque su llenado no es obligatorio.</p>
+                    <div class="input-group mt-3">
+
+                        <input type="text" id="tituloInput" class="form-control" placeholder="Titulo">
+                        <input type="text" id="autorInput" class="form-control" placeholder="Autor">
+                        <input type="text" id="anoInput" class="form-control" placeholder="Año">
+
+                        <div class="input-group mb-3 mt-1">
+                            <input type="file" class="form-control " id="inputGroupFile03"
+                                aria-describedby="inputGroupFileAddon03" aria-label="Upload"
+                                accept=".jpg, .jpeg, .png, .gif">
+
+                        </div>
+                        <button class="btn btn-primary" id="crearCardBtn">Subir Libro</button>
+                    </div>
+                </div>
+
+                <div class="mb-2 mt-3"
+                    style="background-color: #131620; padding-top: 1em; padding-bottom: 1em; border-radius: 10px;">
+                    <label for="exampleFormControlTextarea1"
+                        class="form-label text-light text-white fw-bold fs-5 mb-2">Detalles
+                        adicionales</label>
+                    <p class="text-light text-white-50 mb-4"> Proporciona detalles adicionales sobre tu libro, como la
+                        dirección para el intercambio, condiciones especiales, preferencias de entrega o cualquier otra
+                        información relevante. Este campo es opcional y te ayuda a facilitar un intercambio exitoso.</p>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                        placeholder="Detalles..."></textarea>
+
+                </div>
+
+                <div class="col-auto d-grid gap-2">
+                    <a href="confirm.html" class="btn btn-primary mb-3 mt-3 text-center fs-5">Confirmar
+                        pedido</a>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    </form>
+    <br>
+
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="sidebar-label"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div id="haveBody" class="offcanvas-body">
+            <h1>Busqueda de libro</h1>
+            <form id="searchForm" class="mb-3">
+                <input type="text" placeholder="Search" name="query" autocomplete="off">
+                <button class="btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebar2">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="sidebar-label"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div id="wantBody" class="offcanvas-body">
+            <h1>Busqueda de libro</h1>
+            <form id="searchForm2" class="mb-3">
+                <input type="text" placeholder="Search" name="query" autocomplete="off">
+                <button class="btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <script src="/js/app.js"></script>
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
