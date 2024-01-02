@@ -1,0 +1,19 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark ">
+    <div class="container container-fluid">
+        <a href="/" class="navbar-brand"><img src="/img/logoGlasses.svg" alt="" id="glassesSVG"
+                class="mt-0 mb-2 ml-1"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/faq">Acerca de</a>
+                <% if(!currentUser) {%>
+                <% } else { %>
+                <a class="nav-link" aria-current="page" href="/logout">Logout</a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</nav>

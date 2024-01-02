@@ -1,169 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout('layouts/boilerplate') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BooksMart</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css">
+<div class="row align-items-center">
+    <div class="col-12 col-lg-10 col-xl-5 mx-auto text-center  mt-5">
+        <div id="accordion" class="accordion">
 
-</head>
-
-<body>
-
-    <nav id="mainNavbar" class="navbar navbar-dark navbar-expand-md py-0 fixed-top">
-        <a href="#" class="navbar-brand"><img src="img/logoGlasses.svg" alt="" id="glassesSVG"
-                class="mt-0 mb-2 ml-1"></a>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navLinks">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navLinks">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="/" class="nav-link">INICIO</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/faq" class="nav-link active">ACERCA DE</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/login" class="nav-link">INGRESAR</a>
-                </li>
-            </ul>
-
-        </div>
-    </nav>
-
-    <div class="row align-items-center">
-        <div class="col-11 col-lg-10 col-xl-5 mx-auto text-center  mt-5">
-            <img class="img-fluid " src="img/FAQ.png" alt="" id="georgeIMG">
-        </div>
-    </div>
-
-    <div class="row align-items-center">
-        <div class="col-11 col-lg-10 col-xl-5 mx-auto text-center  mt-5">
-            <div id="accordion">
-
-                <div class="card-secondary">
-                    <div class="card-header">
-                        <a class="card-link custom-link" data-toggle="collapse" href="#collapseOne">
-                            Pregunta A
-                        </a>
-                    </div>
-                    <div id="collapseOne" class="collapse show" data-parent="#accordion">
-                        <div class="card-body">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut dolorem a sint
-                            temporibus sapiente voluptatibus soluta perferendis nam iusto sequi nesciunt, tempore
-                            aspernatur inventore, dolore architecto nisi doloribus exercitationem.
-                            Nisi recusandae ipsum aliquam. Fuga, sit laborum. Nemo pariatur, odio sit sunt quia iusto
-                            nostrum ipsum odit corrupti quis alias ducimus mollitia laborum perferendis a reprehenderit
-                            earum vero et voluptatem.
-                        </div>
+            <div class="card-secondary">
+                <div class="card-header">
+                    <a class="card-link custom-link" data-toggle="collapse" href="#collapseOne">
+                        Pregunta A
+                    </a>
+                </div>
+                <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                    <div class="card-body">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut dolorem a sint
+                        temporibus sapiente voluptatibus soluta perferendis nam iusto sequi nesciunt, tempore
+                        aspernatur inventore, dolore architecto nisi doloribus exercitationem.
+                        Nisi recusandae ipsum aliquam. Fuga, sit laborum. Nemo pariatur, odio sit sunt quia iusto
+                        nostrum ipsum odit corrupti quis alias ducimus mollitia laborum perferendis a reprehenderit
+                        earum vero et voluptatem.
                     </div>
                 </div>
-
-                <div class="card-secondary">
-                    <div class="card-header">
-                        <a class="collapsed card-link custom-link" data-toggle="collapse" href="#collapseTwo">
-                            Pregunta B
-                        </a>
-                    </div>
-                    <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                        <div class="card-body">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe ipsum in quaerat dolorem
-                            eveniet reiciendis illo quis dicta, distinctio aperiam nesciunt iste sed tempore
-                            necessitatibus quam eum corrupti. Inventore, nemo.
-                            Fuga iusto exercitationem laudantium rem. Assumenda adipisci ea iste nulla. Qui, vero.
-                            Temporibus quas, nihil distinctio necessitatibus fugit suscipit maiores autem quam eum sunt
-                            ab iste, enim minima earum ipsum.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-secondary">
-                    <div class="card-header">
-                        <a class="collapsed card-link custom-link" data-toggle="collapse" href="#collapseThree">
-                            Pregunta C
-                        </a>
-                    </div>
-                    <div id="collapseThree" class="collapse" data-parent="#accordion">
-                        <div class="card-body">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus dignissimos deserunt velit
-                            unde. Quas, libero? Facere harum dolores cumque sed odio, laborum ullam illo aut, amet
-                            molestias provident soluta ut.
-                            Dolor cumque omnis veniam aperiam a illo, sit aliquam. Harum voluptates id voluptatibus
-                            corrupti incidunt deserunt consequuntur saepe ad mollitia quod. Rem modi, similique sunt qui
-                            fugit illum pariatur non.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-secondary">
-                    <div class="card-header ">
-                        <a class="collapsed card-link custom-link" data-toggle="collapse" href="#collapseFour">
-                            Pregunta D
-                        </a>
-                    </div>
-                    <div id="collapseFour" class="collapse" data-parent="#accordion">
-                        <div class="card-body">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea, architecto! Quo ratione
-                            tenetur officiis unde, architecto at vitae rem libero ut inventore beatae necessitatibus
-                            labore impedit accusantium saepe suscipit sed?
-                            Dolor illum repellat consequuntur ab laborum inventore harum libero hic animi fugit, eius
-                            eum? Vitae sunt praesentium voluptatum dolorum natus suscipit debitis! Obcaecati optio
-                            quaerat commodi. Quasi doloremque quibusdam impedit!
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="card-secondary">
-                    <div class="card-header">
-                        <a class="collapsed card-link custom-link" data-toggle="collapse" href="#collapseFive">
-                            Pregunta E
-                        </a>
-                    </div>
-                    <div id="collapseFive" class="collapse" data-parent="#accordion">
-                        <div class="card-body">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque molestias aliquid voluptate
-                            blanditiis fugit totam, veritatis asperiores quam, repellat saepe mollitia ducimus fuga
-                            nesciunt ut excepturi inventore temporibus beatae vero.
-                            Magnam fuga nesciunt quas illum laudantium reprehenderit, in corporis nulla ipsam hic
-                            dolorem sapiente tempore nemo, deleniti architecto iure, aliquam nostrum veritatis
-                            consequuntur quis ratione ipsum non! Commodi, sint nostrum!
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="card-secondary">
+                <div class="card-header">
+                    <a class="collapsed card-link custom-link" data-toggle="collapse" href="#collapseTwo">
+                        Pregunta B
+                    </a>
+                </div>
+                <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe ipsum in quaerat dolorem
+                        eveniet reiciendis illo quis dicta, distinctio aperiam nesciunt iste sed tempore
+                        necessitatibus quam eum corrupti. Inventore, nemo.
+                        Fuga iusto exercitationem laudantium rem. Assumenda adipisci ea iste nulla. Qui, vero.
+                        Temporibus quas, nihil distinctio necessitatibus fugit suscipit maiores autem quam eum sunt
+                        ab iste, enim minima earum ipsum.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-secondary">
+                <div class="card-header">
+                    <a class="collapsed card-link custom-link" data-toggle="collapse" href="#collapseThree">
+                        Pregunta C
+                    </a>
+                </div>
+                <div id="collapseThree" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus dignissimos deserunt velit
+                        unde. Quas, libero? Facere harum dolores cumque sed odio, laborum ullam illo aut, amet
+                        molestias provident soluta ut.
+                        Dolor cumque omnis veniam aperiam a illo, sit aliquam. Harum voluptates id voluptatibus
+                        corrupti incidunt deserunt consequuntur saepe ad mollitia quod. Rem modi, similique sunt qui
+                        fugit illum pariatur non.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-secondary">
+                <div class="card-header ">
+                    <a class="collapsed card-link custom-link" data-toggle="collapse" href="#collapseFour">
+                        Pregunta D
+                    </a>
+                </div>
+                <div id="collapseFour" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea, architecto! Quo ratione
+                        tenetur officiis unde, architecto at vitae rem libero ut inventore beatae necessitatibus
+                        labore impedit accusantium saepe suscipit sed?
+                        Dolor illum repellat consequuntur ab laborum inventore harum libero hic animi fugit, eius
+                        eum? Vitae sunt praesentium voluptatum dolorum natus suscipit debitis! Obcaecati optio
+                        quaerat commodi. Quasi doloremque quibusdam impedit!
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card-secondary">
+                <div class="card-header">
+                    <a class="collapsed card-link custom-link" data-toggle="collapse" href="#collapseFive">
+                        Pregunta E
+                    </a>
+                </div>
+                <div id="collapseFive" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque molestias aliquid voluptate
+                        blanditiis fugit totam, veritatis asperiores quam, repellat saepe mollitia ducimus fuga
+                        nesciunt ut excepturi inventore temporibus beatae vero.
+                        Magnam fuga nesciunt quas illum laudantium reprehenderit, in corporis nulla ipsam hic
+                        dolorem sapiente tempore nemo, deleniti architecto iure, aliquam nostrum veritatis
+                        consequuntur quis ratione ipsum non! Commodi, sint nostrum!
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+</div>
 
-    <div class="d-grid gap-2 col-5 mx-auto mt-5">
-        <a href="/home" class="btn btn-primary form-control m-0">
-            Regresar
-        </a>
-    </div>
-
-
-
+<div class="d-grid gap-2 col-5 mx-auto mt-5">
+    <a href="/home" class="btn btn-primary form-control m-0">
+        Regresar
+    </a>
+</div>
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
-    </script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+</script>
 </body>
 
 </html>
