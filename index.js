@@ -9,7 +9,6 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 
 //login
-const bcrypt = require('bcrypt');
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const flash = require('express-flash');
