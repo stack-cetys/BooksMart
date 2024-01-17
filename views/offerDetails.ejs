@@ -1,0 +1,74 @@
+<% layout('layouts/boilerplate2') %>
+
+<div class="card my-3 p-3">
+    <div class="row">
+        <div class="col-md-3">
+            <h2 class="card-title mt-3"><%= isReceptor ? offer.enviador.username : offer.receptor.username %></h2>
+        </div>
+    </div>
+</div>
+
+<div class="card my-3 p-3">
+    <div class="row">
+        <div class="col-md-4">
+            <h6>Libros que tiene:</h6>
+            <ul>
+                <% for (let i = 0; i < (isReceptor ? offer.enviador.tiene_libros : offer.receptor.tiene_libros).length; i++) { %>
+                <li><%= (isReceptor ? offer.enviador.tiene_libros[i].nombre : offer.receptor.tiene_libros[i].nombre) %>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h6>Libros que quiere:</h6>
+            <ul>
+                <% for (let i = 0; i < (isReceptor ? offer.enviador.quiere_libros : offer.receptor.quiere_libros).length; i++) { %>
+                <li><%= (isReceptor ? offer.enviador.quiere_libros[i].nombre : offer.receptor.quiere_libros[i].nombre) %>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h6>Generos que busca:</h6>
+            <ul>
+                <% for (let i = 0; i < (isReceptor ? offer.enviador.genero_quiere : offer.receptor.genero_quiere).length; i++) { %>
+                <li><%= (isReceptor ? offer.enviador.genero_quiere[i] : offer.receptor.genero_quiere[i]) %></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<% if (isReceptor) { %>
+<div class="card my-3 p-3">
+    <div class="row">
+        <div class="col-md-12">
+            <p><strong>Mensaje:</strong> <%= offer.texto %></p>
+            <form action="/index/accept/<%= offer._id %>" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+            </form>
+            <form action="/index/reject/<%= offer._id %>" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-primary">Rechazar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<% } else { %>
+<div class="card my-3 p-3">
+    <div class="row">
+        <div class="col-md-3">
+            <h2 class="card-title mt-3">Mensaje:</h2>
+            <form action="/index/<%= offer.receptor.username %>/offers/<%= offer._id %>?_method=PUT" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+
+                <div class="mb-3">
+                    <textarea class="form-control" name="texto" id="FormControlTextarea1" rows="3"
+                        placeholder=""><%= offer.texto %></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Actualizar mensaje</button>
+            </form>
+        </div>
+    </div>
+</div>
+<% } %>
+<a href="/index" class="btn btn-primary">Regresar</a>

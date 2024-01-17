@@ -20,10 +20,7 @@ initializePassport(passport);
 const mongoose = require('mongoose');
 
 //models
-const Offer = require('./models/tradeOffer');
-const User = require('./models/users');
-const Book = require('./models/Book');
-const Contact = require('./models/Contact');
+const { User, Offer } = require('./models/users');
 
 
 // Middleware
@@ -32,11 +29,12 @@ const {isLoggedIn} =require('./middleware.js')
 
 // Mongo connection
 
+// To store session information within Mongo
+const MongoDBStore = require('connect-mongo')(session)
 // Windows:
 const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1/BooksMart';
 // MAC:
 //const dbUrl = process.env.DB_URL || 'mongodb://localhost/testdb';
-
 mongoose.connect(dbUrl);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -57,7 +55,20 @@ app.use(express.urlencoded({ extended: false }))
 
 const secret = process.env.SECRET || 'secret123';
 
+// MongoDBStore setup
+const store = new MongoDBStore ({
+    // URL of DB where it is stored
+    url: dbUrl,
+    secret: secret,
+    touchAfter: 24 * 60 * 60
+})
+
+store.on('error', function(e){
+    console.log("Session store error", e)
+})
+
 const sessionConfig = {
+    store,
     name: 'session',
     secret: secret,
     resave: false,
@@ -91,8 +102,37 @@ app.use((req,res,next)=>{
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error')
+
+    // Verificar notificaciones recibidas 
+    res.locals.hasNotifications = req.user && req.user.notificaciones_ofertas > 0;
+
     next();
 })
+
+// Generos permitidos
+
+const generosPopulares = [
+    'Ficción',
+    'No Ficción',
+    'Misterio',
+    'Ciencia Ficción',
+    'Fantasía',
+    'Romance',
+    'Aventura',
+    'Terror',
+    'Distopía',
+    'Histórico',
+    'Biografía',
+    'Poesía',
+    'Drama',
+    'Comedia',
+    'Ensayo',
+    'Suspense',
+    'Ciencia',
+    'Autobiografía',
+    'Viajes',
+    'Otro',
+  ];
 
 
 //--------HOMEPAGE--------------
@@ -115,7 +155,7 @@ app.get('/faq', (req, res) => {
 
 //----Logs in-----
 app.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/login'}), async (req, res) => {
-    res.redirect('/')
+    res.redirect('/index')
 })
 
 //----Register new user-----
@@ -151,6 +191,285 @@ app.get('/logout', (req, res) => {
     })
 
 })
+
+// Ver todos los usuarios
+
+app.get('/index', async (req,res) => {
+    const filtros = req.query.generos;
+    console.log(filtros)
+    const users = await User.find({});
+
+    if (filtros){
+        const filteredUsers = users.filter(user => {
+            return user.genero_quiere.some(genero => filtros.includes(genero));
+          });
+          return res.render('index', { users: filteredUsers, generosPopulares });
+    }
+
+    else{
+        
+        return res.render('index', { users, generosPopulares })
+    }
+})
+
+// Funcion para verificar si ya hemos mandado una oferta a este usuario
+
+async function verificarOfertaExistente(idUsuarioActual, idOtroUsuario) {
+    // Obtener todas las ofertas en las que el usuario actual está involucrado
+    const ofertasUsuarioActual = await Offer.find({
+        $or: [
+            { enviador: idUsuarioActual },
+            { receptor: idUsuarioActual }
+        ]
+    });
+
+    // Verificar si existe alguna oferta con el otro usuario
+    for (const oferta of ofertasUsuarioActual) {
+        if (oferta.enviador.equals(idOtroUsuario) || oferta.receptor.equals(idOtroUsuario)) {
+            return { existe: true, esReceptor: oferta.receptor.equals(idUsuarioActual) };
+        }
+    }
+
+    return { existe: false };
+}
+
+// Ver detalles de usuario
+app.get('/index/:username', async (req, res) => {
+    try {
+        const currentUser = req.user;
+        const otherUser = await User.findOne({ username: req.params.username });
+
+        if (!otherUser) {
+            req.flash('error', 'No se puede encontrar ese usuario :(');
+            return res.redirect('/index');
+        }
+
+        // Verifica si ya existe una oferta enviada o recibida
+        const { existe, esReceptor } = await verificarOfertaExistente(currentUser._id, otherUser._id);
+
+        return res.render('details', { user: currentUser, otherUser, ofertaExistente: existe, esReceptor });
+    } catch (error) {
+        console.error('Error al buscar el usuario:', error);
+        req.flash('error', 'Hubo un error al buscar el usuario.');
+        return res.redirect('/index');
+    }
+});
+
+// mandar oferta a un usuario
+
+app.post('/index/:username/offers', async (req, res) => {
+    try {
+        // Paso 1: Tomar la información del usuario [A] usando la sesión
+        const usuarioA = req.user;
+
+        // Paso 2: Tomar la información del otro usuario [B] con el id de la página
+        const usernameB = req.params.username;
+        const usuarioB = await User.findOne({ username: usernameB });
+
+        if (!usuarioB) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+
+
+        // Paso 3: Verificar si ya existe una oferta entre ambos usuarios
+        const ofertaExistente = await Offer.findOne({
+            $or: [
+                { enviador: usuarioA._id, receptor: usuarioB._id },
+                { enviador: usuarioB._id, receptor: usuarioA._id }
+            ]
+        });
+
+        if (ofertaExistente) {
+            // Ya existe una oferta entre ambos
+            return res.status(400).send('Ya se ha enviado una oferta a este usuario');
+        }
+
+
+        // Paso 4: Crear nueva oferta
+        const nuevaOferta = new Offer({
+            estado: 'nuevo',
+            texto: req.body.texto,
+            enviador: usuarioA._id,
+            receptor: usuarioB._id,
+        });
+
+
+        // Paso 5: Guardar la oferta en la base de datos
+        await nuevaOferta.save();
+
+
+        // Paso 6: Agregar nueva tupla a Oferta recibida [B]
+        const ofertaRecibidaB = {
+            ofertaId: nuevaOferta._id,
+            esReceptor: true,
+        };
+
+
+        usuarioB.ofertas.push(ofertaRecibidaB);
+        
+
+        usuarioB.notificaciones_ofertas += 1; // Aumentar notificaciones_ofertas del receptor
+        await usuarioB.save();
+
+
+        // Paso 7: Agregar nueva tupla a Oferta enviada [A]
+        const ofertaEnviadaA = {
+            ofertaId: nuevaOferta._id,
+            esReceptor: false,
+        };
+
+
+        usuarioA.ofertas.push(ofertaEnviadaA);
+
+        await usuarioA.save();
+
+
+        console.log('Oferta enviada correctamente');
+        return res.redirect(`/index/${usernameB}`);
+        
+    } catch (error) {
+        console.error('Error al procesar la oferta:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
+
+
+
+// ver ofertas
+app.get('/index/:username/offers', checkAuthenticated, async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username })
+            .populate({
+                path: 'ofertas.ofertaId',
+                model: 'Offer',
+                populate: [
+                    { path: 'enviador', model: 'User' },
+                    { path: 'receptor', model: 'User' }
+                ]
+            });
+
+        if (!user) {
+            req.flash('error', 'No se puede encontrar ese usuario :(');
+            return res.redirect('/index');
+        }
+
+        const uniqueOffers = Array.from(new Set(user.ofertas.map(offer => offer.ofertaId._id)))
+            .map(id => user.ofertas.find(offer => offer.ofertaId._id === id));
+
+        return res.render('offers', { user, uniqueOffers });
+        // res.send(user)
+        // console.log(uniqueOffers)
+    } catch (error) {
+        console.error('Error al buscar ofertas del usuario:', error);
+        req.flash('error', 'Hubo un error al buscar las ofertas del usuario.');
+        return res.redirect('/index');
+    }
+});
+
+// ver oferta especifica 
+
+app.get('/index/:username/offers/:idOffer', checkAuthenticated, async (req, res) => {
+    try {
+        const currentUser = req.user;
+
+        // Encuentra la oferta específica dentro de ofertas_recibidas
+        const offer = await Offer.findById(req.params.idOffer)
+            .populate('enviador')
+            .populate('receptor');
+
+        if (!offer) {
+            req.flash('error', 'No se puede encontrar esa oferta :(');
+            return res.redirect('/index');
+        }
+
+        const isReceptor = offer.receptor.username === currentUser.username;
+
+        // Verificar si el estado de la oferta es 'nuevo'
+        if (offer.estado === 'nuevo' && isReceptor ) {
+            // Actualizar el estado a 'pendiente'
+            offer.estado = 'pendiente';
+            await offer.save();
+
+            // Reducir notificaciones_ofertas del usuario receptor solo si no es ya 0
+            if (currentUser.notificaciones_ofertas > 0) {
+                currentUser.notificaciones_ofertas -= 1;
+                await currentUser.save();
+            }
+        }
+
+        return res.render('offerDetails', { user: currentUser, offer, isReceptor });
+    } catch (error) {
+        console.error('Error al buscar la oferta:', error);
+        req.flash('error', 'Hubo un error al buscar la oferta.');
+        return res.redirect('/index');
+    }
+});
+
+// Ruta para aceptar la oferta
+app.post('/index/accept/:idOffer', async (req, res) => {
+    try {
+        const offer = await Offer.findById(req.params.idOffer).populate('receptor');
+        
+        if (!offer) {
+            return res.status(404).send('Oferta no encontrada');
+        }
+
+        // Verificar que el usuario actual es el receptor de la oferta
+        if (offer.receptor.username !== req.user.username) {
+            return res.status(403).send('No tienes permiso para realizar esta acción');
+        }
+
+        // Actualizar el estado de la oferta
+        await Offer.findByIdAndUpdate(req.params.idOffer, { estado: 'aceptado' }, { new: true });
+
+        // Redirigir al usuario al listado de ofertas
+        res.redirect(`/index/${offer.receptor.username}/offers`);
+    } catch (error) {
+        console.error('Error al aceptar la oferta:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
+
+// Ruta para rechazar la oferta
+app.post('/index/reject/:idOffer', async (req, res) => {
+    try {
+        const offer = await Offer.findById(req.params.idOffer).populate('receptor');
+        
+        if (!offer) {
+            return res.status(404).send('Oferta no encontrada');
+        }
+
+        // Verificar que el usuario actual es el receptor de la oferta
+        if (offer.receptor.username !== req.user.username) {
+            return res.status(403).send('No tienes permiso para realizar esta acción');
+        }
+
+        // Actualizar el estado de la oferta
+        await Offer.findByIdAndUpdate(req.params.idOffer, { estado: 'rechazado' }, { new: true });
+
+        // Redirigir al usuario al listado de ofertas
+        res.redirect(`/index/${offer.receptor.username}/offers`);
+    } catch (error) {
+        console.error('Error al rechazar la oferta:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
+
+// Actualizar el texto de una oferta
+app.put('/index/:username/offers/:idOffer', async (req, res) => {
+    try {
+        const updatedOffer = await Offer.findByIdAndUpdate(
+            req.params.idOffer,
+            { texto: req.body.texto },
+            { new: true }
+        );
+
+        res.redirect(`/index/${req.user.username}/offers`);
+    } catch (error) {
+        console.error('Error al actualizar la oferta:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
 
 //-----------LIBRARY PAGE------------------    
 app.get('/library',isLoggedIn, checkAuthenticated, async (req, res) => {

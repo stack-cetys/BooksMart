@@ -1,0 +1,84 @@
+<% layout('layouts/boilerplate2') %>
+
+
+<div class="card my-3 p-3">
+    <div class="row">
+        <div class="col-md-3">
+            <h2 class="card-title mt-3"><%=otherUser.username %></h2>
+
+        </div>
+    </div>
+</div>
+<div class="card my-3 p-3">
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Mostrar hasta 5 libros que tiene -->
+            <h6>Libros que tiene:</h6>
+            <ul>
+                <% for (let i = 0; i < otherUser.tiene_libros.length; i++) { %>
+                <li><%= otherUser.tiene_libros[i].nombre %></li>
+                <% } %>
+
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <!-- Mostrar hasta 5 libros que quiere -->
+            <h6>Libros que quiere:</h6>
+            <ul>
+                <% for (let i = 0; i <  otherUser.quiere_libros.length; i++) { %>
+                <li><%= otherUser.quiere_libros[i].nombre %></li>
+                <% } %>
+
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <!-- Mostrar hasta 5 libros que quiere -->
+            <h6>Generos que busca:</h6>
+            <ul>
+                <% for (let i = 0; i <  otherUser.genero_quiere.length; i++) { %>
+                <li><%= otherUser.genero_quiere[i] %></li>
+                <% } %>
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<% if (currentUser.username != otherUser.username) { %>
+
+<% if (currentUser && !ofertaExistente) { %>
+<div class="card my-3 p-3">
+    <form action="/index/<%=otherUser.username %>/offers" method="POST">
+        <div class="mb-3">
+            <label for="FormControlTextarea1" class="form-label">Enviar oferta:</label>
+            <textarea class="form-control" name="texto" id="FormControlTextarea1" rows="3"
+                placeholder="Detalles sobre oferta"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+<% } %>
+
+<% if (currentUser && ofertaExistente) { %>
+<% if (esReceptor) { %>
+<div class="card my-3 p-3">
+    <h5>Ya has recibido una oferta de <%= otherUser.username %></h5>
+</div>
+<% } else { %>
+<div class="card my-3 p-3">
+    <h5>Oferta enviada</h5>
+</div>
+<% } %>
+<% } %>
+
+<% if (!currentUser) { %>
+<div class="card my-3 p-3 col-md-4">
+    <h5 class="card-title">Inicia sesión para enviar una oferta</h5>
+    <a href="/login" class="btn btn-primary">Iniciar Sesión</a>
+</div>
+<% } %>
+
+<% } %>
+
+<a href="/index" class="btn btn-primary">Regresar</a>

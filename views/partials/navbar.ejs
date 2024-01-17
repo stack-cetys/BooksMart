@@ -8,10 +8,32 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/faq">Acerca de</a>
                 <% if(!currentUser) {%>
                 <% } else { %>
-                <a class="nav-link" aria-current="page" href="/logout">Logout</a>
+                <!-- Menú desplegable para usuarios autenticados -->
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <%= currentUser.username %> <% if (hasNotifications) { %>🔴<% } %>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="/library">Edit Library</a>
+                        </li>
+                        <% if (hasNotifications){ %>
+                        <li><a class="dropdown-item" href="/index/<%=currentUser.username%>/offers">🔴 Offers</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <% } else { %>
+                        <li><a class="dropdown-item" href="/index/<%=currentUser.username%>/offers">Offers</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <% } %>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </div>
                 <% } %>
             </div>
         </div>

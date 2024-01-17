@@ -1,37 +1,91 @@
 const mongoose = require('mongoose');
-const Book = require('./Book');
-const Contact = require('./Contact'); 
+
 
 const passportLocalMongoose = require('passport-local-mongoose')
 
-const UserSchema = new mongoose.Schema({
+const offerSchema = new mongoose.Schema({
+  estado: {
+      type: String,
+      enum: ['nuevo', 'pendiente', 'aceptado', 'rechazado', 'anulado'],
+      default: 'nuevo',
+  },
+  texto: String,
+  enviador: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+  },
+  receptor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+  },
+  fechaCreacion: {
+      type: Date,
+      default: Date.now,
+  },
+});
+
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    lowercase: true
+    lowercase: true,
   },
-  contacto: [Contact.schema], //de alguna manera verificar que no pueda hacer intercambios
-                        //si no ha rellenado este campo
+
+  contactos: [{
+    tipo: {
+      type: String, // Puede ser 'correo', 'telefono', 'red_social', etc.
+      required: true,
+    },
+    valor: {
+      type: String,
+      required: true,
+    },
+  }],
+
   tiene_libros: [{
     nombre: String,
     autor: String,
-    fecha_publicacion: String, 
-    descripcion: String //aquí que vaya la condición del libro
-    //estaría bien agregar una imagen de ser posible
-  }],  // Un arreglo de objetos de libros
-  
-  quiere_libros:[{
+    fecha_publicacion: String,
+    clasificacion: String, 
+  }],
+
+  quiere_libros: [{
     nombre: String,
     autor: String,
-    fecha_publicacion: String, 
-    //estaría bien agregar una imagen de ser posible
-  }], // Un arreglo de objetos de libros
+    fecha_publicacion: String,
+    clasificacion: String, 
+  }],
+
+  genero_quiere: [{
+    type: String,
+    enum: ['Ficción', 'No Ficción', 'Misterio', 'Ciencia Ficción', 'Fantasía', 'Romance', 'Aventura', 'Terror', 'Distopía', 'Histórico', 'Biografía', 'Poesía', 'Drama', 'Comedia', 'Ensayo', 'Suspense', 'Ciencia', 'Autobiografía', 'Viajes', 'Otro'],
+  }],
+
+  ofertas: [{
+    ofertaId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Offer',
+    },
+    //Es receptor 1, es el que lo evia 0
+    esReceptor: {
+      type: Boolean,
+      required: true,
+    }
+  }],
+  notificaciones_ofertas: {
+    type: Number,
+    default: false,
+  },
 });
 
-//Se supone que puedes crear funciones personalizadas para los modelos
 
 // Plugin para facilitar login con passport
-UserSchema.plugin(passportLocalMongoose)
+userSchema.plugin(passportLocalMongoose)
 
-//cambiar a User en el futuro
-module.exports = mongoose.model('User', UserSchema)
+// Nuevo modelo para Offer
+const Offer = mongoose.model('Offer', offerSchema);
+
+// Nuevo modelo para User
+const User = mongoose.model('User', userSchema);
+
+module.exports = { User, Offer };
