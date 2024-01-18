@@ -1,40 +1,45 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark ">
-    <div class="container container-fluid">
-        <a href="/" class="navbar-brand"><img src="/img/logoGlasses.svg" alt="" id="glassesSVG"
-                class="mt-0 mb-2 ml-1"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav ms-auto">
+<nav class="navbar sticky-top navbar-dark ">
+    <div class="container-fluid">
+        <i class="navbar-brand"><img src="/img/logoGlasses.svg" alt="" id="glassesSVG" class="mt-0 mb-2 ml-1"></i>
+
+        <div id="navbarNavAltMarkup">
+            <div>
                 <% if(!currentUser) {%>
-                <% } else { %>
-                <!-- Menú desplegable para usuarios autenticados -->
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <%= currentUser.username %> <% if (hasNotifications) { %>🔴<% } %>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="/library">Edit Library</a>
-                        </li>
-                        <% if (hasNotifications){ %>
-                        <li><a class="dropdown-item" href="/index/<%=currentUser.username%>/offers">🔴 Offers</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <% } else { %>
-                        <li><a class="dropdown-item" href="/index/<%=currentUser.username%>/offers">Offers</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                    <% } else { %>
+                        <!-- Menú desplegable para usuarios autenticados -->
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <%= currentUser.username %>
+                                    <% if (hasNotifications) { %>🔴<% } %>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" style="min-width: 130px;">
+
+                                <li>
+                                    <a class="dropdown-item" href="/library">Estantes</a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="/index">Biblioteca</a>
+                                </li>
+
+                                <% if (hasNotifications){ %>
+                                    <li><a class="dropdown-item" href="/index/<%=currentUser.username%>/offers">🔴
+                                            Ofertas</a>
+                                    </li>
+                                <% } else { %>
+                                        <li><a class="dropdown-item"
+                                            href="/index/<%=currentUser.username%>/offers">Ofertas</a></li>
+                                        
+                                        <% } %>
+                                    
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                   <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            </ul>
+                        </div>
                         <% } %>
-                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                    </ul>
-                </div>
-                <% } %>
             </div>
         </div>
     </div>

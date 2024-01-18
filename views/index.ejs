@@ -1,93 +1,109 @@
-<% layout('layouts/boilerplate2') %>
+<html>
 
-<div class="container mt-3">
-    <!-- Botón para mostrar/ocultar el menú de filtros -->
-    <p class="d-inline-flex gap-1">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filterMenu"
-            aria-expanded="false" aria-controls="filterMenu">
-            Mostrar Filtros
-        </button>
-    </p>
+<body>
+    <% layout('layouts/boilerplate2') %>
 
-    <!-- Menú de filtros  -->
-    <div class="collapse" id="filterMenu">
-        <div class="card card-body bg-white">
-            <form action="/index" method="get">
-                <h4>Filtrar por Géneros:</h4>
-                <div class="row">
-                    <% for (let genero of generosPopulares) { %>
-                    <div class="col-2 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="generos" value="<%= genero %>"
-                                id="checkbox<%= genero %>">
-                            <label class="form-check-label" for="checkbox<%= genero %>"><%= genero %></label>
+        <div class="container mt-3">
+            <!-- Botón para mostrar/ocultar el menú de filtros -->
+            <p class="d-inline-flex gap-1">
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filterMenu"
+                    aria-expanded="false" aria-controls="filterMenu">
+                    Mostrar Filtros
+                </button>
+            </p>
+
+            <!-- Menú de filtros  -->
+            <div class="collapse" id="filterMenu">
+                <div class="card card-body bg-white">
+                    <form action="/index" method="get">
+                        <h4>Filtrar por Géneros:</h4>
+                        <div class="row">
+                            <% for (let genero of generosPopulares) { %>
+                                <div class="col-2 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="generos"
+                                            value="<%= genero %>" id="checkbox<%= genero %>">
+                                        <label class="form-check-label" for="checkbox<%= genero %>">
+                                            <%= genero %>
+                                        </label>
+                                    </div>
+                                </div>
+                                <% } %>
                         </div>
-                    </div>
-                    <% } %>
+                        <button type="submit" class="btn btn-primary mt-3">Buscar</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Buscar</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-<% for (let user of users) { %>
-<!-- Revisamos primero que el usuario ofrezca algun libro -->
-<% if (user.tiene_libros.length) { %>
-<div class="card my-3 p-3">
-    <div class="row">
-        <div class="col-md-3">
-            <h2 class="card-title mt-3"><%=user.username %></h2>
-            <a href="/index/<%=user.username %>" class="btn btn-primary">View Details</a>
-
-        </div>
-        <div class="col-md-3">
-            <!-- Mostrar hasta 5 libros que tiene -->
-            <h6>Libros que tiene:</h6>
-            <ul>
-                <% for (let i = 0; i < Math.min(5, user.tiene_libros.length); i++) { %>
-                <li><%= user.tiene_libros[i].nombre %></li>
-                <% } %>
-
-                <!-- Si tiene n libros mas de 5, se muestra n+ libros-->
-                <% if (user.tiene_libros.length > 5) { %>
-                <li>(<%= user.tiene_libros.length - 5 %>+ libros)</li>
-                <% } %>
-
-            </ul>
-        </div>
-        <div class="col-md-3">
-            <!-- Mostrar hasta 5 libros que quiere -->
-            <h6>Libros que quiere:</h6>
-            <ul>
-                <% for (let i = 0; i < Math.min(5, user.quiere_libros.length); i++) { %>
-                <li><%= user.quiere_libros[i].nombre %></li>
-                <% } %>
-
-                <% if (user.quiere_libros.length > 5) { %>
-                <li>(<%= user.quiere_libros.length - 5 %>+ libros)</li>
-                <% } %>
-
-            </ul>
-        </div>
-        <div class="col-md-3">
-            <!-- Mostrar hasta 5 libros que quiere -->
-            <h6>Generos que busca:</h6>
-            <ul>
-                <% for (let i = 0; i < Math.min(5, user.genero_quiere.length); i++) { %>
-                <li><%= user.genero_quiere[i] %></li>
-                <% } %>
-
-                <% if (user.genero_quiere.length > 5) { %>
-                <li>(<%= user.genero_quiere.length - 5 %>+ generos)</li>
-                <% } %>
-
-            </ul>
+            </div>
         </div>
 
-    </div>
-</div>
-<% } %>
-<% } %>
+
+
+        <% for (let user of users) { %>
+            <!-- Revisamos primero que el usuario ofrezca algun libro -->
+            <% if (user.tiene_libros.length) { %>
+                <div class="card my-3 p-3">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h2 class="card-title mt-3">
+                                <%=user.username %>
+                            </h2>
+                            <a href="/index/<%=user.username %>" class="btn btn-primary">View Details</a>
+
+                        </div>
+                        <div class="col-md-3">
+                            <!-- Mostrar hasta 5 libros que tiene -->
+                            <h6>Libros que tiene:</h6>
+                            <ul>
+                                <% for (let i=0; i < Math.min(5, user.tiene_libros.length); i++) { %>
+                                    <li>
+                                        <%= user.tiene_libros[i].nombre %>
+                                    </li>
+                                    <% } %>
+
+                                        <!-- Si tiene n libros mas de 5, se muestra n+ libros-->
+                                        <% if (user.tiene_libros.length> 5) { %>
+                                            <li>(<%= user.tiene_libros.length - 5 %>+ libros)</li>
+                                            <% } %>
+
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <!-- Mostrar hasta 5 libros que quiere -->
+                            <h6>Libros que quiere:</h6>
+                            <ul>
+                                <% for (let i=0; i < Math.min(5, user.quiere_libros.length); i++) { %>
+                                    <li>
+                                        <%= user.quiere_libros[i].nombre %>
+                                    </li>
+                                    <% } %>
+
+                                        <% if (user.quiere_libros.length> 5) { %>
+                                            <li>(<%= user.quiere_libros.length - 5 %>+ libros)</li>
+                                            <% } %>
+
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <!-- Mostrar hasta 5 libros que quiere -->
+                            <h6>Generos que busca:</h6>
+                            <ul>
+                                <% for (let i=0; i < Math.min(5, user.genero_quiere.length); i++) { %>
+                                    <li>
+                                        <%= user.genero_quiere[i] %>
+                                    </li>
+                                    <% } %>
+
+                                        <% if (user.genero_quiere.length> 5) { %>
+                                            <li>(<%= user.genero_quiere.length - 5 %>+ generos)</li>
+                                            <% } %>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <% } %>
+                    <% } %>
+</body>
+
+</html>

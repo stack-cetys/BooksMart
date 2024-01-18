@@ -140,27 +140,25 @@ app.get('/home', checkNotAuthenticated, (req, res) => {
     res.redirect('/')
 })
 
-app.get('/login', checkNotAuthenticated, (req, res) => {
-    res.render('login', { message: 'none' })
+register_message = 'nan'; //necessary to manage register error
+app.get('/', (req,res) => {
+    res.render('home', {err: register_message})
+    register_message = 'nan';
 })
 
-app.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('register', { message: 'none' })
-})
-
+//-----FAQ page-----
 app.get('/faq', (req, res) => {
     res.render('faq', { message: 'none' })
 })
 
 
 //----Logs in-----
-app.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/login'}), async (req, res) => {
+app.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/'}), async (req, res) => {
     res.redirect('/index')
 })
 
 //----Register new user-----
 app.post('/register', async (req,res) => {
-    console.log(req.body);
 
     try{
         const {email, username, password} = req.body
@@ -176,7 +174,9 @@ app.post('/register', async (req,res) => {
         })
 
     } catch (e){
-        res.send(e)
+        res.render('home', {err: e});
+        register_message = 'error';
+        console.log(e)
     }
 
 })
@@ -367,7 +367,6 @@ app.get('/index/:username/offers', checkAuthenticated, async (req, res) => {
 });
 
 // ver oferta especifica 
-
 app.get('/index/:username/offers/:idOffer', checkAuthenticated, async (req, res) => {
     try {
         const currentUser = req.user;
@@ -476,56 +475,8 @@ app.get('/library',isLoggedIn, checkAuthenticated, async (req, res) => {
     const usuario = await req.user
     const q_libros = usuario.quiere_libros
     const t_libros = usuario.tiene_libros
-    const notifications = []
 
-    //----- For notifications -------
-    // Notifications are checked very time the page is loaded
-
-    //We get all users and their info
-    const all_users = await User.find()
-
-    //Iterate through users 
-    for (const i in all_users) {
-        if (all_users[i].id != usuario.id) {
-            let books_user_wants = []
-            let books_user_has = []
-            const alt_q_libros = all_users[i].quiere_libros
-            const alt_t_libros = all_users[i].tiene_libros
-
-            for (const j in q_libros) {
-                for (const k in alt_t_libros){
-                    if (q_libros[j].nombre == alt_t_libros[k].nombre & q_libros[j].autor == alt_t_libros[k].autor) {
-                        books_user_wants.push(alt_t_libros[k])
-                    }
-                }
-            }
-
-            for (const j in alt_q_libros) {
-                for (const k in t_libros) {
-                    if (alt_q_libros[j].nombre == t_libros[k].nombre & alt_q_libros[j].autor == t_libros[k].autor) {
-                        books_user_has.push(t_libros[k])
-                    }
-                }
-            }
-
-            if (books_user_has.length != 0 & books_user_wants.length != 0) {
-                console.log("Match with", all_users[i].name, "!")
-                
-                const noti = {
-                    alt_user_id: all_users[i].id,
-                    alt_user_name: all_users[i].name,
-                    books_to_give: books_user_has,
-                    books_to_recieve: books_user_wants
-                }
-
-                notifications.push(noti)
-            }
-        }
-    }
-
-    console.log(notifications)
-
-    res.render('library', { q_libros, t_libros, notifications })
+    res.render('library', { q_libros, t_libros})
 })
 
 //------------Upload a new book------------
@@ -663,8 +614,6 @@ app.post('/updateConfiguration', checkAuthenticated, async (req, res) => {
 
     await User.updateOne({ _id: usuario._id }, updateFields)
 
-
-
     res.redirect('/library')
 })
 
@@ -689,20 +638,6 @@ function checkNotAuthenticated(req, res, next) {
     next()
 }
 
-//-------------Matchmaking system--------
-async function matchmake() {
-
-    //We get all users and their info
-    const all_users = await User.find()
-    //console.log(all_users)
-    for (const i in all_users) {
-        console.log(all_users[i]._id)
-        console.log(all_users[i].id)
-    }
-}
-
-//matchmake()
-
 app.get('/', (req,res) => {
     res.render('home')
 })
@@ -712,6 +647,6 @@ app.all('*', (req, res, next) =>{
 })
 
 //LOCALHOST:3000/home
-app.listen(3000, () => {
+app.listen(4000, () => {
     console.log('App running!')
 })

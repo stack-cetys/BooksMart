@@ -71,7 +71,7 @@ const booksData = [
     clasificacion: 'Fantasía',
   },
   { 
-    nombre: 'Harry Potter and the Sorcerer\'s Stone',
+    nombre: 'Harry Potter and the Sorcerers Stone',
     autor: 'J.K. Rowling',
     fecha_publicacion: '1997-06-26',
     clasificacion: 'Fantasía',
@@ -101,7 +101,7 @@ const booksData = [
     clasificacion: 'Misterio',
   },
   { 
-    nombre: 'The Hitchhiker\'s Guide to the Galaxy',
+    nombre: 'The Hitchhikers Guide to the Galaxy',
     autor: 'Douglas Adams',
     fecha_publicacion: '1979-10-12',
     clasificacion: 'Ciencia Ficción',

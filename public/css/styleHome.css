@@ -27,7 +27,6 @@ body {
 .nav-link.active {
     color: white;
     border-bottom-color:white;
-
 }
 
 .btn-secondary, .btn-secondary:hover{
