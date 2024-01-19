@@ -14,280 +14,234 @@
 
 <body class="d-flex text-center text-white bg-dark">
 
-    <!-- Navigation bar -->
-    <div class="d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="mb-auto">
-            <div>
-                <h3 class="float-md-start mb-0">
-                    <iclass="navbar-brand"><img src="/img/logoGlasses.svg" alt="" id="glassesSVG"
-                            class="mt-0 mb-2 ml-1"></i>
-                </h3>
-                <nav class="nav nav-masthead justify-content-center float-md-end" style="margin-right: 5px;">
-                    <a class="nav-link" href="/faq">Acerca de </a>
 
-                    <a id="iniciar_sesion" class="nav-link" href="/#" data-mod-target="#mod-login">Iniciar
-                        Sesion</a>
-                    <a id="registrarse" class="nav-link" href="/#" data-mod-target="#mod-register">Registrarse</a>
-                </nav>
-            </div>
-        </header>
 
+    <header class="mb-auto">
+        <!-- Navigation bar -->
+        <div class="navbar-home">
+
+            <img src="/img/logoGlasses.svg" alt="glassesSVG" style="height: 23px;">
+
+            <nav class="nav nav-masthead justify-content-center float-md-end">
+
+                <a id="iniciar_sesion" class="nav-link" data-mod-target="#mod-login" style="margin-right: 10px;">Iniciar
+                    Sesion</a>
+
+                <a id="registrarse" class="nav-link" data-mod-target="#mod-register">Registrarse</a>
+            </nav>
+        </div>
 
         <!-- Main phrase -->
-        <div style="margin-top: 18%; margin-bottom: 25%;">
+        <div>
             <main class="px-3 jumbotron jumbotron-fluid">
-
                 <blockquote class="blockquote mb-5">
-                    <p class="mt-5">Un lector vive mil vidas antes de morir. Aquel que nunca lee vive solo una.
+                    <p class="mt-5" style="font-size: 25px;">Un lector vive mil vidas antes de morir. Aquel que
+                        nunca lee vive solo una.
                     </p>
                     <footer class="blockquote-footer">George R.R. Martin, <cite title="Source Title">A
                             Dance with Dragons</cite>
                     </footer>
-                    <!-- <a href="/library" class="btn btn-md font-weight-bold btn-outline-light">Entrar a BooksMart</a> -->
                 </blockquote>
             </main>
+            <a class="page-btn" href="#conocenos">Conócenos</a>
         </div>
+    </header>
 
 
+    <div id="conocenos" class="faq">
 
-        <!-- Q&A -->
-        <div class="row align-items-center">
-            <div class="col-12 col-lg-10 col-xl-5 mx-auto text-center  mt-5">
-                <div id="accordion" class="accordion">
-
-                    <div class="card-secondary">
-                        <div class="card-header">
-                            <a class="card-link custom-link" data-toggle="collapse" href="#collapseOne">
-                                Pregunta A
-                            </a>
-                        </div>
-                        <div id="collapseOne" class="collapse show" data-parent="#accordion">
-                            <div class="card-body">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut dolorem a
-                                sint
-                                temporibus sapiente voluptatibus soluta perferendis nam iusto sequi nesciunt,
-                                tempore
-                                aspernatur inventore, dolore architecto nisi doloribus exercitationem.
-                                Nisi recusandae ipsum aliquam. Fuga, sit laborum. Nemo pariatur, odio sit sunt quia
-                                iusto
-                                nostrum ipsum odit corrupti quis alias ducimus mollitia laborum perferendis a
-                                reprehenderit
-                                earum vero et voluptatem.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-secondary">
-                        <div class="card-header">
-                            <a class="collapsed card-link custom-link" data-toggle="collapse" href="#collapseTwo">
-                                Pregunta B
-                            </a>
-                        </div>
-                        <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                            <div class="card-body">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe ipsum in quaerat
-                                dolorem
-                                eveniet reiciendis illo quis dicta, distinctio aperiam nesciunt iste sed tempore
-                                necessitatibus quam eum corrupti. Inventore, nemo.
-                                Fuga iusto exercitationem laudantium rem. Assumenda adipisci ea iste nulla. Qui,
-                                vero.
-                                Temporibus quas, nihil distinctio necessitatibus fugit suscipit maiores autem quam
-                                eum
-                                sunt
-                                ab iste, enim minima earum ipsum.
-                            </div>
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner" style="width: 900px;">
+                <div class="carousel-item active">
+                    <div class="carousel-card">
+                        <h2 class="question">¿Qué es BooksMart?</h2>
+                        <div class="carousel-text">
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut dolorem a
+                            sint
+                            temporibus sapiente voluptatibus soluta perferendis nam iusto sequi nesciunt,
+                            tempore
+                            aspernatur inventore, dolore architecto nisi doloribus exercitationem.
+                            Nisi recusandae ipsum aliquam. Fuga, sit laborum. Nemo pariatur, odio sit sunt quia
+                            iusto
+                            nostrum ipsum odit corrupti quis alias ducimus mollitia laborum perferendis a
+                            reprehenderit
+                            earum vero et voluptatem.
                         </div>
                     </div>
-
-                    <div class="card-secondary">
-                        <div class="card-header">
-                            <a class="collapsed card-link custom-link" data-toggle="collapse" href="#collapseThree">
-                                Pregunta C
-                            </a>
-                        </div>
-                        <div id="collapseThree" class="collapse" data-parent="#accordion">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus dignissimos
-                                deserunt
-                                velit
-                                unde. Quas, libero? Facere harum dolores cumque sed odio, laborum ullam illo aut,
-                                amet
-                                molestias provident soluta ut.
-                                Dolor cumque omnis veniam aperiam a illo, sit aliquam. Harum voluptates id
-                                voluptatibus
-                                corrupti incidunt deserunt consequuntur saepe ad mollitia quod. Rem modi, similique
-                                sunt
-                                qui
-                                fugit illum pariatur non.
-                            </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-card">
+                        <h2>¿Cómo funciona?</h2>
+                        <div class="carousel-text">
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut dolorem a
+                            sint
+                            temporibus sapiente voluptatibus soluta perferendis nam iusto sequi nesciunt,
+                            tempore
+                            aspernatur inventore, dolore architecto nisi doloribus exercitationem.
+                            Nisi recusandae ipsum aliquam. Fuga, sit laborum. Nemo pariatur, odio sit sunt quia
+                            iusto
+                            nostrum ipsum odit corrupti quis alias ducimus mollitia laborum perferendis a
+                            reprehenderit
+                            earum vero et voluptatem.
                         </div>
                     </div>
-
-                    <div class="card-secondary">
-                        <div class="card-header ">
-                            <a class="collapsed card-link custom-link" data-toggle="collapse" href="#collapseFour">
-                                Pregunta D
-                            </a>
-                        </div>
-                        <div id="collapseFour" class="collapse" data-parent="#accordion">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea, architecto! Quo
-                                ratione
-                                tenetur officiis unde, architecto at vitae rem libero ut inventore beatae
-                                necessitatibus
-                                labore impedit accusantium saepe suscipit sed?
-                                Dolor illum repellat consequuntur ab laborum inventore harum libero hic animi fugit,
-                                eius
-                                eum? Vitae sunt praesentium voluptatum dolorum natus suscipit debitis! Obcaecati
-                                optio
-                                quaerat commodi. Quasi doloremque quibusdam impedit!
-                            </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-card">
+                        <h2>¿Quién debería unirse?</h2>
+                        <div class="carousel-text">
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut dolorem a
+                            sint
+                            temporibus sapiente voluptatibus soluta perferendis nam iusto sequi nesciunt,
+                            tempore
+                            aspernatur inventore, dolore architecto nisi doloribus exercitationem.
+                            Nisi recusandae ipsum aliquam. Fuga, sit laborum. Nemo pariatur, odio sit sunt quia
+                            iusto
+                            nostrum ipsum odit corrupti quis alias ducimus mollitia laborum perferendis a
+                            reprehenderit
+                            earum vero et voluptatem.
                         </div>
                     </div>
-
-
-                    <div class="card-secondary">
-                        <div class="card-header">
-                            <a class="collapsed card-link custom-link" data-toggle="collapse" href="#collapseFive">
-                                Pregunta E
-                            </a>
-                        </div>
-                        <div id="collapseFive" class="collapse" data-parent="#accordion">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque molestias aliquid
-                                voluptate
-                                blanditiis fugit totam, veritatis asperiores quam, repellat saepe mollitia ducimus
-                                fuga
-                                nesciunt ut excepturi inventore temporibus beatae vero.
-                                Magnam fuga nesciunt quas illum laudantium reprehenderit, in corporis nulla ipsam
-                                hic
-                                dolorem sapiente tempore nemo, deleniti architecto iure, aliquam nostrum veritatis
-                                consequuntur quis ratione ipsum non! Commodi, sint nostrum!
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
 
+    </div>
 
 
-        <!--
+
+    <!--
             Here starts modal definitions (pop up windows)
         -->
 
 
-        <div class="mod" id="mod-login">
-            <div class="mod-header">
-                <div class="title" style="margin-left: 33%;">Inicia sesión</div>
-                <button data-close-button class="close-button">&times;</button>
-            </div>
-            <div class="mod-body" mod-body style="max-height: 500px; margin-top: 10px;">
-                <form action="/login" method="POST">
-                    <div class="login-mod">
+    <div class="mod" id="mod-login">
+        <div class="mod-header">
+            <div class="title" style="margin-left: 33%;">Inicia sesión</div>
+            <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="mod-body" mod-body style="max-height: 500px; margin-top: 10px;">
+            <form action="/login" method="POST">
+                <div class="login-mod">
 
-                        <div>
-                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                            <input class="home-input" type="text" id="username" name="username"
-                                placeholder="Nombre de usuario" autofocus required>
-                        </div>
-
-                        <div>
-                            <i class="fa fa-lock" aria-hidden="true"
-                                style="top: 139px; left: 28px; font-size: 22px;"></i>
-                            <i hide-pw class="fa fa-eye" aria-hidden="true"
-                                style="top: 138px; left: 299px; font-size: 22px;"></i>
-                            <input class="home-input" type="password" id="password" name="password"
-                                placeholder="Contraseña" required>
-                        </div>
-
-                        <div style="color: red;">
-                            <% if (error.length) { %>
-                                <p class="text-end">Usuario y/o contraseña incorrectos</p>
-                                <% } %>
-                        </div>
-
-                        <a style="font-size: small; text-align: right;" href="#">¿Olvidaste tu contraseña?</a>
-
-                        <div style="margin-top: 5%;">
-                            <button class="btn btn-primary form-control m-0" type="submit">Iniciar
-                                sesión</button>
-                        </div>
+                    <div>
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        <input class="home-input" type="text" id="username" name="username"
+                            placeholder="Nombre de usuario" autofocus required>
                     </div>
 
-                </form>
-
-                <hr class="rounded">
-
-                <div class="navbar-nav ml-auto">
-                    <label style="color:aliceblue; text-align: center; margin-bottom: 10px;">¿No tienes una
-                        cuenta?</label>
-                    <button id="registrarse" class="btn btn-primary form-control m-0" style="text-align: center;"
-                        data-mod-target="#mod-register">Registrate</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="overlay"></div>
-
-        <div class="mod" id="mod-register">
-            <div class="mod-header">
-                <div class="title" style="margin-left: 33%;">Regístrate</div>
-                <button data-close-button class="close-button">&times;</button>
-            </div>
-
-            <div class="mod-body" mod-body style="max-height: 500px; margin-top: 10px;">
-                <form action="/register" method="POST">
-                    <div class="login-mod">
-                        <div>
-                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                            <input class="home-input" type="text" id="name" name="name" placeholder="Nombre de usuario" required>
-                        </div>
-                        <div>
-                            <i class="fa fa-envelope" style="top: 139px; left: 26px; font-size: 18px;"></i>
-                            <input class="home-input" type="email" id="email" name="email"
-                                placeholder="Correo electrónico" required>
-                        </div>
-                        <div>
-                            <i class="fa fa-lock" aria-hidden="true"
-                                style="top: 193px; left: 28px; font-size: 22px;"></i>
-                            <i hide-pw class="fa fa-eye" aria-hidden="true"
-                                style="top: 193px; left: 299px; font-size: 22px;"></i>
-                            <input class="home-input" type="password" id="password" name="password"
-                                placeholder="Contraseña" required>
-                        </div>
-
-                        <div style="color: red;">
-                            <% if (err.length> 3) { %>
-                                <p class="text-end">Nombre de usuario y/o correo ya registrados</p>
-                                <% } %>
-                        </div>
-
-                        <div style="margin-top: 5%;">
-                            <button class="btn btn-primary form-control m-0" type="submit">Registrarse</button>
-                        </div>
+                    <div>
+                        <i class="fa fa-lock" aria-hidden="true" style="top: 139px; left: 28px; font-size: 22px;"></i>
+                        <i hide-pw class="fa fa-eye" aria-hidden="true"
+                            style="top: 138px; left: 299px; font-size: 22px;"></i>
+                        <input class="home-input" type="password" id="password" name="password" placeholder="Contraseña"
+                            required>
                     </div>
-                </form>
 
-                <hr class="rounded">
+                    <div style="color: red;">
+                        <% if (error.length) { %>
+                            <p class="text-end">Usuario y/o contraseña incorrectos</p>
+                            <% } %>
+                    </div>
 
-                <div class="navbar-nav ml-auto">
-                    <label style="color:aliceblue; text-align: center; margin-bottom: 10px;">¿Ya tienes una
-                        cuenta?</label>
-                    <button class="btn btn-primary form-control m-0" style="text-align: center;"
-                        data-mod-target="#mod-login">Inicia sesión</button>
+                    <a style="font-size: small; text-align: right;" href="#">¿Olvidaste tu contraseña?</a>
+
+                    <div style="margin-top: 5%;">
+                        <button class="btn btn-primary form-control m-0" type="submit">Iniciar
+                            sesión</button>
+                    </div>
                 </div>
+
+            </form>
+
+            <hr class="rounded">
+
+            <div class="navbar-nav ml-auto">
+                <label style="color:aliceblue; text-align: center; margin-bottom: 10px;">¿No tienes una
+                    cuenta?</label>
+                <button id="registrarse" class="btn btn-primary form-control m-0" style="text-align: center;"
+                    data-mod-target="#mod-register">Registrate</button>
             </div>
         </div>
-
-        <!-- Footer -->
-
-        <footer class="mt-auto text-white-50">
-            <p>&copy; STACK 2024 </p>
-        </footer>
-
     </div>
+
+    <div id="overlay"></div>
+
+    <div class="mod" id="mod-register">
+        <div class="mod-header">
+            <div class="title" style="margin-left: 33%;">Regístrate</div>
+            <button data-close-button class="close-button">&times;</button>
+        </div>
+
+        <div class="mod-body" mod-body style="max-height: 500px; margin-top: 10px;">
+            <form action="/register" method="POST">
+                <div class="login-mod">
+                    <div>
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        <input class="home-input" type="text" id="name" name="name" placeholder="Nombre de usuario"
+                            required>
+                    </div>
+                    <div>
+                        <i class="fa fa-envelope" style="top: 139px; left: 26px; font-size: 18px;"></i>
+                        <input class="home-input" type="email" id="email" name="email" placeholder="Correo electrónico"
+                            required>
+                    </div>
+                    <div>
+                        <i class="fa fa-lock" aria-hidden="true" style="top: 193px; left: 28px; font-size: 22px;"></i>
+                        <i hide-pw class="fa fa-eye" aria-hidden="true"
+                            style="top: 193px; left: 299px; font-size: 22px;"></i>
+                        <input class="home-input" type="password" id="password" name="password" placeholder="Contraseña"
+                            required>
+                    </div>
+
+                    <div style="color: red;">
+                        <% if (err.length> 3) { %>
+                            <p class="text-end">Nombre de usuario y/o correo ya registrados</p>
+                            <% } %>
+                    </div>
+
+                    <div style="margin-top: 5%;">
+                        <button class="btn btn-primary form-control m-0" type="submit">Registrarse</button>
+                    </div>
+                </div>
+            </form>
+
+            <hr class="rounded">
+
+            <div class="navbar-nav ml-auto">
+                <label style="color:aliceblue; text-align: center; margin-bottom: 10px;">¿Ya tienes una
+                    cuenta?</label>
+                <button class="btn btn-primary form-control m-0" style="text-align: center;"
+                    data-mod-target="#mod-login">Inicia sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+    <footer class="mt-auto text-white-50" style="margin-bottom: 0;">
+        <p>&copy; STACK 2024 </p>
+    </footer>
+
+
 
     <!-- Scripts -->
 
