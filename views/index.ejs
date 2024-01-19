@@ -8,30 +8,31 @@
             <p class="d-inline-flex gap-1">
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filterMenu"
                     aria-expanded="false" aria-controls="filterMenu">
-                    Mostrar Filtros
+                    Filtros
                 </button>
             </p>
 
             <!-- Menú de filtros  -->
             <div class="collapse" id="filterMenu">
                 <div class="card card-body bg-white">
-                    <form action="/index" method="get">
-                        <h4>Filtrar por Géneros:</h4>
-                        <div class="row">
-                            <% for (let genero of generosPopulares) { %>
-                                <div class="col-2 mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="generos"
-                                            value="<%= genero %>" id="checkbox<%= genero %>">
-                                        <label class="form-check-label" for="checkbox<%= genero %>">
-                                            <%= genero %>
-                                        </label>
-                                    </div>
+
+                    <h4 style="color: black; text-align: center;">Filtrar por Género</h4>
+                    <br>
+                    <div class="row" style="color: rgb(2, 0, 103);">
+                        <% for (let genero of generosPopulares) { %>
+                            <div class="col-2 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="generos" value="<%= genero %>"
+                                        id="checkbox<%= genero %>">
+                                    <label class="form-check-label" for="checkbox<%= genero %>">
+                                        <%= genero %>
+                                    </label>
                                 </div>
-                                <% } %>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-3">Buscar</button>
-                    </form>
+                            </div>
+                            <% } %>
+                    </div>
+                    <button filter-button type="click" class="btn btn-primary mt-3">Aplicar</button>
+
                 </div>
             </div>
         </div>
@@ -41,7 +42,7 @@
         <% for (let user of users) { %>
             <!-- Revisamos primero que el usuario ofrezca algun libro -->
             <% if (user.tiene_libros.length) { %>
-                <div class="card my-3 p-3">
+                <div user-card class="card my-3 p-3">
                     <div class="row">
                         <div class="col-md-3">
                             <h2 class="card-title mt-3">
@@ -85,16 +86,16 @@
                         </div>
                         <div class="col-md-3">
                             <!-- Mostrar hasta 5 libros que quiere -->
-                            <h6>Generos que busca:</h6>
+                            <h6>Generos que tiene:</h6>
                             <ul>
-                                <% for (let i=0; i < Math.min(5, user.genero_quiere.length); i++) { %>
-                                    <li>
-                                        <%= user.genero_quiere[i] %>
+                                <% for (let i=0; i < Math.min(5, user.genero_tiene.length); i++) { %>
+                                    <li genero>
+                                        <%= user.genero_tiene[i] %>
                                     </li>
                                     <% } %>
 
-                                        <% if (user.genero_quiere.length> 5) { %>
-                                            <li>(<%= user.genero_quiere.length - 5 %>+ generos)</li>
+                                        <% if (user.genero_tiene.length> 5) { %>
+                                            <li>(<%= user.genero_tiene.length - 5 %>+ generos)</li>
                                             <% } %>
 
                             </ul>
@@ -104,6 +105,58 @@
                 </div>
                 <% } %>
                     <% } %>
+
+
+                        <script>
+
+                            /*
+                            const string_q = '<- JSON.stringify(users) %>';
+                            const users = JSON.parse(string_q);
+                            console.log(users)
+                            */
+
+                            document.querySelector('[filter-button]').addEventListener('click', () => {
+
+                                const filter = []
+
+                                const input = document.getElementById('filterMenu').querySelectorAll('input')
+                                input.forEach(box => {
+                                    if (box.checked) {
+                                        filter.push(box.value)
+                                    }
+                                })
+
+                                console.log(filter)
+
+
+
+                                const user_cards = document.querySelectorAll('[user-card]')
+                                user_cards.forEach(user => {
+
+                                    if (filter.length > 0) {
+                                        const g = user.querySelectorAll('[genero]')
+                                        let counter = 0
+                                        g.forEach(o => {
+                                            let genero = o.textContent.trim()
+                                            if (filter.includes(genero)) {
+                                                counter += 1
+                                            }
+                                        })
+
+                                        if (counter == 0) {
+                                            user.classList.add('hide')
+                                        } else {
+                                            user.classList.remove('hide')
+                                        }
+                                    } else {
+                                        user.classList.remove('hide')
+                                    }
+
+                                })
+                            })
+                        </script>
+
+
 </body>
 
 </html>

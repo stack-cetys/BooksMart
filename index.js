@@ -24,7 +24,7 @@ const { User, Offer } = require('./models/users');
 
 
 // Middleware
-const {isLoggedIn} =require('./middleware.js')
+const { isLoggedIn } = require('./middleware.js')
 // isLoggedIn es lo mismo que checkAuthenticated
 
 // Mongo connection
@@ -56,14 +56,14 @@ app.use(express.urlencoded({ extended: false }))
 const secret = process.env.SECRET || 'secret123';
 
 // MongoDBStore setup
-const store = new MongoDBStore ({
+const store = new MongoDBStore({
     // URL of DB where it is stored
     url: dbUrl,
     secret: secret,
     touchAfter: 24 * 60 * 60
 })
 
-store.on('error', function(e){
+store.on('error', function (e) {
     console.log("Session store error", e)
 })
 
@@ -98,7 +98,7 @@ app.use(express.json());
 
 // Variables locales
 
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error')
@@ -131,8 +131,8 @@ const generosPopulares = [
     'Ciencia',
     'Autobiografía',
     'Viajes',
-    'Otro',
-  ];
+    'Otro', //ELIMINARLO o agregarlo al input de los estantes (prefiero eliminarlo)
+];
 
 
 //--------HOMEPAGE--------------
@@ -141,8 +141,8 @@ app.get('/home', checkNotAuthenticated, (req, res) => {
 })
 
 register_message = 'nan'; //necessary to manage register error
-app.get('/', (req,res) => {
-    res.render('home', {err: register_message})
+app.get('/', (req, res) => {
+    res.render('home', { err: register_message })
     register_message = 'nan';
 })
 
@@ -153,17 +153,17 @@ app.get('/faq', (req, res) => {
 
 
 //----Logs in-----
-app.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/'}), async (req, res) => {
-    res.redirect('/index')
+app.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/' }), async (req, res) => {
+    res.redirect('/library')
 })
 
 //----Register new user-----
-app.post('/register', async (req,res) => {
+app.post('/register', async (req, res) => {
 
-    try{
-        const {email, username, password} = req.body
-        const user = new User({email, username})
-        const registeredUser = await User.register(user,password)
+    try {
+        const { email, username, password } = req.body
+        const user = new User({ email, username })
+        const registeredUser = await User.register(user, password)
         console.log(registeredUser);
 
         // We login a user after they register
@@ -173,8 +173,8 @@ app.post('/register', async (req,res) => {
             res.redirect('/')
         })
 
-    } catch (e){
-        res.render('home', {err: e});
+    } catch (e) {
+        res.render('home', { err: e });
         register_message = 'error';
         console.log(e)
     }
@@ -194,8 +194,8 @@ app.get('/logout', (req, res) => {
 
 // Ver todos los usuarios
 
-app.get('/index', async (req,res) => {
-    const filtros = req.query.generos;
+app.get('/index', async (req, res) => {
+    /*const filtros = req.query.generos;
     console.log(filtros)
     const users = await User.find({});
 
@@ -209,7 +209,10 @@ app.get('/index', async (req,res) => {
     else{
         
         return res.render('index', { users, generosPopulares })
-    }
+    }*/
+    const users = await User.find({});
+    return res.render('index', { users, generosPopulares })
+
 })
 
 // Funcion para verificar si ya hemos mandado una oferta a este usuario
@@ -306,7 +309,7 @@ app.post('/index/:username/offers', async (req, res) => {
 
 
         usuarioB.ofertas.push(ofertaRecibidaB);
-        
+
 
         usuarioB.notificaciones_ofertas += 1; // Aumentar notificaciones_ofertas del receptor
         await usuarioB.save();
@@ -326,7 +329,7 @@ app.post('/index/:username/offers', async (req, res) => {
 
         console.log('Oferta enviada correctamente');
         return res.redirect(`/index/${usernameB}`);
-        
+
     } catch (error) {
         console.error('Error al procesar la oferta:', error);
         res.status(500).send('Error interno del servidor');
@@ -384,7 +387,7 @@ app.get('/index/:username/offers/:idOffer', checkAuthenticated, async (req, res)
         const isReceptor = offer.receptor.username === currentUser.username;
 
         // Verificar si el estado de la oferta es 'nuevo'
-        if (offer.estado === 'nuevo' && isReceptor ) {
+        if (offer.estado === 'nuevo' && isReceptor) {
             // Actualizar el estado a 'pendiente'
             offer.estado = 'pendiente';
             await offer.save();
@@ -408,7 +411,7 @@ app.get('/index/:username/offers/:idOffer', checkAuthenticated, async (req, res)
 app.post('/index/accept/:idOffer', async (req, res) => {
     try {
         const offer = await Offer.findById(req.params.idOffer).populate('receptor');
-        
+
         if (!offer) {
             return res.status(404).send('Oferta no encontrada');
         }
@@ -433,7 +436,7 @@ app.post('/index/accept/:idOffer', async (req, res) => {
 app.post('/index/reject/:idOffer', async (req, res) => {
     try {
         const offer = await Offer.findById(req.params.idOffer).populate('receptor');
-        
+
         if (!offer) {
             return res.status(404).send('Oferta no encontrada');
         }
@@ -471,20 +474,24 @@ app.put('/index/:username/offers/:idOffer', async (req, res) => {
 });
 
 //-----------LIBRARY PAGE------------------    
-app.get('/library',isLoggedIn, checkAuthenticated, async (req, res) => {
+app.get('/library', isLoggedIn, checkAuthenticated, async (req, res) => {
     const usuario = await req.user
     const q_libros = usuario.quiere_libros
     const t_libros = usuario.tiene_libros
 
-    res.render('library', { q_libros, t_libros})
+    res.render('library', { q_libros, t_libros })
 })
 
 //------------Upload a new book------------
 app.post('/newBooks', checkAuthenticated, async (req, res) => {
 
     const usuario = await req.user;
+    const generos_tiene = usuario.genero_tiene;
     const libros_quiero = req.body.confirmedBooksQuiero; // Array of books user wants
     const libros_tengo = req.body.confirmedBooksTengo; // Array of books user has
+    const libros_quiero_genre = req.body.confirmedBooksQuiero_genre;
+    const libros_tengo_genre = req.body.confirmedBooksTengo_genre;
+
 
     for (const i in libros_tengo) {
         const book = libros_tengo[i]
@@ -493,7 +500,18 @@ app.post('/newBooks', checkAuthenticated, async (req, res) => {
             nombre: book.nombre.replace("'", "^"),
             autor: book.autor.replace("'", "^"),
             fecha_publicacion: book.fecha_publicacion.replace("'", "^"),
-            descripcion: ""
+            clasificacion: libros_tengo_genre[i]
+        }
+
+        if (generos_tiene.length < 20) { //para que solo actualice si aún no tiene todos los géneros
+
+            libros_tengo_genre[i].forEach(async genero => {
+
+                if (!generos_tiene.includes(genero)) {
+
+                    await usuario.genero_tiene.push(genero)
+                }
+            })
         }
 
         console.log(new_book)
@@ -509,7 +527,7 @@ app.post('/newBooks', checkAuthenticated, async (req, res) => {
             nombre: book.nombre.replace("'", "^"),
             autor: book.autor.replace("'", "^"),
             fecha_publicacion: book.fecha_publicacion.replace("'", "^"),
-            descripcion: ""
+            clasificacion: libros_quiero_genre[i]
         }
         console.log(new_book)
 
@@ -524,6 +542,7 @@ app.post('/newBooks', checkAuthenticated, async (req, res) => {
 app.post('/delete', checkAuthenticated, async (req, res) => {
 
     const usuario = await req.user;
+    const generos_tiene = usuario.genero_tiene;
     const shelf = req.body.shelf
     const books = req.body.delete_shelf
 
@@ -534,6 +553,41 @@ app.post('/delete', checkAuthenticated, async (req, res) => {
             if (shelf == 'quiero') {
                 await User.updateOne({ _id: usuario._id }, { $pull: { quiere_libros: { _id: book.book_id } } })
             } else {
+
+                let book_genre = []
+                let other_genres = []
+
+                usuario.tiene_libros.forEach(libro => {
+                    if(libro.id == book.book_id){
+                        
+                        book_genre = libro.clasificacion
+
+                    } else {
+
+                        libro.clasificacion.forEach(genre => {
+                            if(!other_genres.includes(genre)){
+                                other_genres.push(genre)
+                            }
+                        })
+                    }                
+                })
+
+                for(let i = 0; i < book_genre.length; i++) { //for must be this way cause of the splice
+                    if(other_genres.includes(book_genre[i])) {
+                        book_genre.splice(i, 1)
+                        i = i - 1 //the splice shifts the elements -1 index
+                    }
+                }
+
+                for(let i = 0; i < generos_tiene.length; i++) {
+                    if(book_genre.includes(generos_tiene[i])) {
+                        await usuario.genero_tiene.splice(i, 1)
+                        i = i - 1 //the splice shifts the elements -1 index
+                    }
+                }
+
+                await usuario.save()
+                
                 await User.updateOne({ _id: usuario._id }, { $pull: { tiene_libros: { _id: book.book_id } } })
             }
             console.log("Deleted")
@@ -638,11 +692,11 @@ function checkNotAuthenticated(req, res, next) {
     next()
 }
 
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
     res.render('home')
 })
 
-app.all('*', (req, res, next) =>{
+app.all('*', (req, res, next) => {
     res.send('Page not found')
 })
 

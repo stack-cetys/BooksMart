@@ -46,19 +46,19 @@ const userSchema = new mongoose.Schema({
     nombre: String,
     autor: String,
     fecha_publicacion: String,
-    clasificacion: String, 
+    clasificacion: [String], 
   }],
 
   quiere_libros: [{
     nombre: String,
     autor: String,
     fecha_publicacion: String,
-    clasificacion: String, 
+    clasificacion: [String], 
   }],
 
-  genero_quiere: [{
+  genero_tiene: [{
     type: String,
-    enum: ['Ficción', 'No Ficción', 'Misterio', 'Ciencia Ficción', 'Fantasía', 'Romance', 'Aventura', 'Terror', 'Distopía', 'Histórico', 'Biografía', 'Poesía', 'Drama', 'Comedia', 'Ensayo', 'Suspense', 'Ciencia', 'Autobiografía', 'Viajes', 'Otro'],
+    enum: ['Ficción', 'No Ficción', 'Misterio', 'Ciencia Ficción', 'Fantasía', 'Romance', 'Aventura', 'Terror', 'Distopía', 'Histórico', 'Biografía', 'Poesía', 'Drama', 'Comedia', 'Ensayo', 'Suspenso', 'Ciencia', 'Autobiografía', 'Viajes', 'Otro'],
   }],
 
   ofertas: [{

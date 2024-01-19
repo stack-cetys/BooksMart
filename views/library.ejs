@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/css/style_trade.css">
 
     <script src="https://use.fontawesome.com/3a2eaf6206.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
 
     <title>BooksMart</title>
 </head>
@@ -108,11 +110,11 @@
             </div>
 
             <div class="row align-items-center">
-                <!-- List of books you want -->
+                <!-- List of books you are adding that you want -->
                 <h2 class="text-white" style="padding-top: 1cm;">Agregar libro que quieres</h2>
                 <div id="quiere_libros">
                     <div id='newBook_q' class="input-group mb-3">
-                        <!-- Added the Bootstrap input-group class -->
+
                         <span class="input-group-text text-white" style="background-color: #24242c">Título</span>
                         <input id="name" type="text" name="quiere_libros[${bookCounterQuiero}][nombre]"
                             placeholder="Nombre del libro" class="form-control text-white"
@@ -121,50 +123,231 @@
                         <input id="autor" type="text" name="quiere_libros[${bookCounterQuiero}][autor]"
                             placeholder="Autor del libro" autocomplete="off" class="form-control text-white"
                             style="background-color: #24242c">
-                        <span class="input-group-text text-white" style="background-color: #24242c">Fecha de
+                        <span class="input-group-text text-white" style="background-color: #24242c">Año de
                             Publicación</span>
                         <input id="date" type="text" name="quiere_libros[${bookCounterQuiero}][fecha_publicacion]"
                             placeholder="Fecha de Publicación" autocomplete="off" class="form-control text-white"
                             style="background-color: #24242c">
 
-                            <select class="input-group-text text-white" style="background-color: #424247;">
-                                <option placeholder>Género</option>
-                                <option value="1">Ficción</option>
-                                <option value="2">No Ficción</option>
-                                <option value="3">Misterio</option>
-                                <option value="4">Ciencia Ficción</option>
-                                <option value="5">Fantasía</option>
-                                <option value="6">Romance</option>
-                                <option value="7">Aventura</option>
-                                <option value="8">Terror</option>
-                                <option value="9">Distopía</option>
-                                <option value="10">Histórico</option>
-                                <option value="11">Biografía</option>
-                                <option value="12">Poesía</option>
-                                <option value="13">Drama</option>
-                                <option value="14">Comedia</option>
-                                <option value="15">Ensayo</option>
-                                <option value="16">Suspense</option>
-                                <option value="17">Ciencia</option>
-                                <option value="18">Autobiografía</option>
-                                <option value="19">Viajes</option>
-                                <option value="20">Otro</option>
-                            </select>
+
+
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                data-bs-auto-close="outside" aria-expanded="false"
+                                style="background-color: rgb(31, 31, 31); border-radius: 0px; border-color: white; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Género</button>
+
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" style="min-width: 130px;">
+
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.0"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.0"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Ficción
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.1"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.1"
+                                            style="margin-left: 8px; width: 100%;">
+                                            No Ficción
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.2"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.2"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Misterio
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.3"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.3"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Ciencia Ficción
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.4"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.4"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Fantasía
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.5"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.5"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Romance
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.6"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.6"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Aventura
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.7"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.7"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Terror
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.8"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.8"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Distopía
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.9"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.9"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Histórico
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.10"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.10"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Biografía
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.11"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.11"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Poesía
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.12"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.12"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Drama
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.13"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.13"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Comedia
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.14"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.14"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Ensayo
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.15"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.15"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Suspenso
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.16"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.16"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Ciencia
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.17"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.17"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Autobiografía
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="2.18"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="2.18"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Viajes
+                                        </label>
+                                    </div>
+                                </li>
+
+
+                            </ul>
+                        </div>
+
                     </div>
 
                     <div id="c-b2">
-                        <button confirm-button style="float: right;" type="button"
+                        <button confirm-button style="float: right; border-color: white;" type="button"
                             class="confirm-button btn btn-primary" data-type="quiere_libros"
                             data-index="${bookCounterQuiero}">Confirmar</button>
                     </div>
                     <!-- This is where the dynamic input fields will be added after deleting everything inside the div-->
                 </div>
 
-                <!-- List of books you have -->
+                <!-- List of books you are adding that you have -->
                 <h2 class="text-white">Agregar libro que tienes</h2>
                 <div id="tiene_libros">
                     <div id="newBook_t" class="input-group mb-3">
-                        <!-- Added the Bootstrap input-group class -->
+
                         <span class="input-group-text text-white" style="background-color: #24242c">Título</span>
                         <input type="text" name="tiene_libros[${bookCounterTengo}][nombre]"
                             placeholder="Nombre del libro" autocomplete="off" class="form-control text-white"
@@ -172,44 +355,224 @@
                         <span class="input-group-text text-white" style="background-color: #24242c">Autor</span>
                         <input type="text" name="tiene_libros[${bookCounterTengo}][autor]" placeholder="Autor del libro"
                             autocomplete="off" class="form-control text-white" style="background-color: #24242c">
-                        <span class="input-group-text text-white" style="background-color: #24242c">Fecha de
+                        <span class="input-group-text text-white" style="background-color: #24242c">Año de
                             Publicación</span>
                         <input type="text" name="tiene_libros[${bookCounterTengo}][fecha_publicacion]"
                             placeholder="Fecha de Publicación" autocomplete="off" class="form-control text-white"
                             style="background-color: #24242c">
-                        
-                        <select class="input-group-text text-white" style="background-color: #424247;">
-                            <option placeholder>Género</option>
-                            <option value="1">Ficción</option>
-                            <option value="2">No Ficción</option>
-                            <option value="3">Misterio</option>
-                            <option value="4">Ciencia Ficción</option>
-                            <option value="5">Fantasía</option>
-                            <option value="6">Romance</option>
-                            <option value="7">Aventura</option>
-                            <option value="8">Terror</option>
-                            <option value="9">Distopía</option>
-                            <option value="10">Histórico</option>
-                            <option value="11">Biografía</option>
-                            <option value="12">Poesía</option>
-                            <option value="13">Drama</option>
-                            <option value="14">Comedia</option>
-                            <option value="15">Ensayo</option>
-                            <option value="16">Suspense</option>
-                            <option value="17">Ciencia</option>
-                            <option value="18">Autobiografía</option>
-                            <option value="19">Viajes</option>
-                            <option value="20">Otro</option>
-                        </select>
+
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                data-bs-auto-close="outside" aria-expanded="false"
+                                style="background-color: rgb(31, 31, 31); border-radius: 0px; border-color: white; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Género</button>
+
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" style="min-width: 130px;">
+
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault0"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault0"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Ficción
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault1"
+                                            style="margin-left: 8px; width: 100%;">
+                                            No Ficción
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault2"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Misterio
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault3"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Ciencia Ficción
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault4"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Fantasía
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault5"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Romance
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault6"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Aventura
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault7"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault7"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Terror
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault8"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault8"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Distopía
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault9"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault9"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Histórico
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault10"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Biografía
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault11"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Poesía
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault12"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault12"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Drama
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault13"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault13"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Comedia
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault14"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault14"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Ensayo
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault15"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault15"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Suspenso
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault16"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault16"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Ciencia
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault17"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault17"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Autobiografía
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault18"
+                                            style="margin-left: 0px;">
+                                        <label class="form-check-label" for="flexCheckDefault18"
+                                            style="margin-left: 8px; width: 100%;">
+                                            Viajes
+                                        </label>
+                                    </div>
+                                </li>
+
+
+                            </ul>
+                        </div>
+
                     </div>
+
                     <div id="c-b">
-                        <button confirm-button style="float: right;" type="button"
+                        <button confirm-button style="float: right; border-color: white;" type="button"
                             class="confirm-button btn btn-primary" data-type="tiene_libros"
                             data-index="${bookCounterTengo}">Confirmar</button>
                     </div>
                     <!-- This is where the dynamic input fields will be added after deleting everything inside the div-->
-                </div>
 
+                </div>
                 <!-- Display confirmed books -->
                 <div id="ghostDiv" class="ghost">
                     <h2 id="ghostSubT" class="ghost-text">Libros por guardar</h2>
@@ -242,7 +605,8 @@
                     </div>
 
                     <div style="float: right;">
-                        <button class="btn btn-primary" type="click" id="save_changes">Acomodar en estantes</button>
+                        <button class="btn btn-primary" type="click" id="save_changes">Acomodar en
+                            estantes</button>
                     </div>
                 </div>
             </div>
@@ -308,6 +672,8 @@
             let bookCounterTengo = 0;
             const confirmedBooksTengo = [];
             const confirmedBooksQuiero = [];
+            const confirmedBooksTengo_genre = [];
+            const confirmedBooksQuiero_genre = [];
 
             //Obtenemos los libros registrados por el usuario
             const string_q = '<%- JSON.stringify(q_libros) %>';
@@ -316,28 +682,6 @@
             const string_t = '<%- JSON.stringify(t_libros) %>';
             const tiene_libros = JSON.parse(string_t);
 
-            //To upload new books
-            document.getElementById('save_changes').addEventListener('click', async () => {
-
-                openLoading();
-
-                try {
-                    const response = await fetch('/newBooks', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            confirmedBooksTengo,
-                            confirmedBooksQuiero
-                        }),
-                    });
-                    window.location.href = '/library';
-
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            });
 
             //To delete an existing book
             const submit_delete = document.getElementById('submit-delete');
@@ -359,6 +703,7 @@
                     if (input.checked) {
                         books_checked += 1
                         const book_id = book.getAttribute('id')
+                        
 
                         delete_shelf.push({
                             book_id
@@ -433,7 +778,7 @@
                                         autocomplete="off" class="form-control text-white" style="background-color: #525252">
                                 </div>
                                 <div>
-                                    <label style="color:white;">Fecha de publicación</label>
+                                    <label style="color:white;">Año de publicación</label>
                                     <input id="year" type="text" value="${year}" name="year"
                                         placeholder="Fecha de Publicación" autocomplete="off" class="form-control text-white"
                                         style="background-color: #525252">
@@ -494,31 +839,63 @@
                 })
             })
 
-            // Event listener for confirming books
+            //To save/upload the confirmed books
+            document.getElementById('save_changes').addEventListener('click', async () => {
+
+                openLoading();
+
+                try {
+                    const response = await fetch('/newBooks', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            confirmedBooksTengo,
+                            confirmedBooksQuiero, 
+                            confirmedBooksTengo_genre, 
+                            confirmedBooksQuiero_genre
+                        }),
+                    });
+                    window.location.href = '/library';
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+
+
+            // Event listener for confirming books before saving them in the database
             document.addEventListener('click', function (event) {
                 if (event.target.classList.contains('confirm-button')) {
-                    const type = event.target.getAttribute(
-                        'data-type'
-                    ); //checar lo del type porque puede que sea lo que ocupemos para hacer botones con la misma función pero para diferentes datos
+                    const type = event.target.getAttribute('data-type');
+                    const dp_menu = event.target.parentElement.parentElement.querySelectorAll('li')
                     const index = event.target.getAttribute('data-index');
                     const bookInputs = document.querySelectorAll(
                         `[name="${type}[${index}][nombre]"], [name="${type}[${index}][autor]"], [name="${type}[${index}][fecha_publicacion]"]`
                     );
 
                     const book = {};
+                    const genres = [];
 
                     bookInputs.forEach(input => {
-                        const key = input.getAttribute('name').split('[')[2].split(']')[
-                            0]; // Adjusted index
+                        const key = input.getAttribute('name').split('[')[2].split(']')[0]; // Adjusted index
                         const value = input.value;
                         book[key] = value;
                     });
 
-                    if (book.nombre != '' & book.autor != '' & book.fecha_publicacion != '') {
+                    dp_menu.forEach(li => {
+                        if (li.querySelector('input').checked) {
+                            genres.push(li.querySelector('label').textContent.trim())
+                        }
+                    });
+
+                    if (book.nombre != '' & book.autor != '' & book.fecha_publicacion != '' & genres != []) {
 
                         if (type === 'quiere_libros') {
                             bookCounterQuiero++;
                             confirmedBooksQuiero.push(book);
+                            confirmedBooksQuiero_genre.push(genres)
 
                             const quiereLibros = document.getElementById('quiere_libros');
                             const child = document.getElementById('newBook_q')
@@ -528,43 +905,240 @@
                             quiereLibros.removeChild(cb)
 
                             const newBook = `
-                            <div id='newBook_q' class="input-group mb-3"> <!-- Added the Bootstrap input-group class -->
+                            <div id='newBook_q' class="input-group mb-3">
+
                                 <span class="input-group-text text-white" style="background-color: #24242c">Título</span>
-                                <input id="name" type="text" name="quiere_libros[${bookCounterQuiero}][nombre]" placeholder="Nombre del libro"
-                                    autocomplete="off" class="form-control text-white" style="background-color: #24242c">
+                                <input id="name" type="text" name="quiere_libros[${bookCounterQuiero}][nombre]"
+                                    placeholder="Nombre del libro" class="form-control text-white"
+                                    style="background-color: #24242c">
                                 <span class="input-group-text text-white" style="background-color: #24242c">Autor</span>
-                                <input id="autor" type="text" name="quiere_libros[${bookCounterQuiero}][autor]" placeholder="Autor del libro"
-                                    autocomplete="off" class="form-control text-white" style="background-color: #24242c">
-                                <span class="input-group-text text-white" style="background-color: #24242c">Fecha de
+                                <input id="autor" type="text" name="quiere_libros[${bookCounterQuiero}][autor]"
+                                    placeholder="Autor del libro" autocomplete="off" class="form-control text-white"
+                                    style="background-color: #24242c">
+                                <span class="input-group-text text-white" style="background-color: #24242c">Año de
                                     Publicación</span>
                                 <input id="date" type="text" name="quiere_libros[${bookCounterQuiero}][fecha_publicacion]"
                                     placeholder="Fecha de Publicación" autocomplete="off" class="form-control text-white"
                                     style="background-color: #24242c">
 
-                                <label for="inputTag" class="cam">
-                                    <i class="fa fa-2x fa-camera"></i>
-                                    <input id="inputTag" type="file" style="background-color: #24242c" />
-                                    <span id="imageName"></span>
-                                </label>
 
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
 
-                            <div id="c-b2">
-                                <button confirm-button style="float: right;" type="button" class="confirm-button btn btn-primary"
-                                    data-type="quiere_libros" data-index="${bookCounterQuiero}">Confirmar</button>
-                            </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                        data-bs-auto-close="outside" aria-expanded="false"
+                                        style="background-color: rgb(31, 31, 31); border-radius: 0px; border-color: white; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Género</button>
+
+                                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" style="min-width: 130px;">
+
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.0"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.0"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Ficción
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.1"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.1"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    No Ficción
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.2"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.2"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Misterio
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.3"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.3"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Ciencia Ficción
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.4"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.4"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Fantasía
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.5"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.5"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Romance
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.6"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.6"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Aventura
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.7"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.7"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Terror
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.8"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.8"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Distopía
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.9"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.9"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Histórico
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.10"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.10"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Biografía
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.11"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.11"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Poesía
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.12"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.12"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Drama
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.13"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.13"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Comedia
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.14"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.14"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Ensayo
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.15"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.15"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Suspenso
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.16"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.16"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Ciencia
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.17"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.17"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Autobiografía
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="2.18"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="2.18"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Viajes
+                                                </label>
+                                            </div>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+
+                                </div>
+
+                                <div id="c-b2">
+                                    <button confirm-button style="float: right; border-color: white;" type="button"
+                                        class="confirm-button btn btn-primary" data-type="quiere_libros"
+                                        data-index="${bookCounterQuiero}">Confirmar</button>
+                                </div>
                             `;
 
                             quiereLibros.insertAdjacentHTML('beforeend', newBook);
 
                         } else if (type === 'tiene_libros') {
                             confirmedBooksTengo.push(book);
+                            confirmedBooksTengo_genre.push(genres);
                             bookCounterTengo++;
                             const tieneLibros = document.getElementById('tiene_libros');
                             const child = document.getElementById('newBook_t')
@@ -574,30 +1148,230 @@
                             tieneLibros.removeChild(cb);
 
                             const newBook = `
-                            <div id="newBook_t" class="input-group mb-3"> <!-- Added the Bootstrap input-group class -->
-                                <span class="input-group-text text-white" style="background-color: #24242c">Título</span>
-                                <input type="text" name="tiene_libros[${bookCounterTengo}][nombre]" placeholder="Nombre del libro"
-                                    autocomplete="off" class="form-control text-white" style="background-color: #24242c">
-                                <span class="input-group-text text-white" style="background-color: #24242c">Autor</span>
-                                <input type="text" name="tiene_libros[${bookCounterTengo}][autor]" placeholder="Autor del libro" autocomplete="off"
-                                    class="form-control text-white" style="background-color: #24242c">
-                                <span class="input-group-text text-white" style="background-color: #24242c">Fecha de
-                                    Publicación</span>
-                                <input type="text" name="tiene_libros[${bookCounterTengo}][fecha_publicacion]" placeholder="Fecha de Publicación"
-                                    autocomplete="off" class="form-control text-white" style="background-color: #24242c">
-                                
-                                <label for="inputTag" class="cam">
-                                    <i class="fa fa-2x fa-camera"></i>
-                                    <input id="inputTag" type="file" style="background-color: #24242c" />
-                                    <span id="imageName"></span>
-                                </label> 
-                            
-                            </div>
+                            <div id="newBook_t" class="input-group mb-3">
 
-                            <div id="c-b">
-                                <button confirm-button style="float: right;" type="button" class="confirm-button btn btn-primary"
-                                    data-type="tiene_libros" data-index="${bookCounterTengo}">Confirmar</button>
-                            </div>
+                                <span class="input-group-text text-white" style="background-color: #24242c">Título</span>
+                                <input type="text" name="tiene_libros[${bookCounterTengo}][nombre]"
+                                    placeholder="Nombre del libro" autocomplete="off" class="form-control text-white"
+                                    style="background-color: #24242c">
+                                <span class="input-group-text text-white" style="background-color: #24242c">Autor</span>
+                                <input type="text" name="tiene_libros[${bookCounterTengo}][autor]" placeholder="Autor del libro"
+                                    autocomplete="off" class="form-control text-white" style="background-color: #24242c">
+                                <span class="input-group-text text-white" style="background-color: #24242c">Año de
+                                    Publicación</span>
+                                <input type="text" name="tiene_libros[${bookCounterTengo}][fecha_publicacion]"
+                                    placeholder="Fecha de Publicación" autocomplete="off" class="form-control text-white"
+                                    style="background-color: #24242c">
+
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                        data-bs-auto-close="outside" aria-expanded="false"
+                                        style="background-color: rgb(31, 31, 31); border-radius: 0px; border-color: white; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Género</button>
+
+                                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" style="min-width: 130px;">
+
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault0"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault0"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Ficción
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault1"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    No Ficción
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault2"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Misterio
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault3"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Ciencia Ficción
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault4"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Fantasía
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault5"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Romance
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault6"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Aventura
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault7"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault7"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Terror
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault8"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault8"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Distopía
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault9"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault9"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Histórico
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault10"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Biografía
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault11"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Poesía
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault12"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault12"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Drama
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault13"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault13"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Comedia
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault14"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault14"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Ensayo
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault15"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault15"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Suspenso
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault16"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault16"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Ciencia
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault17"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault17"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Autobiografía
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault18"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault18"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Viajes
+                                                </label>
+                                            </div>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+
+                                </div>
+
+                                <div id="c-b">
+                                    <button confirm-button style="float: right; border-color: white;" type="button"
+                                        class="confirm-button btn btn-primary" data-type="tiene_libros"
+                                        data-index="${bookCounterTengo}">Confirmar</button>
+                                </div>
                             
                             `;
 
@@ -748,8 +1522,8 @@
 
                     if (mod_type == 'mod-delete') {
                         const child = `
-                        <td search-book>
-                            <div id="${book._id}">
+                        <td search-book id="${book._id}">
+                            <div>
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault${i}"></input>
                                 <label search-label class="form-check-label" for="flexCheckDefault${i}" style="min-width: 93%;">
                                     ${book.nombre.replace('^', "'")} - ${book.autor.replace('^', "'")} (${book.fecha_publicacion.replace('^', "'")})
@@ -762,8 +1536,8 @@
                         searchTable.appendChild(row);
                     } else {
                         const child = `
-                        <td search-book>
-                            <div id="${book._id}">
+                        <td search-book id="${book._id}">
+                            <div>
                                 <label search-label class="container"> 
                                     ${book.nombre.replace('^', "'")} - ${book.autor.replace('^', "'")} (${book.fecha_publicacion.replace('^', "'")})
                                     <input type="radio" checked="checked" name="radio">
@@ -812,7 +1586,18 @@
                 loading.classList.remove('active')
                 //overlay.classList.remove('active')
             }
+
+
+
+            // ---------------------------
+            // ---- Genres dropdown ------
+            // ---------------------------
+
+
+
+
         </script>
+
 
 </body>
 

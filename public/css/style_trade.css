@@ -261,17 +261,6 @@ label.cam {
     z-index: 1;
 }
 
-.dropdown-content.navbar {
-    position: absolute;
-    top: 42px;
-    background-color: #131620;
-}
-
-.dropdown-content.navbar.notis {
-    top: 0px;
-    right: 60px;
-}
-
 /* Links inside the dropdown */
 .dropdown-content label {
     color: rgb(230, 230, 230);
