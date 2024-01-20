@@ -106,18 +106,39 @@
                 <% } %>
                     <% } %>
 
+                        <nav style="display: flex; flex-direction: row;">
+                            <ul class="pagination" style="width: 50%;">
+                                <%if(parseInt(page)==0) {%>
+                                    <li class="page-item disabled">
+                                        <span previous-page class="page-link">Página anterior</span>
+                                    </li>
+                                    <%} else {%>
+                                        <li class="page-item"><a previous-page class="page-link" href="">Página
+                                                anterior</a></li>
+                                        <%}%>
+                            </ul>
+                            <ul class="pagination justify-content-end" style="width: 50%;">
+                                <%if((parseInt(page)+1)*parseInt(users_per_page)>= parseInt(end)) {%>
+                                    <li class="page-item disabled">
+                                        <span next-page class="page-link">Página siguiente</span>
+                                    </li>
+                                    <%} else {%>
+                                        <li class="page-item"><a next-page class="page-link" href="">Página
+                                                siguiente</a></li>
+                                        <%}%>
+                            </ul>
+                        </nav>
+
 
                         <script>
 
-                            /*
-                            const string_q = '<- JSON.stringify(users) %>';
-                            const users = JSON.parse(string_q);
-                            console.log(users)
-                            */
+                            //Dinamical filter applying
+                            let filter = [];
 
-                            document.querySelector('[filter-button]').addEventListener('click', () => {
+                            const apply_filter = document.querySelector('[filter-button]')
+                            apply_filter.addEventListener('click', () => {
 
-                                const filter = []
+                                filter = []
 
                                 const input = document.getElementById('filterMenu').querySelectorAll('input')
                                 input.forEach(box => {
@@ -125,10 +146,6 @@
                                         filter.push(box.value)
                                     }
                                 })
-
-                                console.log(filter)
-
-
 
                                 const user_cards = document.querySelectorAll('[user-card]')
                                 user_cards.forEach(user => {
@@ -154,6 +171,33 @@
 
                                 })
                             })
+
+                            //keep filters through pagination
+                            const next = document.querySelector('[next-page]')
+                            next.addEventListener('click', () => {
+                                next.setAttribute('href', "/index?p=<%=parseInt(page)+1%>&f=" + encodeURIComponent(JSON.stringify(filter)))
+                            })
+
+                            const prev = document.querySelector('[previous-page]')
+                            prev.addEventListener('click', () => {
+                                prev.setAttribute('href', "/index?p=<%=parseInt(page)-1%>&f=" + encodeURIComponent(JSON.stringify(filter)))
+                            })
+
+                            const string_f = '<%- JSON.stringify(filtros) %>';
+                            const filtros = JSON.parse(string_f);
+
+                            filtros.forEach(filtro => {
+                                const input = document.getElementById('filterMenu').querySelectorAll('input')
+                                input.forEach(box => {
+                                    if (box.value == filtro) {
+                                        box.checked = true
+                                    }
+                                })
+
+                                apply_filter.click()
+                            })
+
+
                         </script>
 
 

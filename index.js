@@ -195,23 +195,22 @@ app.get('/logout', (req, res) => {
 // Ver todos los usuarios
 
 app.get('/index', async (req, res) => {
-    /*const filtros = req.query.generos;
-    console.log(filtros)
-    const users = await User.find({});
 
-    if (filtros){
-        const filteredUsers = users.filter(user => {
-            return user.genero_quiere.some(genero => filtros.includes(genero));
-          });
-          return res.render('index', { users: filteredUsers, generosPopulares });
-    }
+    //pagination logic
+    const page = req.query.p || 0
+    const users_per_page = 3 //change to 10 or 20 before final upload to github
 
-    else{
-        
-        return res.render('index', { users, generosPopulares })
-    }*/
-    const users = await User.find({});
-    return res.render('index', { users, generosPopulares })
+    const users = await User.find().skip(page * users_per_page).limit(users_per_page)
+    const end = (await User.find()).length
+
+    //keep filters through pagination
+    const f = req.query.f || '[]';
+    const filtros = JSON.parse(f)
+
+    //render
+    return res.render('index', { users, generosPopulares, page, users_per_page, end, filtros })
+
+
 
 })
 
@@ -558,36 +557,36 @@ app.post('/delete', checkAuthenticated, async (req, res) => {
                 let other_genres = []
 
                 usuario.tiene_libros.forEach(libro => {
-                    if(libro.id == book.book_id){
-                        
+                    if (libro.id == book.book_id) {
+
                         book_genre = libro.clasificacion
 
                     } else {
 
                         libro.clasificacion.forEach(genre => {
-                            if(!other_genres.includes(genre)){
+                            if (!other_genres.includes(genre)) {
                                 other_genres.push(genre)
                             }
                         })
-                    }                
+                    }
                 })
 
-                for(let i = 0; i < book_genre.length; i++) { //for must be this way cause of the splice
-                    if(other_genres.includes(book_genre[i])) {
+                for (let i = 0; i < book_genre.length; i++) { //for must be this way cause of the splice
+                    if (other_genres.includes(book_genre[i])) {
                         book_genre.splice(i, 1)
                         i = i - 1 //the splice shifts the elements -1 index
                     }
                 }
 
-                for(let i = 0; i < generos_tiene.length; i++) {
-                    if(book_genre.includes(generos_tiene[i])) {
+                for (let i = 0; i < generos_tiene.length; i++) {
+                    if (book_genre.includes(generos_tiene[i])) {
                         await usuario.genero_tiene.splice(i, 1)
                         i = i - 1 //the splice shifts the elements -1 index
                     }
                 }
 
                 await usuario.save()
-                
+
                 await User.updateOne({ _id: usuario._id }, { $pull: { tiene_libros: { _id: book.book_id } } })
             }
             console.log("Deleted")
