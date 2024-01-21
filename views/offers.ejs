@@ -17,6 +17,7 @@
                         <th scope="col">Fecha</th>
                         <th scope="col">Tipo</th>
                         <th scope="col">Usuario</th>
+                        <th scope="col">Correo</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Detalles</th>
                     </tr>
@@ -29,9 +30,22 @@
                         </td>
                         <td><%= uniqueOffers[i].ofertaId.receptor._id.toString() === user._id.toString() ? uniqueOffers[i].ofertaId.enviador.username : uniqueOffers[i].ofertaId.receptor.username %>
                         </td>
+                        <td>
+                            <% if (uniqueOffers[i].ofertaId.estado === 'aceptado') { %>
+                            <%= uniqueOffers[i].ofertaId.receptor.email %>
+                            <% } else{%>
+                            No disponible
+                            <% } %>
+                        </td>
                         <td><%= uniqueOffers[i].ofertaId.estado %></td>
-                        <td><a href="/index/<%= user.username %>/offers/<%= uniqueOffers[i].ofertaId._id %>"
-                                class="btn btn-secondary">Ver más detalles</a></td>
+                        <td>
+                            <% if (uniqueOffers[i].ofertaId.estado === 'aceptado' || uniqueOffers[i].ofertaId.estado === 'rechazado') { %>
+                            Oferta finalizada
+                            <% } else { %>
+                            <a href="/index/<%= user.username %>/offers/<%= uniqueOffers[i].ofertaId._id %>"
+                                class="btn btn-secondary">Ver más detalles</a>
+                            <% } %>
+                        </td>
                     </tr>
                     <% } %>
                 </tbody>

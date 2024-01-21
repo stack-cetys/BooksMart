@@ -225,9 +225,10 @@ async function verificarOfertaExistente(idUsuarioActual, idOtroUsuario) {
         ]
     });
 
-    // Verificar si existe alguna oferta con el otro usuario
+    // Verificar si existe alguna oferta con el otro usuario y estado pendiente o nuevo
     for (const oferta of ofertasUsuarioActual) {
-        if (oferta.enviador.equals(idOtroUsuario) || oferta.receptor.equals(idOtroUsuario)) {
+        if ((oferta.enviador.equals(idOtroUsuario) || oferta.receptor.equals(idOtroUsuario)) &&
+            (oferta.estado === 'pendiente' || oferta.estado === 'nuevo')) {
             return { existe: true, esReceptor: oferta.receptor.equals(idUsuarioActual) };
         }
     }
