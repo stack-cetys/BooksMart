@@ -1,74 +1,118 @@
 <% layout('layouts/boilerplate2') %>
 
-<div class="card my-3 p-3">
-    <div class="row">
-        <div class="col-md-3">
-            <h2 class="card-title mt-3"><%= isReceptor ? offer.enviador.username : offer.receptor.username %></h2>
-        </div>
-    </div>
-</div>
+    <div class="retainer">
 
-<div class="card my-3 p-3">
-    <div class="row">
-        <div class="col-md-4">
-            <h6>Libros que tiene:</h6>
-            <ul>
-                <% for (let i = 0; i < (isReceptor ? offer.enviador.tiene_libros : offer.receptor.tiene_libros).length; i++) { %>
-                <li><%= (isReceptor ? offer.enviador.tiene_libros[i].nombre : offer.receptor.tiene_libros[i].nombre) %>
-                </li>
-                <% } %>
-            </ul>
+        <div style="width: 80%;">
+            <a href="/index/<%=currentUser.username%>/offers" class="btn btn-primary" style="float: left;">Regresar</a>
         </div>
-        <div class="col-md-4">
-            <h6>Libros que quiere:</h6>
-            <ul>
-                <% for (let i = 0; i < (isReceptor ? offer.enviador.quiere_libros : offer.receptor.quiere_libros).length; i++) { %>
-                <li><%= (isReceptor ? offer.enviador.quiere_libros[i].nombre : offer.receptor.quiere_libros[i].nombre) %>
-                </li>
-                <% } %>
-            </ul>
-        </div>
-        <div class="col-md-4">
-            <h6>Generos que tiene:</h6>
-            <ul>
-                <% for (let i = 0; i < (isReceptor ? offer.enviador.genero_tiene : offer.receptor.genero_tiene).length; i++) { %>
-                <li><%= (isReceptor ? offer.enviador.genero_tiene[i] : offer.receptor.genero_tiene[i]) %></li>
-                <% } %>
-            </ul>
-        </div>
-    </div>
-</div>
 
-<% if (isReceptor) { %>
-<div class="card my-3 p-3">
-    <div class="row">
-        <div class="col-md-12">
-            <p><strong>Mensaje:</strong> <%= offer.texto %></p>
-            <form action="/index/accept/<%= offer._id %>" method="POST" class="d-inline">
-                <button type="submit" class="btn btn-primary">Aceptar</button>
-            </form>
-            <form action="/index/reject/<%= offer._id %>" method="POST" class="d-inline">
-                <button type="submit" class="btn btn-primary">Rechazar</button>
-            </form>
-        </div>
-    </div>
-</div>
-<% } else { %>
-<div class="card my-3 p-3">
-    <div class="row">
-        <div class="col-md-3">
-            <h2 class="card-title mt-3">Mensaje:</h2>
-            <form action="/index/<%= offer.receptor.username %>/offers/<%= offer._id %>?_method=PUT" method="POST">
-                <input type="hidden" name="_method" value="PUT">
+        <div class="card my-3 p-3 p-card">
 
-                <div class="mb-3">
-                    <textarea class="form-control" name="texto" id="FormControlTextarea1" rows="3"
-                        placeholder=""><%= offer.texto %></textarea>
+            <div class="row" style="justify-content: center; text-align: center;">
+                <div class="col-md-3" style="width: fit-content;">
+                    <h2 class="card-title mt-3">
+                        <%= isReceptor ? offer.enviador.username : offer.receptor.username %>
+                    </h2>
                 </div>
-                <button type="submit" class="btn btn-primary">Actualizar mensaje</button>
-            </form>
+            </div>
+
+            <hr style="padding: 1px; background-color: black; opacity: 1;">
+
+            <div class="row" style="justify-content: space-around;">
+                <div class="col-md-3">
+                    <div style="justify-content: center; text-align: center ;">
+                        <h6>Libros que tiene</h6>
+                    </div>
+                    <hr>
+                    <ul>
+                        <% for (let i=0; i < (isReceptor ? offer.enviador.tiene_libros :
+                            offer.receptor.tiene_libros).length; i++) { %>
+                            <li>
+                                <%= (isReceptor ? offer.enviador.tiene_libros[i].nombre :
+                                    offer.receptor.tiene_libros[i].nombre) %>
+                            </li>
+                            <% } %>
+                    </ul>
+                </div>
+
+                <div class="vr" style="padding: 1px; background-color: black; opacity: 1;"></div>
+
+                <div class="col-md-3">
+                    <div style="justify-content: center; text-align: center ;">
+                        <h6>Libros que quiere</h6>
+                    </div>
+                    <hr>
+                    <ul>
+                        <% for (let i=0; i < (isReceptor ? offer.enviador.quiere_libros :
+                            offer.receptor.quiere_libros).length; i++) { %>
+                            <li>
+                                <%= (isReceptor ? offer.enviador.quiere_libros[i].nombre :
+                                    offer.receptor.quiere_libros[i].nombre) %>
+                            </li>
+                            <% } %>
+                    </ul>
+                </div>
+
+                <div class="vr" style="padding: 1px; background-color: black; opacity: 1;"></div>
+
+                <div class="col-md-3">
+                    <div style="justify-content: center; text-align: center ;">
+                        <h6>Generos que tiene</h6>
+                    </div>
+                    <hr>
+                    <ul>
+                        <% for (let i=0; i < (isReceptor ? offer.enviador.genero_tiene :
+                            offer.receptor.genero_tiene).length; i++) { %>
+                            <li>
+                                <%= (isReceptor ? offer.enviador.genero_tiene[i] : offer.receptor.genero_tiene[i]) %>
+                            </li>
+                            <% } %>
+                    </ul>
+                </div>
+            </div>
         </div>
+
+        <% if (isReceptor) { %>
+            <div class="card my-3 p-3 message">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div style="justify-content: center; text-align: center ;">
+                            <strong>Mensaje de oferta</strong>
+                        </div>
+                        <hr style="margin-top: 5px;">
+                        <div style="margin-bottom: 30px;">                        
+                            <%= offer.texto %>
+                        </div>
+
+
+                        <form action="/index/accept/<%= offer._id %>" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-primary" style="color: #FFEFCA;">Aceptar</button>
+                        </form>
+                        <form action="/index/reject/<%= offer._id %>" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-primary"
+                                style="color: #FFEFCA; float: right;">Rechazar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <% } else { %>
+                <div class="card my-3 p-3">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h2 class="card-title mt-3">Mensaje:</h2>
+                            <form action="/index/<%= offer.receptor.username %>/offers/<%= offer._id %>?_method=PUT"
+                                method="POST">
+                                <input type="hidden" name="_method" value="PUT">
+
+                                <div class="mb-3">
+                                    <textarea class="form-control" name="texto" id="FormControlTextarea1" rows="3"
+                                        placeholder=""><%= offer.texto %></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Actualizar mensaje</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
     </div>
-</div>
-<% } %>
-<a href="/index/<%=currentUser.username%>/offers" class="btn btn-primary">Regresar</a>

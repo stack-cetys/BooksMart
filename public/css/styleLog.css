@@ -1,11 +1,12 @@
 body {
-    height: 100vh;
+    width: 100%;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://images.unsplash.com/photo-1503428593586-e225b39bddfe?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    url("https://images.unsplash.com/photo-1472173148041-00294f0814a2?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
-    background-position: top;
+    background-position: center;
     text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
     box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+    font-family: 'Lato', sans-serif;
 }
 
 #rrQuote {
@@ -25,20 +26,35 @@ body {
 }
 
 .btn-primary {
-    background-color: #FFB45F;
-    color: #131620;
-    font-weight: bold;
+    background-color: #6F6242;
+    color: #FFEFCA;
+    border-color: black;
 }
 
 .btn-secondary {
-    background-color: #131620;
+    background-color: #170000;
+}
+
+.btn-third {
+    background-color: #170000;
+    position: absolute;
+    margin-left: 88%;
+    margin-top: 18px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: whitesmoke;
+    border-color: #170000;
+}
+
+.btn-third:hover {
+    background-color: #170000b6;
+    color: whitesmoke;
 }
 
 .btn-primary:hover {
-    background-color: #FFD587;
-    /* New background color on hover */
-    color: #131620;
-    /* Keeping the same text color */
+    background-color: #938564;
+    color: #FFEFCA;
+    border-color: black;
 }
 
 .btn-secondary:hover {
@@ -71,6 +87,11 @@ body {
 
 .card-body {
     color: #cfcfcf;
+    font-size: 25px;
+    /* Change to your desired color */
+}
+.card-body-filtros {
+    margin-left: 15px;
     /* Change to your desired color */
 }
 
@@ -89,4 +110,38 @@ body {
 
 .hide {
     display: none;
+}
+
+.retainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.retainer th, .retainer td, .retainer tr {
+    background-color: #938564;
+    color: #FFEFCA;
+    border-color: black;
+    border-style: dashed;
+    text-align: center;
+}
+
+.p-card {
+    border-style: outset;
+    border-radius: 20px;
+    border-color: #170000;
+    border-width: medium;
+    width: 80%;
+    background-color: #B9AA87;
+    color: #170000;
+}
+
+.message {
+    border-style: groove;
+    border-radius: 20px;
+    border-color: #832600;
+    border-width: thick;
+    background-color: #B9AA87;
+    color: #170000;
+    width: fit-content;
 }

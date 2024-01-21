@@ -1,57 +1,75 @@
 <% layout('layouts/boilerplate2') %>
 
-<div class="card my-3 p-3">
-    <div class="row">
-        <div class="col">
-            <h2 class="card-title mt-3"> Ofertas de <%= user.username %></h2>
+    <div class="retainer">
+
+        <div class="card my-3 p-3 p-card">
+
+            <div class="row" style="justify-content: center; text-align: center;">
+                <div class="col-md-3" style="width: fit-content;">
+                    <h2 class="card-title mt-3">
+                        Tus ofertas
+                    </h2>
+                </div>
+            </div>
+
+            <hr style="padding: 1px; background-color: black; opacity: 1;">
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table" >
+                        <thead>
+                            <tr>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Usuario</th>
+                                <th scope="col">Contacto</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Detalles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (let i= (uniqueOffers.length - 1); i > 0 ; i--) { %>
+                                <tr>
+                                    <td>
+                                        <%= formatDate(uniqueOffers[i].ofertaId.fechaCreacion) %>
+                                    </td>
+                                    <td>
+                                        <%= uniqueOffers[i].ofertaId.receptor._id.toString()===user._id.toString()
+                                            ? 'Recibida' : 'Enviada' %>
+                                    </td>
+                                    <td>
+                                        <%= uniqueOffers[i].ofertaId.receptor._id.toString()===user._id.toString() ?
+                                            uniqueOffers[i].ofertaId.enviador.username :
+                                            uniqueOffers[i].ofertaId.receptor.username %>
+                                    </td>
+                                    <td>
+                                        <% if (uniqueOffers[i].ofertaId.estado==='aceptado' ) { %>
+                                            <%= uniqueOffers[i].ofertaId.receptor.email %>
+                                                <% } else{%>
+                                                    No disponible
+                                                    <% } %>
+                                    </td>
+                                    <td>
+                                        <%= uniqueOffers[i].ofertaId.estado %>
+                                    </td>
+                                    <td>
+                                        <% if (uniqueOffers[i].ofertaId.estado==='aceptado' ||
+                                            uniqueOffers[i].ofertaId.estado==='rechazado' ) { %>
+                                            Oferta finalizada
+                                            <% } else { %>
+                                                <a href="/index/<%= user.username %>/offers/<%= uniqueOffers[i].ofertaId._id %>"
+                                                    class="btn btn-secondary">Ver detalles</a>
+                                                <% } %>
+                                    </td>
+                                </tr>
+                                <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="card my-3 p-3">
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Detalles</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (let i = 0; i < uniqueOffers.length; i++) { %>
-                    <tr>
-                        <td><%= formatDate(uniqueOffers[i].ofertaId.fechaCreacion) %></td>
-                        <td><%= uniqueOffers[i].ofertaId.receptor._id.toString() === user._id.toString() ? 'Recibida' : 'Enviada' %>
-                        </td>
-                        <td><%= uniqueOffers[i].ofertaId.receptor._id.toString() === user._id.toString() ? uniqueOffers[i].ofertaId.enviador.username : uniqueOffers[i].ofertaId.receptor.username %>
-                        </td>
-                        <td>
-                            <% if (uniqueOffers[i].ofertaId.estado === 'aceptado') { %>
-                            <%= uniqueOffers[i].ofertaId.receptor.email %>
-                            <% } else{%>
-                            No disponible
-                            <% } %>
-                        </td>
-                        <td><%= uniqueOffers[i].ofertaId.estado %></td>
-                        <td>
-                            <% if (uniqueOffers[i].ofertaId.estado === 'aceptado' || uniqueOffers[i].ofertaId.estado === 'rechazado') { %>
-                            Oferta finalizada
-                            <% } else { %>
-                            <a href="/index/<%= user.username %>/offers/<%= uniqueOffers[i].ofertaId._id %>"
-                                class="btn btn-secondary">Ver más detalles</a>
-                            <% } %>
-                        </td>
-                    </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 
-<% function formatDate(date) { return new Date(date).toLocaleDateString(); } %>
+    <% function formatDate(date) { return new Date(date).toLocaleDateString(); } %>

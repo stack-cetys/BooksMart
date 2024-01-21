@@ -13,8 +13,6 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const flash = require('express-flash');
 const session = require('express-session');
-const initializePassport = require('./passport-config');
-initializePassport(passport);
 
 
 const mongoose = require('mongoose');
@@ -22,10 +20,6 @@ const mongoose = require('mongoose');
 //models
 const { User, Offer } = require('./models/users');
 
-
-// Middleware
-const { isLoggedIn } = require('./middleware.js')
-// isLoggedIn es lo mismo que checkAuthenticated
 
 // Mongo connection
 
@@ -146,12 +140,6 @@ app.get('/', (req, res) => {
     register_message = 'nan';
 })
 
-//-----FAQ page-----
-app.get('/faq', (req, res) => {
-    res.render('faq', { message: 'none' })
-})
-
-
 //----Logs in-----
 app.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/' }), async (req, res) => {
     res.redirect('/library')
@@ -194,7 +182,7 @@ app.get('/logout', (req, res) => {
 
 // Ver todos los usuarios
 
-app.get('/index', async (req, res) => {
+app.get('/index', checkAuthenticated, async (req, res) => {
 
     //pagination logic
     const page = req.query.p || 0
@@ -275,21 +263,7 @@ app.post('/index/:username/offers', async (req, res) => {
         }
 
 
-        // Paso 3: Verificar si ya existe una oferta entre ambos usuarios
-        const ofertaExistente = await Offer.findOne({
-            $or: [
-                { enviador: usuarioA._id, receptor: usuarioB._id },
-                { enviador: usuarioB._id, receptor: usuarioA._id }
-            ]
-        });
-
-        if (ofertaExistente) {
-            // Ya existe una oferta entre ambos
-            return res.status(400).send('Ya se ha enviado una oferta a este usuario');
-        }
-
-
-        // Paso 4: Crear nueva oferta
+        // Paso 3: Crear nueva oferta
         const nuevaOferta = new Offer({
             estado: 'nuevo',
             texto: req.body.texto,
@@ -298,11 +272,11 @@ app.post('/index/:username/offers', async (req, res) => {
         });
 
 
-        // Paso 5: Guardar la oferta en la base de datos
+        // Paso 4: Guardar la oferta en la base de datos
         await nuevaOferta.save();
 
 
-        // Paso 6: Agregar nueva tupla a Oferta recibida [B]
+        // Paso 5: Agregar nueva tupla a Oferta recibida [B]
         const ofertaRecibidaB = {
             ofertaId: nuevaOferta._id,
             esReceptor: true,
@@ -316,7 +290,7 @@ app.post('/index/:username/offers', async (req, res) => {
         await usuarioB.save();
 
 
-        // Paso 7: Agregar nueva tupla a Oferta enviada [A]
+        // Paso 6: Agregar nueva tupla a Oferta enviada [A]
         const ofertaEnviadaA = {
             ofertaId: nuevaOferta._id,
             esReceptor: false,
@@ -475,7 +449,7 @@ app.put('/index/:username/offers/:idOffer', async (req, res) => {
 });
 
 //-----------LIBRARY PAGE------------------    
-app.get('/library', isLoggedIn, checkAuthenticated, async (req, res) => {
+app.get('/library', checkAuthenticated, async (req, res) => {
     const usuario = await req.user
     const q_libros = usuario.quiere_libros
     const t_libros = usuario.tiene_libros
@@ -490,8 +464,6 @@ app.post('/newBooks', checkAuthenticated, async (req, res) => {
     const generos_tiene = usuario.genero_tiene;
     const libros_quiero = req.body.confirmedBooksQuiero; // Array of books user wants
     const libros_tengo = req.body.confirmedBooksTengo; // Array of books user has
-    const libros_quiero_genre = req.body.confirmedBooksQuiero_genre;
-    const libros_tengo_genre = req.body.confirmedBooksTengo_genre;
 
 
     for (const i in libros_tengo) {
@@ -501,12 +473,12 @@ app.post('/newBooks', checkAuthenticated, async (req, res) => {
             nombre: book.nombre.replace("'", "^"),
             autor: book.autor.replace("'", "^"),
             fecha_publicacion: book.fecha_publicacion.replace("'", "^"),
-            clasificacion: libros_tengo_genre[i]
+            clasificacion: book.clasificacion
         }
 
         if (generos_tiene.length < 20) { //para que solo actualice si aún no tiene todos los géneros
 
-            libros_tengo_genre[i].forEach(async genero => {
+            book.clasificacion.forEach(async genero => {
 
                 if (!generos_tiene.includes(genero)) {
 
@@ -528,7 +500,7 @@ app.post('/newBooks', checkAuthenticated, async (req, res) => {
             nombre: book.nombre.replace("'", "^"),
             autor: book.autor.replace("'", "^"),
             fecha_publicacion: book.fecha_publicacion.replace("'", "^"),
-            clasificacion: libros_quiero_genre[i]
+            clasificacion: book.clasificacion
         }
         console.log(new_book)
 

@@ -2,203 +2,236 @@
 
 <body>
     <% layout('layouts/boilerplate2') %>
+        <div class="retainer">
+            <div class="container mt-3" style="width: 80%;">
+                <!-- Botón para mostrar/ocultar el menú de filtros -->
+                <p class="d-inline-flex">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filterMenu"
+                        aria-expanded="false" aria-controls="filterMenu">
+                        Filtros
+                    </button>
+                </p>
 
-        <div class="container mt-3">
-            <!-- Botón para mostrar/ocultar el menú de filtros -->
-            <p class="d-inline-flex gap-1">
-                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filterMenu"
-                    aria-expanded="false" aria-controls="filterMenu">
-                    Filtros
-                </button>
-            </p>
+                <!-- Menú de filtros  -->
+                <div class="collapse retainer" id="filterMenu" style="width: 100%;">
+                    <div class="card p-card" style="width: 100%;">
 
-            <!-- Menú de filtros  -->
-            <div class="collapse" id="filterMenu">
-                <div class="card card-body bg-white">
-
-                    <h4 style="color: black; text-align: center;">Filtrar por Género</h4>
-                    <br>
-                    <div class="row" style="color: rgb(2, 0, 103);">
-                        <% for (let genero of generosPopulares) { %>
-                            <div class="col-2 mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="generos" value="<%= genero %>"
-                                        id="checkbox<%= genero %>">
-                                    <label class="form-check-label" for="checkbox<%= genero %>">
-                                        <%= genero %>
-                                    </label>
+                        <h4 style="color: black; text-align: center; margin-top: 15px;">Filtrar por Género</h4>
+                        <br>
+                        <div class="row" style="color: black;">
+                            <% for (let genero of generosPopulares) { %>
+                                <div class="col-2 mb-3">
+                                    <div class="form-check" style="margin-left: 10px;">
+                                        <input class="form-check-input" type="checkbox" name="generos"
+                                            value="<%= genero %>" id="checkbox<%= genero %>">
+                                        <label class="form-check-label" for="checkbox<%= genero %>">
+                                            <%= genero %>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <% } %>
-                    </div>
-                    <button filter-button type="click" class="btn btn-primary mt-3">Aplicar</button>
+                                <% } %>
+                        </div>
+                        <button filter-button type="click" class="btn btn-primary mt-3">Aplicar</button>
 
+                    </div>
                 </div>
             </div>
+
+
+
+            <% for (let user of users) { %>
+                <!-- Revisamos primero que el usuario ofrezca algun libro -->
+                <% if (user.tiene_libros.length> 0 & user.username != currentUser.username) { %>
+
+                    <div user-card class="card my-3 p-3 p-card">
+
+
+                        <a href="/index/<%=user.username %>" class="btn btn-third">Ver
+                            más</a>
+
+
+                        <div class="row" style="justify-content: center; text-align: center;">
+                            <div class="col-md-3" style="width: fit-content;">
+                                <h2 class="card-title mt-3">
+                                    <%=user.username %>
+                                </h2>
+                            </div>
+                        </div>
+
+                        <hr style="padding: 1px; background-color: black; opacity: 1;">
+
+                        <div class="row" style="justify-content: space-around;">
+                            <div class="col-md-3">
+                                <!-- Mostrar hasta 5 libros que tiene -->
+                                <div style="justify-content: center; text-align: center ;">
+                                    <h6>Libros que tiene</h6>
+                                </div>
+                                <hr>
+                                <ul>
+                                    <% for (let i=0; i < Math.min(5, user.tiene_libros.length); i++) { %>
+                                        <li>
+                                            <%= user.tiene_libros[i].nombre %>
+                                        </li>
+                                        <% } %>
+
+                                            <!-- Si tiene n libros mas de 5, se muestra n+ libros-->
+                                            <% if (user.tiene_libros.length> 5) { %>
+                                                <li style="color: rgb(178, 2, 2);">(+<%= user.tiene_libros.length - 5 %>
+                                                        libros)</li>
+                                                <% } %>
+
+                                </ul>
+                            </div>
+
+                            <div class="vr" style="padding: 1px; background-color: black; opacity: 1;"></div>
+
+                            <div class="col-md-3">
+                                <!-- Mostrar hasta 5 libros que quiere -->
+                                <div style="justify-content: center; text-align: center ;">
+                                    <h6>Libros que quiere</h6>
+                                </div>
+                                <hr>
+                                <ul>
+                                    <% for (let i=0; i < Math.min(5, user.quiere_libros.length); i++) { %>
+                                        <li>
+                                            <%= user.quiere_libros[i].nombre %>
+                                        </li>
+                                        <% } %>
+
+                                            <% if (user.quiere_libros.length> 5) { %>
+                                                <li style="color: rgb(178, 2, 2);">(+<%= user.quiere_libros.length - 5
+                                                        %> libros)</li>
+                                                <% } %>
+
+                                </ul>
+                            </div>
+
+                            <div class="vr" style="padding: 1px; background-color: black; opacity: 1;"></div>
+
+                            <div class="col-md-3">
+                                <!-- Mostrar hasta 5 libros que quiere -->
+                                <div style="justify-content: center; text-align: center ;">
+                                    <h6>Generos que tiene</h6>
+                                </div>
+                                <hr>
+                                <ul>
+                                    <% for (let i=0; i < Math.min(5, user.genero_tiene.length); i++) { %>
+                                        <li genero>
+                                            <%= user.genero_tiene[i] %>
+                                        </li>
+                                        <% } %>
+
+                                            <% if (user.genero_tiene.length> 5) { %>
+                                                <li style="color: rgb(178, 2, 2);">(+<%= user.genero_tiene.length - 5 %>
+                                                        géneros)</li>
+                                                <% } %>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                        <% } %>
+
+                            <nav style="display: flex; flex-direction: row; width: 80%;">
+                                <ul class="pagination" style="width: 50%;">
+                                    <%if(parseInt(page)==0) {%>
+                                        <li class="page-item disabled">
+                                            <span previous-page class="page-link"
+                                                style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.286);">Página
+                                                anterior</span>
+                                        </li>
+                                        <%} else {%>
+                                            <li class="page-item"><a previous-page class="page-link"
+                                                    style="border-radius: 20px; color: black; background-color: #FFEFCA;" href="">Página
+                                                    anterior</a></li>
+                                            <%}%>
+                                </ul>
+                                <ul class="pagination justify-content-end" style="width: 50%;">
+                                    <%if((parseInt(page)+1)*parseInt(users_per_page)>= parseInt(end)) {%>
+                                        <li class="page-item disabled">
+                                            <span next-page class="page-link"
+                                                style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.286);">Página
+                                                siguiente</span>
+                                        </li>
+                                        <%} else {%>
+                                            <li class="page-item"><a next-page class="page-link"
+                                                    style="border-radius: 20px; color: black; background-color: #FFEFCA;" href="">Página
+                                                    siguiente</a></li>
+                                            <%}%>
+                                </ul>
+                            </nav>
         </div>
 
+        <script>
+
+            //Dinamical filter applying
+            let filter = [];
+
+            const apply_filter = document.querySelector('[filter-button]')
+            apply_filter.addEventListener('click', () => {
+
+                filter = []
+
+                const input = document.getElementById('filterMenu').querySelectorAll('input')
+                input.forEach(box => {
+                    if (box.checked) {
+                        filter.push(box.value)
+                    }
+                })
+
+                const user_cards = document.querySelectorAll('[user-card]')
+                user_cards.forEach(user => {
+
+                    if (filter.length > 0) {
+                        const g = user.querySelectorAll('[genero]')
+                        let counter = 0
+                        g.forEach(o => {
+                            let genero = o.textContent.trim()
+                            if (filter.includes(genero)) {
+                                counter += 1
+                            }
+                        })
+
+                        if (counter == 0) {
+                            user.classList.add('hide')
+                        } else {
+                            user.classList.remove('hide')
+                        }
+                    } else {
+                        user.classList.remove('hide')
+                    }
+
+                })
+            })
+
+            //keep filters through pagination
+            const next = document.querySelector('[next-page]')
+            next.addEventListener('click', () => {
+                next.setAttribute('href', "/index?p=<%=parseInt(page)+1%>&f=" + encodeURIComponent(JSON.stringify(filter)))
+            })
+
+            const prev = document.querySelector('[previous-page]')
+            prev.addEventListener('click', () => {
+                prev.setAttribute('href', "/index?p=<%=parseInt(page)-1%>&f=" + encodeURIComponent(JSON.stringify(filter)))
+            })
+
+            const string_f = '<%- JSON.stringify(filtros) %>';
+            const filtros = JSON.parse(string_f);
+
+            filtros.forEach(filtro => {
+                const input = document.getElementById('filterMenu').querySelectorAll('input')
+                input.forEach(box => {
+                    if (box.value == filtro) {
+                        box.checked = true
+                    }
+                })
+
+                apply_filter.click()
+            })
 
 
-        <% for (let user of users) { %>
-            <!-- Revisamos primero que el usuario ofrezca algun libro -->
-            <% if (user.tiene_libros.length > 0 & user.username != currentUser.username) { %>
-                <div user-card class="card my-3 p-3">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h2 class="card-title mt-3">
-                                <%=user.username %>
-                            </h2>
-                            <a href="/index/<%=user.username %>" class="btn btn-primary">View Details</a>
-
-                        </div>
-                        <div class="col-md-3">
-                            <!-- Mostrar hasta 5 libros que tiene -->
-                            <h6>Libros que tiene:</h6>
-                            <ul>
-                                <% for (let i=0; i < Math.min(5, user.tiene_libros.length); i++) { %>
-                                    <li>
-                                        <%= user.tiene_libros[i].nombre %>
-                                    </li>
-                                    <% } %>
-
-                                        <!-- Si tiene n libros mas de 5, se muestra n+ libros-->
-                                        <% if (user.tiene_libros.length> 5) { %>
-                                            <li>(<%= user.tiene_libros.length - 5 %>+ libros)</li>
-                                            <% } %>
-
-                            </ul>
-                        </div>
-                        <div class="col-md-3">
-                            <!-- Mostrar hasta 5 libros que quiere -->
-                            <h6>Libros que quiere:</h6>
-                            <ul>
-                                <% for (let i=0; i < Math.min(5, user.quiere_libros.length); i++) { %>
-                                    <li>
-                                        <%= user.quiere_libros[i].nombre %>
-                                    </li>
-                                    <% } %>
-
-                                        <% if (user.quiere_libros.length> 5) { %>
-                                            <li>(<%= user.quiere_libros.length - 5 %>+ libros)</li>
-                                            <% } %>
-
-                            </ul>
-                        </div>
-                        <div class="col-md-3">
-                            <!-- Mostrar hasta 5 libros que quiere -->
-                            <h6>Generos que tiene:</h6>
-                            <ul>
-                                <% for (let i=0; i < Math.min(5, user.genero_tiene.length); i++) { %>
-                                    <li genero>
-                                        <%= user.genero_tiene[i] %>
-                                    </li>
-                                    <% } %>
-
-                                        <% if (user.genero_tiene.length> 5) { %>
-                                            <li>(<%= user.genero_tiene.length - 5 %>+ generos)</li>
-                                            <% } %>
-
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-                <% } %>
-                    <% } %>
-
-                        <nav style="display: flex; flex-direction: row;">
-                            <ul class="pagination" style="width: 50%;">
-                                <%if(parseInt(page)==0) {%>
-                                    <li class="page-item disabled">
-                                        <span previous-page class="page-link">Página anterior</span>
-                                    </li>
-                                    <%} else {%>
-                                        <li class="page-item"><a previous-page class="page-link" href="">Página
-                                                anterior</a></li>
-                                        <%}%>
-                            </ul>
-                            <ul class="pagination justify-content-end" style="width: 50%;">
-                                <%if((parseInt(page)+1)*parseInt(users_per_page)>= parseInt(end)) {%>
-                                    <li class="page-item disabled">
-                                        <span next-page class="page-link">Página siguiente</span>
-                                    </li>
-                                    <%} else {%>
-                                        <li class="page-item"><a next-page class="page-link" href="">Página
-                                                siguiente</a></li>
-                                        <%}%>
-                            </ul>
-                        </nav>
-
-
-                        <script>
-
-                            //Dinamical filter applying
-                            let filter = [];
-
-                            const apply_filter = document.querySelector('[filter-button]')
-                            apply_filter.addEventListener('click', () => {
-
-                                filter = []
-
-                                const input = document.getElementById('filterMenu').querySelectorAll('input')
-                                input.forEach(box => {
-                                    if (box.checked) {
-                                        filter.push(box.value)
-                                    }
-                                })
-
-                                const user_cards = document.querySelectorAll('[user-card]')
-                                user_cards.forEach(user => {
-
-                                    if (filter.length > 0) {
-                                        const g = user.querySelectorAll('[genero]')
-                                        let counter = 0
-                                        g.forEach(o => {
-                                            let genero = o.textContent.trim()
-                                            if (filter.includes(genero)) {
-                                                counter += 1
-                                            }
-                                        })
-
-                                        if (counter == 0) {
-                                            user.classList.add('hide')
-                                        } else {
-                                            user.classList.remove('hide')
-                                        }
-                                    } else {
-                                        user.classList.remove('hide')
-                                    }
-
-                                })
-                            })
-
-                            //keep filters through pagination
-                            const next = document.querySelector('[next-page]')
-                            next.addEventListener('click', () => {
-                                next.setAttribute('href', "/index?p=<%=parseInt(page)+1%>&f=" + encodeURIComponent(JSON.stringify(filter)))
-                            })
-
-                            const prev = document.querySelector('[previous-page]')
-                            prev.addEventListener('click', () => {
-                                prev.setAttribute('href', "/index?p=<%=parseInt(page)-1%>&f=" + encodeURIComponent(JSON.stringify(filter)))
-                            })
-
-                            const string_f = '<%- JSON.stringify(filtros) %>';
-                            const filtros = JSON.parse(string_f);
-
-                            filtros.forEach(filtro => {
-                                const input = document.getElementById('filterMenu').querySelectorAll('input')
-                                input.forEach(box => {
-                                    if (box.value == filtro) {
-                                        box.checked = true
-                                    }
-                                })
-
-                                apply_filter.click()
-                            })
-
-
-                        </script>
+        </script>
 
 
 </body>

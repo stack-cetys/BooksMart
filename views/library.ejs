@@ -10,7 +10,6 @@
     <script src="https://use.fontawesome.com/3a2eaf6206.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-
     <title>BooksMart</title>
 </head>
 
@@ -136,7 +135,8 @@
                                 data-bs-auto-close="outside" aria-expanded="false"
                                 style="background-color: rgb(31, 31, 31); border-radius: 0px; border-color: white; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Género</button>
 
-                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end scrollable-content" style="width: 175px;">
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end scrollable-content"
+                                style="width: 175px;">
 
                                 <li>
                                     <div class="form-check dropdown-item">
@@ -376,7 +376,8 @@
                                 data-bs-auto-close="outside" aria-expanded="false"
                                 style="background-color: rgb(31, 31, 31); border-radius: 0px; border-color: white; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Género</button>
 
-                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" style="min-width: 130px;">
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end scrollable-content"
+                                style="width: 175px;">
 
                                 <li>
                                     <div class="form-check dropdown-item">
@@ -690,8 +691,6 @@
             let bookCounterTengo = 0;
             const confirmedBooksTengo = [];
             const confirmedBooksQuiero = [];
-            const confirmedBooksTengo_genre = [];
-            const confirmedBooksQuiero_genre = [];
 
             //Obtenemos los libros registrados por el usuario
             const string_q = '<%- JSON.stringify(q_libros) %>';
@@ -713,7 +712,6 @@
 
                 const shelf = mod_body.querySelector("[label_id]").getAttribute('delete')
 
-
                 books.forEach(book => {
                     const label = book.querySelector("[search-label]")
                     const input = book.querySelector("input")
@@ -721,7 +719,7 @@
                     if (input.checked) {
                         books_checked += 1
                         const book_id = book.getAttribute('id')
-                        
+
 
                         delete_shelf.push({
                             book_id
@@ -870,8 +868,8 @@
                         },
                         body: JSON.stringify({
                             confirmedBooksTengo,
-                            confirmedBooksQuiero, 
-                            confirmedBooksTengo_genre, 
+                            confirmedBooksQuiero,
+                            confirmedBooksTengo_genre,
                             confirmedBooksQuiero_genre
                         }),
                     });
@@ -908,12 +906,14 @@
                         }
                     });
 
+                    book['clasificacion'] = genres
+
+
                     if (book.nombre != '' & book.autor != '' & book.fecha_publicacion != '' & genres.length > 0) {
 
                         if (type === 'quiere_libros') {
                             bookCounterQuiero++;
                             confirmedBooksQuiero.push(book);
-                            confirmedBooksQuiero_genre.push(genres)
 
                             const quiereLibros = document.getElementById('quiere_libros');
                             const child = document.getElementById('newBook_q')
@@ -946,7 +946,8 @@
                                         data-bs-auto-close="outside" aria-expanded="false"
                                         style="background-color: rgb(31, 31, 31); border-radius: 0px; border-color: white; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Género</button>
 
-                                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" style="min-width: 130px;">
+                                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end scrollable-content" style="width: 175px;">
+
 
                                         <li>
                                             <div class="form-check dropdown-item">
@@ -1164,7 +1165,6 @@
 
                         } else if (type === 'tiene_libros') {
                             confirmedBooksTengo.push(book);
-                            confirmedBooksTengo_genre.push(genres);
                             bookCounterTengo++;
                             const tieneLibros = document.getElementById('tiene_libros');
                             const child = document.getElementById('newBook_t')
@@ -1194,7 +1194,7 @@
                                         data-bs-auto-close="outside" aria-expanded="false"
                                         style="background-color: rgb(31, 31, 31); border-radius: 0px; border-color: white; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Género</button>
 
-                                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" style="min-width: 130px;">
+                                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end scrollable-content" style="width: 175px;">
 
                                         <li>
                                             <div class="form-check dropdown-item">
@@ -1386,6 +1386,16 @@
                                                 </label>
                                             </div>
                                         </li>
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault19"
+                                                    style="margin-left: 0px;">
+                                                <label class="form-check-label" for="flexCheckDefault19"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Otro
+                                                </label>
+                                            </div>
+                                        </li>
 
 
                                     </ul>
@@ -1429,13 +1439,24 @@
             //Mostramos estantes
             function showShelf(shelf, table) {
                 shelf.forEach(book => {
+                    
                     const row = document.createElement('tr');
                     const td = document.createElement('td');
 
-                    td.textContent =
-                        `${book.nombre.replace('^', "'")} - ${book.autor.replace('^', "'")} (${book.fecha_publicacion.replace('^', "'")})`;
+                    td.innerHTML = `
+
+                        ${book.nombre.replace('^', "'")} - ${book.autor.replace('^', "'")} (${book.fecha_publicacion.replace('^', "'")})
+
+                        <div class="dropdown">
+                            <i class="fa fa-solid fa-ellipsis" style="color: whitesmoke; font-size: 10px; margin-right: 4px"></i>
+                            <button class="dropbtn"></button>
+                            <div class="dropdown-content genres">
+                                <span>${book.clasificacion}</span>
+                            </div>
+                        </div>`;
 
                     row.appendChild(td);
+                    //row.insertAdjacentHTML('beforeend', generos)
                     table.appendChild(row);
                 })
             }
