@@ -250,6 +250,7 @@ app.get('/index/:username', async (req, res) => {
         const { existe, esReceptor } = await verificarOfertaExistente(currentUser._id, otherUser._id);
 
         return res.render('details', { user: currentUser, otherUser, ofertaExistente: existe, esReceptor });
+        
     } catch (error) {
         console.error('Error al buscar el usuario:', error);
         req.flash('error', 'Hubo un error al buscar el usuario.');

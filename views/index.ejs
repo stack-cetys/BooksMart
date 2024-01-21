@@ -41,7 +41,7 @@
 
         <% for (let user of users) { %>
             <!-- Revisamos primero que el usuario ofrezca algun libro -->
-            <% if (user.tiene_libros.length) { %>
+            <% if (user.tiene_libros.length > 0 & user.username != currentUser.username) { %>
                 <div user-card class="card my-3 p-3">
                     <div class="row">
                         <div class="col-md-3">

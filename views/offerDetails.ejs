@@ -29,10 +29,10 @@
             </ul>
         </div>
         <div class="col-md-4">
-            <h6>Generos que busca:</h6>
+            <h6>Generos que tiene:</h6>
             <ul>
-                <% for (let i = 0; i < (isReceptor ? offer.enviador.genero_quiere : offer.receptor.genero_quiere).length; i++) { %>
-                <li><%= (isReceptor ? offer.enviador.genero_quiere[i] : offer.receptor.genero_quiere[i]) %></li>
+                <% for (let i = 0; i < (isReceptor ? offer.enviador.genero_tiene : offer.receptor.genero_tiene).length; i++) { %>
+                <li><%= (isReceptor ? offer.enviador.genero_tiene[i] : offer.receptor.genero_tiene[i]) %></li>
                 <% } %>
             </ul>
         </div>
@@ -71,4 +71,4 @@
     </div>
 </div>
 <% } %>
-<a href="/index" class="btn btn-primary">Regresar</a>
+<a href="/index/<%=currentUser.username%>/offers" class="btn btn-primary">Regresar</a>
