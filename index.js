@@ -17,6 +17,8 @@ const session = require('express-session');
 
 const mongoose = require('mongoose');
 
+const crypto = require('crypto'); //for forgot password token
+
 //models
 const { User, Offer } = require('./models/users');
 
@@ -35,6 +37,11 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
     console.log("Database connected");
 });
+
+//Emailjs setup
+const service_id = process.env.service_id;
+const template_id = process.env.template_id;
+const nit = process.env.nit;
 
 //Engine setup
 
@@ -145,6 +152,75 @@ app.post('/login', passport.authenticate('local', { failureFlash: true, failureR
     res.redirect('/library')
 })
 
+//-----Forgot password-----
+app.get('/forgot_password', (req, res) => {
+    res.render('forgot_password')
+})
+
+app.post('/forgot_password_info', async (req, res) => {
+
+    const email = req.body.email
+
+    const user = await User.findOne({ email: email })
+
+    if (!user) {
+        return res.json({ success: false, message: 'No se encontró ningún usuario con este correo' });
+    }
+
+    //token único para cambio de contraseña
+    const token = crypto.randomBytes(20).toString('hex');
+
+    user.resetP_token = token; //lo guardamos
+    user.resetP_expire = Date.now() + 900000; //lo hacemos válido por 15 minutos
+
+    await user.save()
+
+    const params = {
+        to: email,
+        url: 'localhost:4000/reset_password/' + token
+    }
+
+    res.json({ succes: true, message: { service_id, template_id, nit, params } })
+})
+
+app.post('/forgot_password', async (req, res) => {
+    const email = req.body.email;
+    const user = await User.findOne({email: email})
+
+    if(user) {
+        res.render('send_email', {email, username: user.username})
+    } else {
+        res.render('send_email', {email, username: user})
+    }
+})
+
+app.get('/reset_password/:token', async (req, res) => {
+
+    const t = req.params.token
+    const user = await User.findOne({ resetP_token: t })
+
+    if (!user) { return res.json({ succes: false, message: "token inválido" }) }
+
+    if (Date.parse(user.resetP_expire) > Date.now()) {
+        console.log("Dentro de la hora")
+        res.render('reset_password', {t})
+    } else {
+        console.log("Este enlace expiró")
+        res.render('reset_password', {t: 0})
+    }
+})
+
+app.post('/reset_password/:t', async (req, res) => {
+    const t = req.params.t
+    const user = await User.findOne({ resetP_token: t })
+    const new_password = req.body.password
+
+    await user.setPassword(new_password) //cambiar a la contraseña que da el usuario
+    await user.save()
+
+    res.redirect('/')
+})
+
 //----Register new user-----
 app.post('/register', async (req, res) => {
 
@@ -239,7 +315,7 @@ app.get('/index/:username', async (req, res) => {
         const { existe, esReceptor } = await verificarOfertaExistente(currentUser._id, otherUser._id);
 
         return res.render('details', { user: currentUser, otherUser, ofertaExistente: existe, esReceptor });
-        
+
     } catch (error) {
         console.error('Error al buscar el usuario:', error);
         req.flash('error', 'Hubo un error al buscar el usuario.');

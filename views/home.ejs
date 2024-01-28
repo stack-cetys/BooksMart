@@ -150,7 +150,7 @@
 
                     <div>
                         <i class="fa fa-lock" aria-hidden="true" style="top: 139px; left: 28px; font-size: 22px;"></i>
-                        <i hide-pw class="fa fa-eye" aria-hidden="true"
+                        <i hide-pw class="fa fa-eye-slash" aria-hidden="true"
                             style="top: 138px; left: 299px; font-size: 22px;"></i>
                         <input class="home-input" type="password" id="password" name="password" placeholder="Contraseña"
                             required>
@@ -162,7 +162,8 @@
                             <% } %>
                     </div>
 
-                    <a style="font-size: small; text-align: right;" href="#">¿Olvidaste tu contraseña?</a>
+                    <a style="font-size: small; text-align: right;" href="#"
+                        data-mod-target="#mod-forgot-password">¿Olvidaste tu contraseña?</a>
 
                     <div style="margin-top: 5%;">
                         <button class="btn btn-primary form-control m-0" type="submit">Iniciar
@@ -206,7 +207,7 @@
                     </div>
                     <div>
                         <i class="fa fa-lock" aria-hidden="true" style="top: 193px; left: 28px; font-size: 22px;"></i>
-                        <i hide-pw class="fa fa-eye" aria-hidden="true"
+                        <i hide-pw class="fa fa-eye-slash" aria-hidden="true"
                             style="top: 193px; left: 299px; font-size: 22px;"></i>
                         <input class="home-input" type="password" id="password" name="password" placeholder="Contraseña"
                             required>
@@ -232,6 +233,39 @@
                 <button class="btn btn-primary form-control m-0" style="text-align: center;"
                     data-mod-target="#mod-login">Inicia sesión</button>
             </div>
+        </div>
+    </div>
+
+    <div class="mod" id="mod-forgot-password">
+        <div class="mod-header" style="display: flex; flex-direction: row; justify-content: space-between;">
+            <i class="fa fa-arrow-left close-button" data-mod-target="#mod-login" style="padding-left: 0; float: left;"></i>
+            <div class="title" style="margin-left: 5px;">Cambiar contraseña</div>
+            <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="mod-body" mod-body style="max-height: 500px; margin-top: 10px;">
+            <div>
+                <form action="/forgot_password" method="POST" class="forgot-form">
+                    <label for="email" style="float: left; font-size: 18px; margin-top: 10px;">Ingresa tu correo electrónico para buscar
+                        tu cuenta:</label>
+                    <br>
+                    <input type="text" id="email" name="email" required>
+                    <br>
+                    <!--<button type="submit" style="float: right;">Buscar</button>-->
+                    <hr class="rounded">
+
+                    <div class="navbar-nav ml-auto" style="margin-bottom: 10px;">
+                        <button class="btn btn-primary form-control m-0" style="text-align: center;" type="submit">Buscar</button>
+                    </div>
+                </form>
+            </div>
+            <!--<br>
+
+            <hr class="rounded">
+
+            <div class="navbar-nav ml-auto">
+                <button class="btn btn-primary form-control m-0" style="text-align: center;"
+                    data-mod-target="#mod-login">Buscar</button>
+            </div> -->
         </div>
     </div>
 
@@ -271,11 +305,11 @@
                 if (pw.classList.contains('fa-eye')) {
                     pw.classList.remove('fa-eye')
                     pw.classList.add('fa-eye-slash')
-                    pwi.type = 'text'
+                    pwi.type = 'password'
                 } else {
                     pw.classList.remove('fa-eye-slash')
                     pw.classList.add('fa-eye')
-                    pwi.type = 'password'
+                    pwi.type = 'text'
                 }
             })
         })

@@ -72,10 +72,20 @@ const userSchema = new mongoose.Schema({
       required: true,
     }
   }],
+  
   notificaciones_ofertas: {
     type: Number,
     default: false,
   },
+
+  resetP_token: {
+    type: String,
+    default: false
+  },
+  resetP_expire: {
+    type: Date, 
+    default: Date.now()
+  }
 });
 
 

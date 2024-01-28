@@ -99,3 +99,10 @@ body {
 .page-btn:hover {
     background-color: rgba(245, 245, 245, 0.3);
 }
+
+.forgot-form input {
+    width: 100%; 
+    margin-top: 5px; 
+    font-size: 20px;
+    border-radius: 5px;
+}

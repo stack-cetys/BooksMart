@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://use.fontawesome.com/3a2eaf6206.js"></script>
+
+    <link rel="stylesheet" href="/css/styleMail.css" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="p-card">
+            <div class="header">
+                <a class="fa fa-arrow-left close-button" href="/home"></a>
+                <h1 style="margin-bottom: 0%; margin-right: 235px;">Reestablecer contraseña</h1>
+            </div>
+            <hr style="width: 100%;">
+            <div>
+                <%if(username) { %>
+                    <p>Se encontró al usuario <i style="color: rebeccapurple;"><%=username%></i> asociado al correo electrónico <i style="color: rebeccapurple;"><%=email%></i>,
+                    si es usted haga click en 'Enviar' y le llegará por correo el enlace para reestablecer su contraseña.</p>
+                    <div style="width: 100%;">
+                        <button id="send_email" type="click" style="text-align: center;" class="btn-primary">Enviar</button>
+                    </div>
+                <%} else {%>
+                    <p>No se ha encontrado ningún usuario asociado al correo electrónico <%=email%>.
+                    Regrese a la página de inicio e inténtelo de nuevo.</p>
+                <%}%>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    const e = '<%- JSON.stringify(email)%>';
+    const email = JSON.parse(e);
+
+    async function sendEmail() {
+        try {
+
+            const response = await fetch('/forgot_password_info', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email })
+            })
+
+            const serverData = await response.json();
+
+            emailjs.init(serverData.message.nit)
+
+            emailjs.send(serverData.message.service_id, serverData.message.template_id, serverData.message.params)
+                .then(res => {
+                    const result = window.confirm("¡El correo se ha enviado correctamente!\nRevisa tanto tu bandeja de entrada como el correo no deseado/spam.")
+
+                    if(result || !result){
+                        window.location.href = '/home';
+                    }
+                })
+                .catch(res => {
+                    alert("!Ocurrió un error al mandar el correo!\nVuelva a intentarlo")
+                })
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    document.getElementById('send_email').addEventListener('click', () => {
+        sendEmail()
+    })
+</script>
+
+</html>
