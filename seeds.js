@@ -152,9 +152,9 @@ const booksData = [
 
 const generosPopulares = [
   'Ficción',
-  'No-Ficción',
+  'No_Ficción',
   'Misterio',
-  'Ciencia-Ficción',
+  'Ciencia_Ficción',
   'Fantasía',
   'Romance',
   'Aventura',
