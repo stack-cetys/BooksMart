@@ -1,75 +1,122 @@
 <% layout('layouts/boilerplate2') %>
 
-    <div class="retainer">
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-        <div class="card my-3 p-3 p-card">
+    </head>
 
-            <div class="row" style="justify-content: center; text-align: center;">
-                <div class="col-md-3" style="width: fit-content;">
-                    <h2 class="card-title mt-3">
-                        Tus ofertas
-                    </h2>
+    <body>
+        <div class="retainer">
+
+            <div class="card my-3 p-3 p-card">
+
+                <div class="row" style="justify-content: center; text-align: center;">
+                    <div class="col-md-3" style="width: fit-content;">
+                        <h2 class="card-title mt-3">
+                            Tus ofertas
+                        </h2>
+                    </div>
                 </div>
-            </div>
 
-            <hr style="padding: 1px; background-color: black; opacity: 1;">
+                <hr style="padding: 1px; background-color: black; opacity: 1;">
 
 
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table" >
-                        <thead>
-                            <tr>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">Usuario</th>
-                                <th scope="col">Contacto</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Detalles</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% for (let i= (uniqueOffers.length - 1); i > 0 ; i--) { %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <%= formatDate(uniqueOffers[i].ofertaId.fechaCreacion) %>
-                                    </td>
-                                    <td>
-                                        <%= uniqueOffers[i].ofertaId.receptor._id.toString()===user._id.toString()
-                                            ? 'Recibida' : 'Enviada' %>
-                                    </td>
-                                    <td>
-                                        <%= uniqueOffers[i].ofertaId.receptor._id.toString()===user._id.toString() ?
-                                            uniqueOffers[i].ofertaId.enviador.username :
-                                            uniqueOffers[i].ofertaId.receptor.username %>
-                                    </td>
-                                    <td>
-                                        <% if (uniqueOffers[i].ofertaId.estado==='aceptado' ) { %>
-                                            <%= uniqueOffers[i].ofertaId.receptor.email %>
-                                                <% } else{%>
-                                                    No disponible
-                                                    <% } %>
-                                    </td>
-                                    <td>
-                                        <%= uniqueOffers[i].ofertaId.estado %>
-                                    </td>
-                                    <td>
-                                        <% if (uniqueOffers[i].ofertaId.estado==='aceptado' ||
-                                            uniqueOffers[i].ofertaId.estado==='rechazado' ) { %>
-                                            Oferta finalizada
-                                            <% } else { %>
-                                                <a href="/index/<%= user.username %>/offers/<%= uniqueOffers[i].ofertaId._id %>"
-                                                    class="btn btn-secondary">Ver detalles</a>
-                                                <% } %>
-                                    </td>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Contacto</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Detalles</th>
                                 </tr>
-                                <% } %>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <% for (let i=(uniqueOffers.length - 1); i>= 0 ; i--) { %>
+                                    <tr>
+                                        <td>
+                                            <%= formatDate(uniqueOffers[i].ofertaId.fechaCreacion) %>
+                                        </td>
+                                        <td>
+                                            <%= uniqueOffers[i].ofertaId.receptor._id.toString()===user._id.toString()
+                                                ? 'Recibida' : 'Enviada' %>
+                                        </td>
+                                        <td>
+                                            <%= uniqueOffers[i].ofertaId.receptor._id.toString()===user._id.toString() ?
+                                                uniqueOffers[i].ofertaId.enviador.username :
+                                                uniqueOffers[i].ofertaId.receptor.username %>
+                                        </td>
+                                        <td>
+                                            <% if (uniqueOffers[i].ofertaId.estado==='aceptado' ) { %>
+
+                                                <%if(uniqueOffers[i].ofertaId.receptor._id.toString()===user._id.toString())
+                                                    {%>
+                                                    <div class="dropdown-container">
+                                                        <div class="dropdown">
+                                                            <i class="fa fa-address-card"></i>
+                                                            <button class="dropbtn"></button>
+                                                            <div class="dropdown-content">
+                                                                <%for (let contacto of
+                                                                    uniqueOffers[i].ofertaId.enviador.contactos) {%>
+                                                                    <label>
+                                                                        <%=contacto.tipo%>: <%=contacto.valor%>
+                                                                    </label>
+                                                                    <%}%>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <%} else {%>
+
+                                                        <div class="dropdown-container">
+                                                            <div class="dropdown">
+                                                                <i class="fa fa-address-card"></i>
+                                                                <button class="dropbtn"></button>
+                                                                <div class="dropdown-content">
+                                                                    <%for (let contacto of
+                                                                        uniqueOffers[i].ofertaId.receptor.contactos) {%>
+                                                                        <label>
+                                                                            <%=contacto.tipo%>: <%=contacto.valor%>
+                                                                        </label>
+                                                                        <%}%>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <%}%>
+
+                                                            <% } else{%>
+                                                                No disponible
+                                                                <% } %>
+                                        </td>
+                                        <td>
+                                            <%= uniqueOffers[i].ofertaId.estado %>
+                                        </td>
+                                        <td>
+                                            <% if (uniqueOffers[i].ofertaId.estado==='aceptado' ||
+                                                uniqueOffers[i].ofertaId.estado==='rechazado' ) { %>
+                                                Oferta finalizada
+                                                <% } else { %>
+                                                    <a href="/index/<%= user.username %>/offers/<%= uniqueOffers[i].ofertaId._id %>"
+                                                        class="btn btn-secondary">Ver detalles</a>
+                                                    <% } %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <% function formatDate(date) { return new Date(date).toLocaleDateString(); } %>
+        <% function formatDate(date) { return new Date(date).toLocaleDateString(); } %>
+    </body>

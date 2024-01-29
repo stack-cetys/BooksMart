@@ -58,7 +58,7 @@ const userSchema = new mongoose.Schema({
 
   genero_tiene: [{
     type: String,
-    enum: ['Ficción', 'No Ficción', 'Misterio', 'Ciencia Ficción', 'Fantasía', 'Romance', 'Aventura', 'Terror', 'Distopía', 'Histórico', 'Biografía', 'Poesía', 'Drama', 'Comedia', 'Ensayo', 'Suspenso', 'Ciencia', 'Autobiografía', 'Viajes', 'Otro'],
+    enum: ['Ficción', 'No_Ficción', 'Misterio', 'Ciencia_Ficción', 'Fantasía', 'Romance', 'Aventura', 'Terror', 'Distopía', 'Histórico', 'Biografía', 'Poesía', 'Drama', 'Comedia', 'Ensayo', 'Suspenso', 'Ciencia', 'Autobiografía', 'Viajes', 'Otro'],
   }],
 
   ofertas: [{

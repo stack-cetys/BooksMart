@@ -6,11 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="/css/style_trade.css">
-
-    <script src="https://use.fontawesome.com/3a2eaf6206.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-    <title>BooksMart</title>
 </head>
 
 <body>
@@ -79,25 +75,6 @@
                 </div>
             </div>
 
-            <!-- 'Config' modal "definition" starts here-->
-            <div class="mod" id="mod-config">
-                <div class="mod-header">
-                    <div class="title">Configuración</div>
-                    <button data-close-button class="close-button">&times;</button>
-                </div>
-                <div class="mod-body" mod-body>
-                    <div>
-                        <button id="edit-name" type="click" class="btn btn-primary">Cambiar nombre</button>
-                    </div>
-                    <div>
-                        <button id="edit-email" type="click" class="btn btn-primary">Cambiar correo</button>
-                    </div>
-                    <div>
-                        <button id="edit-password" type="click" class="btn btn-primary">Cambiar contraseña</button>
-                    </div>
-                </div>
-            </div>
-
             <div id="overlay"></div>
             <!-- Modal "Definition" ends-->
 
@@ -154,7 +131,7 @@
                                             style="margin-left: 0px;">
                                         <label class="form-check-label" for="2.1"
                                             style="margin-left: 8px; width: 100%;">
-                                            No Ficción
+                                            No_Ficción
                                         </label>
                                     </div>
                                 </li>
@@ -174,7 +151,7 @@
                                             style="margin-left: 0px;">
                                         <label class="form-check-label" for="2.3"
                                             style="margin-left: 8px; width: 100%;">
-                                            Ciencia Ficción
+                                            Ciencia_Ficción
                                         </label>
                                     </div>
                                 </li>
@@ -395,7 +372,7 @@
                                             style="margin-left: 0px;">
                                         <label class="form-check-label" for="flexCheckDefault1"
                                             style="margin-left: 8px; width: 100%;">
-                                            No Ficción
+                                            No_Ficción
                                         </label>
                                     </div>
                                 </li>
@@ -415,7 +392,7 @@
                                             style="margin-left: 0px;">
                                         <label class="form-check-label" for="flexCheckDefault3"
                                             style="margin-left: 8px; width: 100%;">
-                                            Ciencia Ficción
+                                            Ciencia_Ficción
                                         </label>
                                     </div>
                                 </li>
@@ -869,8 +846,6 @@
                         body: JSON.stringify({
                             confirmedBooksTengo,
                             confirmedBooksQuiero,
-                            confirmedBooksTengo_genre,
-                            confirmedBooksQuiero_genre
                         }),
                     });
                     window.location.href = '/library';
@@ -965,7 +940,7 @@
                                                     style="margin-left: 0px;">
                                                 <label class="form-check-label" for="2.1"
                                                     style="margin-left: 8px; width: 100%;">
-                                                    No Ficción
+                                                    No_Ficción
                                                 </label>
                                             </div>
                                         </li>
@@ -985,7 +960,7 @@
                                                     style="margin-left: 0px;">
                                                 <label class="form-check-label" for="2.3"
                                                     style="margin-left: 8px; width: 100%;">
-                                                    Ciencia Ficción
+                                                    Ciencia_Ficción
                                                 </label>
                                             </div>
                                         </li>
@@ -1212,7 +1187,7 @@
                                                     style="margin-left: 0px;">
                                                 <label class="form-check-label" for="flexCheckDefault1"
                                                     style="margin-left: 8px; width: 100%;">
-                                                    No Ficción
+                                                    No_Ficción
                                                 </label>
                                             </div>
                                         </li>
@@ -1232,7 +1207,7 @@
                                                     style="margin-left: 0px;">
                                                 <label class="form-check-label" for="flexCheckDefault3"
                                                     style="margin-left: 8px; width: 100%;">
-                                                    Ciencia Ficción
+                                                    Ciencia_Ficción
                                                 </label>
                                             </div>
                                         </li>
@@ -1633,16 +1608,6 @@
                 loading.classList.remove('active')
                 //overlay.classList.remove('active')
             }
-
-
-
-            // ---------------------------
-            // ---- Genres dropdown ------
-            // ---------------------------
-
-
-
-
         </script>
 
 

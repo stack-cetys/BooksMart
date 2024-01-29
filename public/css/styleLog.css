@@ -145,3 +145,61 @@ body {
     color: #170000;
     width: fit-content;
 }
+
+
+
+
+
+/* Dropdown Button */
+.dropbtn {
+    display: none;
+}
+
+.dropdown {
+    width: fit-content;
+}
+
+.dropdown-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: -60px;
+    bottom: 28px;
+    background-color: #303030;
+    width: fit-content;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content label {
+    color: rgb(230, 230, 230);
+    padding: 10px 10px;
+    font-size: 13px;
+    text-decoration: none;
+    display: block;
+    background-color: #303030;
+    border-style: solid;
+    border-width: thin;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content label:hover {
+    background-color: #030303;
+    cursor: pointer;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-menu {
+    overflow-x: hidden;
+}

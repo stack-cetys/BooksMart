@@ -81,7 +81,7 @@
                             <strong>Mensaje de oferta</strong>
                         </div>
                         <hr style="margin-top: 5px;">
-                        <div style="margin-bottom: 30px;">                        
+                        <div style="margin-bottom: 30px;">
                             <%= offer.texto %>
                         </div>
 
@@ -97,17 +97,24 @@
                 </div>
             </div>
             <% } else { %>
-                <div class="card my-3 p-3">
+                <div class="card my-3 p-3 message">
                     <div class="row">
-                        <div class="col-md-3">
-                            <h2 class="card-title mt-3">Mensaje:</h2>
+                        <div class="col-md-12">
+
+                            <div style="justify-content: center; text-align: center ;">
+                                <strong>Mensaje de oferta</strong>
+                            </div>
+
+                            <hr style="margin-top: 5px;">
+
+
                             <form action="/index/<%= offer.receptor.username %>/offers/<%= offer._id %>?_method=PUT"
                                 method="POST">
                                 <input type="hidden" name="_method" value="PUT">
 
                                 <div class="mb-3">
                                     <textarea class="form-control" name="texto" id="FormControlTextarea1" rows="3"
-                                        placeholder=""><%= offer.texto %></textarea>
+                                        placeholder="¡Woops! Este espacio no debería estar vacío." style="border-color: black; background-color: #FFEFCA;"><%= offer.texto %></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Actualizar mensaje</button>
                             </form>

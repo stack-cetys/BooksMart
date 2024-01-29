@@ -114,9 +114,9 @@ app.use((req, res, next) => {
 
 const generosPopulares = [
     'Ficción',
-    'No Ficción',
+    'No_Ficción',
     'Misterio',
-    'Ciencia Ficción',
+    'Ciencia_Ficción',
     'Fantasía',
     'Romance',
     'Aventura',
@@ -142,7 +142,7 @@ app.get('/home', checkNotAuthenticated, (req, res) => {
 })
 
 register_message = 'nan'; //necessary to manage register error
-app.get('/', (req, res) => {
+app.get('/', checkNotAuthenticated, (req, res) => {
     res.render('home', { err: register_message })
     register_message = 'nan';
 })
@@ -180,17 +180,17 @@ app.post('/forgot_password_info', async (req, res) => {
         url: 'localhost:4000/reset_password/' + token
     }
 
-    res.json({ succes: true, message: { service_id, template_id, nit, params } })
+    res.json({ success: true, message: { service_id, template_id, nit, params } })
 })
 
 app.post('/forgot_password', async (req, res) => {
     const email = req.body.email;
-    const user = await User.findOne({email: email})
+    const user = await User.findOne({ email: email })
 
-    if(user) {
-        res.render('send_email', {email, username: user.username})
+    if (user) {
+        res.render('send_email', { email, username: user.username })
     } else {
-        res.render('send_email', {email, username: user})
+        res.render('send_email', { email, username: user })
     }
 })
 
@@ -203,10 +203,10 @@ app.get('/reset_password/:token', async (req, res) => {
 
     if (Date.parse(user.resetP_expire) > Date.now()) {
         console.log("Dentro de la hora")
-        res.render('reset_password', {t})
+        res.render('reset_password', { t })
     } else {
         console.log("Este enlace expiró")
-        res.render('reset_password', {t: 0})
+        res.render('reset_password', { t: 0 })
     }
 })
 
@@ -230,6 +230,9 @@ app.post('/register', async (req, res) => {
         const registeredUser = await User.register(user, password)
         console.log(registeredUser);
 
+        await user.contactos.push({tipo: 'Correo electrónico', valor: email})
+        await user.save()
+
         // We login a user after they register
 
         req.login(registeredUser, err => {
@@ -240,7 +243,6 @@ app.post('/register', async (req, res) => {
     } catch (e) {
         res.render('home', { err: e });
         register_message = 'error';
-        console.log(e)
     }
 
 })
@@ -699,25 +701,84 @@ app.post('/updateBook', checkAuthenticated, async (req, res) => {
     res.redirect('/library')
 })
 
+//----------Get configuration page-----------
+app.get('/configuration', checkAuthenticated, async (req, res) => {
+    res.render('configuracion')
+})
+
+
 //---------Update configuration--------------
-app.post('/updateConfiguration', checkAuthenticated, async (req, res) => {
-    const usuario = await req.user
-    const input_name = ''
-    const input_email = ''
-    const input_password = ''
+app.post('/updateConfiguration', async (req, res) => {
+    const user = req.user
+    const input_username = req.body.username
+    const input_email = req.body.email
+    const old_password = req.body.old_p
+    const new_password = req.body.new_p
 
+    console.log(input_username, input_email, old_password, new_password)
 
-    const updateFields = {
-        $set: {
-            name: input_name,
-            email: input_email,
-            password: input_password
+    try {
+        if (old_password != '' && new_password != '') {
+            await user.changePassword(old_password, new_password)
+            await user.save()
         }
+
+        const updateFields = {
+            $set: {
+                username: input_username,
+                email: input_email
+            }
+        }
+
+        await User.updateOne({ _id: user._id }, updateFields)
+        //const u = await User.findOne({_id: user._id})
+        //console.log(u)
+
+        res.json({ message: 'success' })
+
+    } catch (e) {
+        res.json({ message: e })
     }
+})
 
-    await User.updateOne({ _id: usuario._id }, updateFields)
+//---Add new contact---
 
-    res.redirect('/library')
+app.post('/new_contact', checkAuthenticated, async (req, res) => {
+
+    try {
+        const user = req.user
+        const tipo = req.body.tipo
+        const info = req.body.contacto
+
+        const contacto = {
+            tipo: tipo,
+            valor: info
+        }
+
+        user.contactos.push(contacto)
+        user.save()
+
+        res.json({ success: true })
+
+    } catch (e) {
+        res.json({ success: false })
+    }
+})
+
+app.patch('/delete_contact', checkAuthenticated, async (req, res) => {
+
+    try {
+        const user = req.user
+        const index = req.body.index
+
+        await user.contactos.splice(index, 1);
+        await user.save();
+
+        res.json({success: true})
+
+    } catch (e) {
+        res.json({success: false})
+    }
 })
 
 
@@ -740,10 +801,6 @@ function checkNotAuthenticated(req, res, next) {
 
     next()
 }
-
-app.get('/', (req, res) => {
-    res.render('home')
-})
 
 app.all('*', (req, res, next) => {
     res.send('Page not found')

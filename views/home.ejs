@@ -166,7 +166,7 @@
                         data-mod-target="#mod-forgot-password">¿Olvidaste tu contraseña?</a>
 
                     <div style="margin-top: 5%;">
-                        <button class="btn btn-primary form-control m-0" type="submit">Iniciar
+                        <button class="btn btn-primary form-control m-0" style="border-color: white;" type="submit">Iniciar
                             sesión</button>
                     </div>
                 </div>
@@ -178,7 +178,7 @@
             <div class="navbar-nav ml-auto">
                 <label style="color:aliceblue; text-align: center; margin-bottom: 10px;">¿No tienes una
                     cuenta?</label>
-                <button id="registrarse" class="btn btn-primary form-control m-0" style="text-align: center;"
+                <button id="registrarse" class="btn btn-primary form-control m-0" style="text-align: center; border-color: white;"
                     data-mod-target="#mod-register">Registrate</button>
             </div>
         </div>
@@ -197,7 +197,7 @@
                 <div class="login-mod">
                     <div>
                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                        <input class="home-input" type="text" id="name" name="name" placeholder="Nombre de usuario"
+                        <input class="home-input" type="text" id="username" name="username" placeholder="Nombre de usuario"
                             required>
                     </div>
                     <div>
@@ -219,7 +219,7 @@
                             <% } %>
                     </div>
 
-                    <div style="margin-top: 5%;">
+                    <div style="margin-top: 5%; border-color: white;">
                         <button class="btn btn-primary form-control m-0" type="submit">Registrarse</button>
                     </div>
                 </div>
@@ -228,9 +228,9 @@
             <hr class="rounded">
 
             <div class="navbar-nav ml-auto">
-                <label style="color:aliceblue; text-align: center; margin-bottom: 10px;">¿Ya tienes una
+                <label style="color:aliceblue; text-align: center; margin-bottom: 10px; border-color: white;">¿Ya tienes una
                     cuenta?</label>
-                <button class="btn btn-primary form-control m-0" style="text-align: center;"
+                <button class="btn btn-primary form-control m-0" style="text-align: center; border-color: white;"
                     data-mod-target="#mod-login">Inicia sesión</button>
             </div>
         </div>
@@ -248,24 +248,17 @@
                     <label for="email" style="float: left; font-size: 18px; margin-top: 10px;">Ingresa tu correo electrónico para buscar
                         tu cuenta:</label>
                     <br>
-                    <input type="text" id="email" name="email" required>
+                    <i class="fa fa-envelope"></i>
+                    <input type="text" id="email" name="email" placeholder="Correo electrónico"required>
                     <br>
-                    <!--<button type="submit" style="float: right;">Buscar</button>-->
+
                     <hr class="rounded">
 
                     <div class="navbar-nav ml-auto" style="margin-bottom: 10px;">
-                        <button class="btn btn-primary form-control m-0" style="text-align: center;" type="submit">Buscar</button>
+                        <button class="btn btn-primary form-control m-0" style="text-align: center; border-color: white;" type="submit">Buscar</button>
                     </div>
                 </form>
             </div>
-            <!--<br>
-
-            <hr class="rounded">
-
-            <div class="navbar-nav ml-auto">
-                <button class="btn btn-primary form-control m-0" style="text-align: center;"
-                    data-mod-target="#mod-login">Buscar</button>
-            </div> -->
         </div>
     </div>
 

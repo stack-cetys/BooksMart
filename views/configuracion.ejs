@@ -1,0 +1,354 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/css/styleConfiguracion.css">
+    <link rel="stylesheet" href="/css/style_trade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+
+<body>
+    <% layout('layouts/boilerplateLibrary') %>
+        <div class="contain">
+            <div class="side">
+                <div class="side-content">
+                    <h2 class="text-white">Información de usuario</h2>
+                    <hr style="width: 100%; color: white; margin: 5px; margin-bottom: 30px;">
+
+                    <div warning class="hidden" style="width: 80%;">
+                        <label style="float: left; color: rgb(143, 0, 0);">Si cambias tu nombre de usuario deberás iniciar sesión de nuevo</label>
+                    </div>
+
+                    <div class="input-group mb-3 info">
+                        <span class="input-group-text text-white" style="background-color: #24242c">Nombre de
+                            usuario</span>
+                        <input id="username" value="" type="text" class="form-control text-white"
+                            style="background-color: #24242c" disabled>
+                    </div>
+
+                    <div class="input-group mb-3 info">
+                        <span class="input-group-text text-white" style="background-color: #24242c">Correo
+                            electrónico</span>
+                        <input id="email" type="text" value="" class="form-control text-white"
+                            style="background-color: #24242c" disabled>
+                    </div>
+
+                    <div p class="input-group mb-3 info">
+                        <span class="input-group-text text-white"
+                            style="background-color: #24242c; width: 100%; justify-content: center;">Contraseña</span>
+                    </div>
+
+                    <div old_p class="input-group mb-3 info hidden">
+                        <span class="input-group-text text-white" style="background-color: #24242c">Contraseña
+                            actual</span>
+                        <input pw id="pw" type="text" class="form-control text-white" style="background-color: #24242c"
+                            placeholder="Ignorar para mantener igual">
+                    </div>
+
+                    <div new_p class="input-group mb-3 info hidden">
+                        <span class="input-group-text text-white" style="background-color: #24242c">Contraseña
+                            nueva</span>
+                        <input pw id="pw" type="text" class="form-control text-white" style="background-color: #24242c"
+                            placeholder="Ignorar para mantener igual">
+                    </div>
+
+                    <div not-hidden-i style="width: 80%;">
+                        <button edit-info style="float: right; border-color: white;" type="button"
+                            class="confirm-button btn btn-primary">Editar</button>
+                    </div>
+
+                    <div hidden-i class="hidden" style="width: 80%;">
+                        <button cancel-info style="float: left; border-color: white;" type="button"
+                            class="confirm-button btn btn-primary">Cancelar</button>
+                        <button save-info style="float: right; border-color: white;" type="button"
+                            class="confirm-button btn btn-primary">Guardar cambios</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="side">
+                <div class="side-content">
+                    <h2 class="text-white">Información de contacto</h2>
+                    <hr style="width: 100%; color: white; margin: 5px; margin-bottom: 30px;">
+
+                    <div style="width: 80%;">
+                        <label style="float: left; color: rgb(132, 132, 132);">Contacto por defecto</label>
+                    </div>
+
+                    <div class="input-group mb-3 info">
+                        <span class="input-group-text text-white" style="background-color: #24242c">Correo
+                            electrónico</span>
+                        <input type="text" value="<%-currentUser.email%>" class="form-control text-white"
+                            style="background-color: #24242c" disabled>
+                    </div>
+
+                    <div style="width: 80%; margin-top: 10px;">
+                        <label style="float: left; color: rgb(132, 132, 132);">Contactos agregados</label>
+                    </div>
+
+                    <%for(let i=1; i < currentUser.contactos.length; i++) {%>
+                        <div class="input-group mb-3 info">
+                            <span class="input-group-text text-white" style="background-color: #24242c">
+                                <%=currentUser.contactos[i].tipo%>
+                            </span>
+                            <input type="text" value=<%=currentUser.contactos[i].valor%> class="form-control text-white"
+                            style="background-color: #24242c; padding-right: 43px; border-top-right-radius: 5px; border-bottom-right-radius: 5px;" disabled>
+                            <i trash index="<%=i%>" class="fa fa-trash-can trash"></i>
+                        </div>
+                        <%}%>
+
+                            <div id="new_contact" class="input-group mb-3 info hidden">
+
+                                <div class="dropdown" style="width: 32.5%;">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"
+                                        style="width: 100%; background-color: rgb(31, 31, 31); border-radius: 0px; border-color: white; border-top-left-radius: 5px; border-bottom-left-radius: 5px;">Tipo</button>
+
+                                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end scrollable-content"
+                                        style="width: 175px;">
+
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input tipo class="form-check-input" type="radio" checked="checked"
+                                                    name="tipo" id="Correo electrónico" style="margin-left: 0px;">
+                                                <label class="form-check-label" for="Correo"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Correo
+                                                </label>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input tipo class="form-check-input" type="radio" name="tipo"
+                                                    id="Whatsapp" style="margin-left: 0px;">
+                                                <label class="form-check-label" for="Whatsapp"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Whatsapp
+                                                </label>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input tipo class="form-check-input" type="radio" id="Facebook"
+                                                    name="tipo" style="margin-left: 0px;">
+                                                <label class="form-check-label" for="Facebook"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Facebook
+                                                </label>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="form-check dropdown-item">
+                                                <input tipo class="form-check-input" type="radio" id="Instagram"
+                                                    name="tipo" style="margin-left: 0px;">
+                                                <label class="form-check-label" for="Instagram"
+                                                    style="margin-left: 8px; width: 100%;">
+                                                    Instagram
+                                                </label>
+                                            </div>
+                                        </li>   
+                                    </ul>
+                                </div>
+
+                                <input id="contact" type="text" class="form-control text-white"
+                                    style="background-color: #24242c">
+                            </div>
+
+                            <div not-hidden-c style="width: 80%;">
+                                <button add-contact style="width: 100%; border-color: white;" type="button"
+                                    class="confirm-button btn btn-primary">Añadir nuevo contacto</button>
+                            </div>
+
+                            <div hidden-c class="hidden" style="width: 80%;">
+                                <button cancel-contact style="float: left; border-color: white;" type="button"
+                                    class="confirm-button btn btn-primary">Cancelar</button>
+                                <button save-contact style="float: right; border-color: white;" type="button"
+                                    class="confirm-button btn btn-primary">Agregar contacto</button>
+                            </div>
+                </div>
+            </div>
+
+            <div id="overlay"></div>
+
+            <!-- 'Loading' modal-->
+            <div id="loading" class="loading">
+                <div class="spinner-border text-light" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+
+            <script>
+                const cu = '<%-JSON.stringify(currentUser)%>'
+                const user = JSON.parse(cu)
+                console.log(user)
+
+
+                const username = document.getElementById('username')
+                const email = document.getElementById('email')
+                const op = document.querySelector('[old_p]')
+                const np = document.querySelector('[new_p]')
+                const old_p = op.querySelector('[pw]')
+                const new_p = np.querySelector('[pw]')
+
+                const e = '<%-JSON.stringify(currentUser.email)%>'
+                const ev = JSON.parse(e)
+
+                const u = '<%-JSON.stringify(currentUser.username)%>'
+                const uv = JSON.parse(u)
+
+
+                //User info operations
+                function reset() {
+                    username.value = uv
+                    email.value = ev
+                    old_p.value = ''
+                    new_p.value = ''
+                }
+
+                reset();
+
+                //comenzar a editar información
+                document.querySelector('[edit-info]').addEventListener('click', () => {
+                    username.removeAttribute('disabled')
+                    email.removeAttribute('disabled')
+
+                    toggleHidden(document.querySelector('[hidden-i]'));
+                    toggleHidden(document.querySelector('[not-hidden-i]'));
+                    toggleHidden(document.querySelector('[p]'));
+                    toggleHidden(op);
+                    toggleHidden(np);
+                    toggleHidden(document.querySelector('[warning]'));
+                })
+
+                //cancelar editar información
+                const cancel = document.querySelector('[cancel-info]')
+                cancel.addEventListener('click', () => {
+                    reset();
+
+                    username.setAttribute('disabled', '')
+                    email.setAttribute('disabled', '')
+
+                    toggleHidden(document.querySelector('[hidden-i]'));
+                    toggleHidden(document.querySelector('[not-hidden-i]'));
+                    toggleHidden(document.querySelector('[p]'));
+                    toggleHidden(op);
+                    toggleHidden(np);
+                    toggleHidden(document.querySelector('[warning]'));
+                })
+
+                //guardar información editada
+                document.querySelector('[save-info]').addEventListener('click', async () => {
+
+                    openLoading();
+
+                    const response = await fetch('/updateConfiguration', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username: username.value, email: email.value, old_p: old_p.value, new_p: new_p.value })
+                    })
+
+                    const serverData = await response.json();
+
+                    if (serverData.message == 'success') {
+                        window.location.href = '/configuration'
+                    } else {
+                        closeLoading();
+                        cancel.click();
+                        window.confirm("¡Ha ocurrido un error!\nInténtelo de nuevo más tarde.")
+                    }
+                })
+
+                //Overlay and loading icon
+
+                const overlay = document.getElementById('overlay')
+
+                function openLoading() {
+                    loading.classList.add('active')
+                    overlay.classList.add('active')
+                }
+
+                function closeLoading() {
+                    loading.classList.remove('active')
+                    overlay.classList.remove('active')
+                }
+
+                //Contact info operations
+
+                const contact = document.getElementById('contact');
+
+                function toggleHidden(element) {
+                    element.classList.toggle('hidden');
+                }
+
+
+                document.querySelector('[add-contact]').addEventListener('click', () => {
+                    toggleHidden(document.querySelector('[not-hidden-c]'));
+                    toggleHidden(document.querySelector('[hidden-c]'));
+                    toggleHidden(document.getElementById('new_contact'));
+                })
+
+                document.querySelector('[cancel-contact]').addEventListener('click', () => {
+                    toggleHidden(document.querySelector('[not-hidden-c]'));
+                    toggleHidden(document.querySelector('[hidden-c]'));
+                    toggleHidden(document.getElementById('new_contact'));
+                    contact.value = '';
+                })
+
+                //save new contact
+                document.querySelector('[save-contact]').addEventListener('click', async () => {
+
+                    let tipo = '';
+
+                    document.querySelectorAll('[tipo]').forEach(type => {
+                        if (type.checked) {
+                            tipo = type.id
+                        }
+                    })
+
+                    const response = await fetch('/new_contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ contacto: contact.value, tipo: tipo })
+                    })
+
+                    const serverData = await response.json();
+
+                    if (serverData.success) {
+                        window.location.href = '/configuration'
+                    } else {
+                        alert("¡Hubo un error al agregar el contacto!\nInténtelo de nuevo más tarde.")
+                    }
+                })
+
+                //delete a contact
+                document.querySelectorAll('[trash]').forEach(can => {
+                    can.addEventListener('click', async () => {
+
+                        const response = await fetch('/delete_contact', {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ index: can.getAttribute('index') })
+                        })
+
+                        const serverData = await response.json();
+
+                        if (serverData.success) {
+                            window.location.href = '/configuration'
+                        } else {
+                            alert("¡Hubo un error al eliminar el contacto!\nInténtelo de nuevo más tarde.")
+                        }
+                    })
+                })
+
+            </script>
+</body>
+
+</html>

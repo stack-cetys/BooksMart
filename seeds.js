@@ -104,7 +104,7 @@ const booksData = [
     nombre: 'The Hitchhikers Guide to the Galaxy',
     autor: 'Douglas Adams',
     fecha_publicacion: '1979',
-    clasificacion: ['Ciencia Ficción'],
+    clasificacion: ['Ciencia-Ficción'],
   },
   { 
     nombre: 'The Shining',
@@ -152,9 +152,9 @@ const booksData = [
 
 const generosPopulares = [
   'Ficción',
-  'No Ficción',
+  'No-Ficción',
   'Misterio',
-  'Ciencia Ficción',
+  'Ciencia-Ficción',
   'Fantasía',
   'Romance',
   'Aventura',
@@ -208,6 +208,9 @@ async function seedDatabase() {
 
       const registeredUser = await User.register(user, password);
       console.log(`Usuario registrado: ${registeredUser.username}`);
+
+      await user.contactos.push({tipo: 'Correo electrónico', valor: email})
+      await user.save()
     }
   } catch (error) {
     console.error('Error al sembrar la base de datos:', error);
