@@ -24,10 +24,10 @@
 
             <nav class="nav nav-masthead justify-content-center float-md-end">
 
-                <a id="iniciar_sesion" class="nav-link" data-mod-target="#mod-login" style="margin-right: 10px;">Iniciar
+                <a id="login-click" class="nav-link" data-mod-target="#mod-login" style="margin-right: 10px;">Iniciar
                     Sesion</a>
 
-                <a id="registrarse" class="nav-link" data-mod-target="#mod-register">Registrarse</a>
+                <a class="nav-link" data-mod-target="#mod-register">Registrarse</a>
             </nav>
         </div>
 
@@ -166,7 +166,8 @@
                         data-mod-target="#mod-forgot-password">¿Olvidaste tu contraseña?</a>
 
                     <div style="margin-top: 5%;">
-                        <button class="btn btn-primary form-control m-0" style="border-color: white;" type="submit">Iniciar
+                        <button class="btn btn-primary form-control m-0" style="border-color: white;"
+                            type="submit">Iniciar
                             sesión</button>
                     </div>
                 </div>
@@ -178,7 +179,7 @@
             <div class="navbar-nav ml-auto">
                 <label style="color:aliceblue; text-align: center; margin-bottom: 10px;">¿No tienes una
                     cuenta?</label>
-                <button id="registrarse" class="btn btn-primary form-control m-0" style="text-align: center; border-color: white;"
+                <button class="btn btn-primary form-control m-0" style="text-align: center; border-color: white;"
                     data-mod-target="#mod-register">Registrate</button>
             </div>
         </div>
@@ -193,42 +194,57 @@
         </div>
 
         <div class="mod-body" mod-body style="max-height: 500px; margin-top: 10px;">
-            <form action="/register" method="POST">
+            <div id="register-form">
                 <div class="login-mod">
                     <div>
                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                        <input class="home-input" type="text" id="username" name="username" placeholder="Nombre de usuario"
-                            required>
+                        <input username class="home-input" type="text" id="username" name="username"
+                            placeholder="Nombre de usuario" required>
                     </div>
                     <div>
                         <i class="fa fa-envelope" style="top: 139px; left: 26px; font-size: 18px;"></i>
-                        <input class="home-input" type="email" id="email" name="email" placeholder="Correo electrónico"
-                            required>
+                        <input email class="home-input" type="email" id="email" name="email"
+                            placeholder="Correo electrónico" required>
                     </div>
+
                     <div>
                         <i class="fa fa-lock" aria-hidden="true" style="top: 193px; left: 28px; font-size: 22px;"></i>
                         <i hide-pw class="fa fa-eye-slash" aria-hidden="true"
                             style="top: 193px; left: 299px; font-size: 22px;"></i>
-                        <input class="home-input" type="password" id="password" name="password" placeholder="Contraseña"
-                            required>
+                        <input password class="home-input" type="password" id="password" name="password"
+                            placeholder="Contraseña" required>
                     </div>
 
-                    <div style="color: red;">
-                        <% if (err.length> 3) { %>
-                            <p class="text-end">Nombre de usuario y/o correo ya registrados</p>
-                            <% } %>
+                    <div validation-password class="hidden" style="color: red;">
+                        <p class="text-end">Mínimo 8 caracteres</p>
+                    </div>
+                    <div validation-password-2 class="hidden" style="color: red;">
+                        <p class="text-end">Al menos un número (0-9)</p>
+                    </div>
+
+                    <div validation-email class="hidden" style="color: red;">
+                        <p class="text-end">Ingresa una dirección de correo válida</p>
+                    </div>
+
+                    <div validation-fields class="hidden" style="color: red;">
+                        <p class="text-end">Rellene todos los campos</p>
+                    </div>
+
+                    <div validation-register class="hidden" style="color: red;">
+                        <p class="text-end">Nombre de usuario y/o correo ya registrados</p>
                     </div>
 
                     <div style="margin-top: 5%; border-color: white;">
-                        <button class="btn btn-primary form-control m-0" type="submit">Registrarse</button>
+                        <button id="register" class="btn btn-primary form-control m-0" type="click" style="border-color: white;">Registrarse</button>
                     </div>
                 </div>
-            </form>
+            </div>
 
             <hr class="rounded">
 
             <div class="navbar-nav ml-auto">
-                <label style="color:aliceblue; text-align: center; margin-bottom: 10px; border-color: white;">¿Ya tienes una
+                <label style="color:aliceblue; text-align: center; margin-bottom: 10px; border-color: white;">¿Ya tienes
+                    una
                     cuenta?</label>
                 <button class="btn btn-primary form-control m-0" style="text-align: center; border-color: white;"
                     data-mod-target="#mod-login">Inicia sesión</button>
@@ -238,24 +254,27 @@
 
     <div class="mod" id="mod-forgot-password">
         <div class="mod-header" style="display: flex; flex-direction: row; justify-content: space-between;">
-            <i class="fa fa-arrow-left close-button" data-mod-target="#mod-login" style="padding-left: 0; float: left;"></i>
+            <i class="fa fa-arrow-left close-button" data-mod-target="#mod-login"
+                style="padding-left: 0; float: left;"></i>
             <div class="title" style="margin-left: 5px;">Cambiar contraseña</div>
             <button data-close-button class="close-button">&times;</button>
         </div>
         <div class="mod-body" mod-body style="max-height: 500px; margin-top: 10px;">
             <div>
                 <form action="/forgot_password" method="POST" class="forgot-form">
-                    <label for="email" style="float: left; font-size: 18px; margin-top: 10px;">Ingresa tu correo electrónico para buscar
+                    <label for="email" style="float: left; font-size: 18px; margin-top: 10px;">Ingresa tu correo
+                        electrónico para buscar
                         tu cuenta:</label>
                     <br>
                     <i class="fa fa-envelope"></i>
-                    <input type="text" id="email" name="email" placeholder="Correo electrónico"required>
+                    <input type="text" id="email" name="email" placeholder="Correo electrónico" required>
                     <br>
 
                     <hr class="rounded">
 
                     <div class="navbar-nav ml-auto" style="margin-bottom: 10px;">
-                        <button class="btn btn-primary form-control m-0" style="text-align: center; border-color: white;" type="submit">Buscar</button>
+                        <button class="btn btn-primary form-control m-0"
+                            style="text-align: center; border-color: white;" type="submit">Buscar</button>
                     </div>
                 </form>
             </div>
@@ -307,25 +326,72 @@
             })
         })
 
-        //Here we start to declare functionality of modals
-        const openModButton = document.querySelectorAll('[data-mod-target]')
-        const closeModButton = document.querySelectorAll('[data-close-button]')
-        const overlay = document.getElementById('overlay')
-        const login = document.getElementById('iniciar_sesion')
-        const register = document.getElementById('registrarse')
+        //Login error validation
+        const login = document.getElementById('login-click');
 
         const e = '<%- JSON.stringify(error) %>';
         console.log(e)
-        const e2 = '<%- JSON.stringify(err) %>';
-        console.log(e2)
 
         document.addEventListener('DOMContentLoaded', function () {
             if (e != '[]') {
                 login.click()
-            } else if (e2 != '"nan"') {
-                register.click()
             }
         })
+
+        const form = document.getElementById('register-form')
+        const pw = form.querySelector('[password]')
+
+        pw.addEventListener('input', () => {
+            if (pw.value.length < 8 && pw.value.length > 0) {
+                form.querySelector('[validation-password]').classList.remove('hidden')
+            } else {
+                form.querySelector('[validation-password]').classList.add('hidden')
+            }
+        })
+
+        //register (this way to manage errors)
+        document.getElementById('register').addEventListener('click', async () => {
+
+            const username = form.querySelector('[username]').value
+            const email = form.querySelector('[email]').value
+            const password = form.querySelector('[password]').value
+
+            if (!email.includes("@")) {
+                return form.querySelector('[validation-email]').classList.remove('hidden')
+            } else {
+                form.querySelector('[validation-email]').classList.add('hidden')
+            }
+
+            if (form.querySelector('[validation-password]').classList.contains('hidden')) {
+                if (username != '' && email != '' && password != '') {
+                    const response = await fetch('/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username, email, password })
+                    })
+
+                    console.log(response)
+
+                    if (response.redirected) {
+                        window.location.href = '/library';
+                    } else {
+                        form.querySelector('[validation-fields]').classList.add('hidden')
+                        form.querySelector('[validation-register]').classList.remove('hidden')
+                    }
+
+                } else {
+                    form.querySelector('[validation-fields]').classList.remove('hidden')
+                }
+            }
+        })
+
+        //Here we start to declare functionality of modals
+        const openModButton = document.querySelectorAll('[data-mod-target]')
+        const closeModButton = document.querySelectorAll('[data-close-button]')
+        const overlay = document.getElementById('overlay')
+
 
         //Modal open button
         openModButton.forEach(button => {

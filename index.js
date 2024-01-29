@@ -141,10 +141,9 @@ app.get('/home', checkNotAuthenticated, (req, res) => {
     res.redirect('/')
 })
 
-register_message = 'nan'; //necessary to manage register error
+
 app.get('/', checkNotAuthenticated, (req, res) => {
-    res.render('home', { err: register_message })
-    register_message = 'nan';
+    res.render('home')
 })
 
 //----Logs in-----
@@ -226,23 +225,31 @@ app.post('/register', async (req, res) => {
 
     try {
         const { email, username, password } = req.body
-        const user = new User({ email, username })
-        const registeredUser = await User.register(user, password)
-        console.log(registeredUser);
 
-        await user.contactos.push({tipo: 'Correo electrónico', valor: email})
-        await user.save()
+        const validation = await User.findOne({ $or: [{ email: email }, { username: username }] })
 
-        // We login a user after they register
+        if (validation) {
+            return res.json({ success: false, message: 'Usuario y/o correo ya registrado' })
 
-        req.login(registeredUser, err => {
-            if (err) return next(err);
-            res.redirect('/')
-        })
+        } else {
+            const user = new User({ email, username })
+            const registeredUser = await User.register(user, password)
+
+            await user.contactos.push({ tipo: 'Correo electrónico', valor: email })
+            await user.save()
+
+            console.log(registeredUser);
+
+            // We login a user after they register
+
+            req.login(registeredUser, err => {
+                if (err) return next(err);
+                res.redirect('/')
+            })
+        }
 
     } catch (e) {
-        res.render('home', { err: e });
-        register_message = 'error';
+        res.json({success: false, message: '¡Algo salió mal! Inténtalo de nuevo'})
     }
 
 })
@@ -774,10 +781,10 @@ app.patch('/delete_contact', checkAuthenticated, async (req, res) => {
         await user.contactos.splice(index, 1);
         await user.save();
 
-        res.json({success: true})
+        res.json({ success: true })
 
     } catch (e) {
-        res.json({success: false})
+        res.json({ success: false })
     }
 })
 
