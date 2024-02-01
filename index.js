@@ -147,7 +147,7 @@ app.get('/', checkNotAuthenticated, (req, res) => {
 })
 
 //----Logs in-----
-app.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/' }), async (req, res) => {
+app.post('/login', passport.authenticate('local', { failureFlash: 'login error', failureRedirect: '/' }), async (req, res) => {
     res.redirect('/library')
 })
 
